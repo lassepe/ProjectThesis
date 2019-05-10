@@ -1,0 +1,38 @@
+%Selbstständigkeitserklärung
+
+\thispagestyle{plain}
+\large
+\selectlanguage{ngerman}
+%\begin{flushright}
+%  Hamburg, den \today
+%\end{flushright}
+\textbf{Erklärung}
+\vspace*{5mm}
+
+Ich, {\VornameDesStudenten \ \NachnameDesStudenten} (\Studiengang~an der Technischen 
+Universität Hamburg-Harburg, Matrikelnummer \Matrikelnummer), versichere, dass ich die vorliegende 
+\RemoveSpaces{		
+		{\ifthenelse{\equal{\MScBSc}{0}}
+			{Bachelorarbeit}{}
+		\ifthenelse{\equal{\MScBSc}{1}}
+			{Projektarbeit}{}
+		\ifthenelse{\equal{\MScBSc}{2}}
+			{Masterarbeit}{}}}
+selbstständig verfasst und keine anderen als die angegebenen Hilfsmittel verwendet habe. Die Arbeit wurde in dieser oder ähnlicher Form noch keiner Prüfungskommission vorgelegt.\\
+
+\vspace*{50mm}
+
+\begin{center}
+\noindent\begin{tabular}{c}
+\makebox[\widthof{\VornameDesStudenten\NachnameDesStudenten}+1in]{\hrulefill}\\
+{ Unterschrift} \\[8ex]% adds space between the two sets of signatures
+\end{tabular}
+\noindent\begin{tabular}{c}
+\makebox[1.75in]{\hrulefill}\\
+Datum\\[8ex]
+\end{tabular}
+\end{center}
+  
+
+
+\normalsize

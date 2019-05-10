@@ -1,0 +1,242 @@
+%##########################################################################
+%
+%                         MuM LaTeX-Vorlage
+%
+%            für Bachelor-, Projekt- und Masterarbeiten
+%
+%			 von
+%            	Merlin Morlock (merlin.morlock@tuhh.de)
+% 				Alexander Held (alexander.held@tuhh.de)
+%
+%
+%
+%##########################################################################
+
+
+%##########################################################################
+% Formatierungsoptionen
+
+\documentclass[12pt,a4paper,twoside]{report}
+\usepackage[utf8x]{inputenc}
+%##########################################################################
+%Bitte in Einstellungen.tex entsprechende Daten anpassen
+\input{Einstellungen.tex}
+%##########################################################################
+
+\usepackage{lmodern}
+\usepackage{ucs}
+\usepackage{xspace}
+\usepackage{ifthen}
+% Standard Style-Files
+\usepackage{amsmath,amssymb,amsthm}
+\ifthenelse{\equal{\Sprache}{0}}
+	{\usepackage[ngerman]{babel}
+	\usepackage[ngerman]{isodate}
+	}{}
+\ifthenelse{\equal{\Sprache}{1}}
+	{\usepackage[ngerman,english]{babel}
+	\usepackage[ngerman,english]{isodate}
+	}{}
+\usepackage{a4}
+\usepackage{float} % If we use this package, we can force figures and tables to appear at a certain place. --> use \begin{figure}[H]
+\usepackage{flafter} %prevent figures to be displayed before referencing
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{bm}
+\usepackage{import}
+\usepackage{algorithmic,algorithm}
+\usepackage{subfigure}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage[pdftex,plainpages=false]{hyperref}
+\hypersetup{%
+	pdfborder = {0 0 0}
+} %remove red boxes around section references
+\usepackage{bookmark}
+\usepackage{fancyhdr}
+%\usepackage{siunitx}
+\usepackage{units}
+\usepackage{calc} %to use \widthof to obtain length of content
+
+% tell TeX that it's infinitely bad to have widows and orphans
+\widowpenalty10000
+\clubpenalty10000
+
+%%% TIKZ & PGFPLOTS
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest} %globally avoid intereference of ticks and yaxis labels in plots with tikz package
+
+\usetikzlibrary{positioning}
+\usepgfplotslibrary{polar}
+\usepgfplotslibrary{groupplots}
+\usepgfplotslibrary{external}
+\usetikzlibrary{pgfplots.groupplots}
+\usetikzlibrary{patterns} %for patterns in bar plot
+\pgfplotsset{plot coordinates/math parser=false}
+
+%% e.g. pdflatex -synctex=1 -interaction=nonstopmode -shell-escape %.tex  is needed for using tikzexternalize!
+\usetikzlibrary{external} %save tikz pictures as pdf and if not changed just use the pdf==>much faster compilation
+\tikzexternalize
+\makeatletter				% use this to define TiKZ paths for images AND ADD THE BELOW BEFORE INPUTTING EACH CHAPTER
+\newcommand{\useexternalfile}[1]{%
+    \tikzsetnextfilename{#1-output}%
+    \input{\tikzexternal@filenameprefix#1.tikz}}
+\makeatother
+%%
+
+\usepackage{caption}
+\captionsetup{format=hang} % ab zweiter Zeile wird Caption eingerückt
+
+
+
+%prevent all capital letter header in table of contents:
+\usepackage{etoolbox}
+\patchcmd{\tableofcontents}{\MakeUppercase\contentsname}{\contentsname}{}{}
+\patchcmd{\tableofcontents}{\MakeUppercase\contentsname}{\contentsname}{}{} %needs to be used twice to work!
+
+% ############################################################################
+% Inverse Suche mit xdvi und kile:
+%
+\usepackage{srcltx}
+%
+
+% Insitutseigene Style-Files
+\usepackage{Styles/mum_styles}
+
+% Seitenstil
+\pagestyle{headings}
+
+% Abstand zwischen Absaetzen
+\setlength{\parskip}{1.5ex}
+
+% Einrueckung der ersten Zeile eines Absatzes unterdruecken
+\setlength{\parindent}{0pt}
+
+% Grosszuegigere Wortabstaende
+\sloppy
+
+% Damit Bilder moeglichst da sind, wo man sie will
+\setcounter{topnumber}{20}
+\setcounter{bottomnumber}{20}
+\setcounter{totalnumber}{20}
+\renewcommand{\topfraction}{.9999}
+\renewcommand{\bottomfraction}{.9999}
+\renewcommand{\textfraction}{0}
+
+
+%##########################################################################
+% Sonderumgebungen
+\newtheorem{definition}{Definition}[chapter]
+% Aufruf mit \begin{definition}[zusatz]  text  \end{definition}
+\newtheorem{satz}{Satz}[chapter]
+% Aufruf mit \begin{satz}[zusatz]  text  \end{satz}
+
+\theoremstyle{definition}
+\newtheorem{beispiel}{Beispiel}[chapter]
+% Aufruf mit \begin{beispiel}[zusatz]  text  \end{beispiel}
+\newtheorem{algorithmus}{Algorithmus}[chapter]
+% Aufruf mit \begin{algorithmus}[zusatz]  text  \end{algorithmus}
+\floatstyle{ruled}
+\newfloat{algorithm}{thp}{alg}
+\floatname{algorithm}{Algorithmus}
+
+%##########################################################################
+% Kopfzeilen definieren
+\setlength{\headheight}{15pt}
+\pagestyle{fancyplain}
+% f"ur documentclass 'article':
+%\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+%\renewcommand{\subsectionmark}[1]{\markright{\thesubsection\ #1}}
+% f"ur documentclass 'report':
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter \hspace{3mm}#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\cfoot[\fancyplain{}{}]{\fancyplain{}{}}
+\lhead[\fancyplain{}{\small\bf\thepage}]%
+{\fancyplain{}{\nouppercase{\small\bf\leftmark}}}
+\rhead[\fancyplain{}{\small\bf\rightmark}]%
+{\fancyplain{}{\nouppercase{\small\bf\thepage}}}
+\renewcommand{\footrulewidth}{0pt}
+
+%##########################################################################
+% Abkürzungen definieren
+% Tabelle
+\newcommand{\tabref}[1]{Tab.~\ref{#1}}
+
+\ifthenelse{\equal{\Sprache}{0}}
+	{% Abbildung
+	\newcommand{\figref}[1]{Abb.~\ref{#1}}
+
+	% Gleichungs--Referenzen:
+	\renewcommand{\eqref}[1]{Gl.~(\ref{#1})}
+	}{}
+\ifthenelse{\equal{\Sprache}{1}}
+{% Abbildung
+	\newcommand{\figref}[1]{Fig.~\ref{#1}}
+
+	% Gleichungs--Referenzen:
+	\renewcommand{\eqref}[1]{Eq.~(\ref{#1})}
+}{}
+
+%###########################################################################
+
+\raggedbottom	%Sorgt beim Dokumenttyp book dafür, daß kein Ausgleich des unteren Seitenrandes durch Dehnung der Absatzabstände durchgeführt wird. \raggedbottom ist bei den Dokumenttypen article, report und letter bereits voreingestellt. ==> da es zu Problemen kam wird der Befehl hier nochmals explizit definiert
+
+\usepackage{sectsty}								% Einstellen der Textformatierung der Überschriften
+\allsectionsfont{\raggedright}						% Linksbündige Ausrichtung der Überschriften ==> sonst teilweise Blocksatz wobei Überschriften große unschöne weiße Lücken bekommen können
+
+\graphicspath{{Images/}}
+
+\begin{document}
+
+\tikzsetexternalprefix{Images/} % with this command the path for tikZ pcitures always assumes to be in Images/... change this if needed, e.g. at the beginning of each chapter
+
+\include{Deckblatt}
+% Inhalt auf der rechten Seite beginnen
+\thispagestyle{empty}\cleardoublepage
+% Raendereinstellungen fuer Doppelseitigen Ausdruck
+\evensidemargin=2pt
+\oddsidemargin=40pt
+
+% Zeilenabstand strecken
+\renewcommand{\baselinestretch}{1}\normalsize
+\pagenumbering{roman}
+% Inhaltsverzeichnis
+\tableofcontents
+\cleardoublepage
+
+\pagenumbering{arabic}
+\include{Chapters/Introduction}
+\include{Chapters/Theory}
+\include{Chapters/Summary}
+
+% Literaturverzeichnis ins Inhaltsverzeichnis integrieren
+\ifthenelse{\equal{\Sprache}{0}}
+	{\bibliographystyle{mum_deu} % deutsches Lit.verzeichnis
+	}{}
+\ifthenelse{\equal{\Sprache}{1}}
+	{\bibliographystyle{mum_en} % englisches Lit.verzeichnis z.B. statt "S." nun "p." bzw. "pp."
+	}{}
+
+\phantomsection %-> damit hyperref den Link richtig auf die erste Seite vom Literaturverzeichnis legt
+
+\ifthenelse{\equal{\Sprache}{0}}
+	{\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+	}{}
+\ifthenelse{\equal{\Sprache}{1}}
+	{\addcontentsline{toc}{chapter}{Bibliography}
+	}{}
+%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\bibliography{Literatur}
+
+
+% Anhang
+\include{Chapters/Appendix}
+
+
+% Erklärung
+\thispagestyle{empty}\cleardoublepage
+\include{Erklaerung}
+
+\end{document}
+
+%##########################################################################
