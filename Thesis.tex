@@ -11,13 +11,13 @@
 % Standard Style-Files
 \usepackage{amsmath,amssymb,amsthm}
 \ifthenelse{\equal{\Sprache}{0}}
-	{\usepackage[ngerman]{babel}
-	\usepackage[ngerman]{isodate}
-	}{}
+    {\usepackage[ngerman]{babel}
+    \usepackage[ngerman]{isodate}
+    }{}
 \ifthenelse{\equal{\Sprache}{1}}
-	{\usepackage[ngerman,english]{babel}
-	\usepackage[ngerman,english]{isodate}
-	}{}
+    {\usepackage[ngerman,english]{babel}
+    \usepackage[ngerman,english]{isodate}
+    }{}
 \usepackage{a4}
 \usepackage{float} % If we use this package, we can force figures and tables to appear at a certain place. --> use \begin{figure}[H]
 \usepackage{flafter} %prevent figures to be displayed before referencing
@@ -30,7 +30,7 @@
 \usepackage[autostyle=true,german=quotes]{csquotes}
 \usepackage[pdftex,plainpages=false]{hyperref}
 \hypersetup{%
-	pdfborder = {0 0 0}
+    pdfborder = {0 0 0}
 } %remove red boxes around section references
 \usepackage{bookmark}
 \usepackage{fancyhdr}
@@ -58,7 +58,7 @@
 %% e.g. pdflatex -synctex=1 -interaction=nonstopmode -shell-escape %.tex  is needed for using tikzexternalize!
 \usetikzlibrary{external} %save tikz pictures as pdf and if not changed just use the pdf==>much faster compilation
 \tikzexternalize
-\makeatletter				% use this to define TiKZ paths for images AND ADD THE BELOW BEFORE INPUTTING EACH CHAPTER
+\makeatletter               % use this to define TiKZ paths for images AND ADD THE BELOW BEFORE INPUTTING EACH CHAPTER
 \newcommand{\useexternalfile}[1]{%
     \tikzsetnextfilename{#1-output}%
     \input{\tikzexternal@filenameprefix#1.tikz}}
@@ -80,7 +80,6 @@
 %
 \usepackage{srcltx}
 %
-
 % Style-Files
 \usepackage{Styles/mum_styles}
 % page style
@@ -135,18 +134,18 @@
 \newcommand{\tabref}[1]{Tab.~\ref{#1}}
 
 \ifthenelse{\equal{\Sprache}{0}}
-	{% Abbildung
-	\newcommand{\figref}[1]{Abb.~\ref{#1}}
+    {% Abbildung
+    \newcommand{\figref}[1]{Abb.~\ref{#1}}
 
-	% Gleichungs--Referenzen:
-	\renewcommand{\eqref}[1]{Gl.~(\ref{#1})}
-	}{}
+    % Gleichungs--Referenzen:
+    \renewcommand{\eqref}[1]{Gl.~(\ref{#1})}
+    }{}
 \ifthenelse{\equal{\Sprache}{1}}
 {% Abbildung
-	\newcommand{\figref}[1]{Fig.~\ref{#1}}
+    \newcommand{\figref}[1]{Fig.~\ref{#1}}
 
-	% Gleichungs--Referenzen:
-	\renewcommand{\eqref}[1]{Eq.~(\ref{#1})}
+    % Gleichungs--Referenzen:
+    \renewcommand{\eqref}[1]{Eq.~(\ref{#1})}
 }{}
 
 %###########################################################################
@@ -158,9 +157,12 @@
 
 \graphicspath{{Images/}}
 
-\begin{document}
+\include{custom}
 
-\tikzsetexternalprefix{Images/} % with this command the path for tikZ pcitures always assumes to be in Images/... change this if needed, e.g. at the beginning of each chapter
+\begin{document}
+% with this command the path for tikZ pcitures always assumes to be in
+% Images/... change this if needed, e.g. at the beginning of each chapter
+\tikzsetexternalprefix{Images/}
 
 \include{Deckblatt}
 % Start content on the right hand side.
@@ -182,26 +184,24 @@
 \include{Chapters/Summary}
 
 % add bibliography to table of contents
-\ifthenelse{\equal{\Sprache}{0}}
-	{\bibliographystyle{mum_deu} % deutsches Lit.verzeichnis
-	}{}
-\ifthenelse{\equal{\Sprache}{1}}
-	{\bibliographystyle{mum_en} % englisches Lit.verzeichnis z.B. statt "S." nun "p." bzw. "pp."
-	}{}
+\ifthenelse{\equal{1}{0}}
+    {\bibliographystyle{mum_deu} % deutsches Lit.verzeichnis
+    }{}
+\ifthenelse{\equal{1}{1}}
+    {\bibliographystyle{mum_en} % englisches Lit.verzeichnis z.B. statt "S." nun "p." bzw. "pp."
+    }{}
 
 \phantomsection
 
-\ifthenelse{\equal{\Sprache}{0}}
-	{\addcontentsline{toc}{chapter}{Literaturverzeichnis}
-	}{}
-\ifthenelse{\equal{\Sprache}{1}}
-	{\addcontentsline{toc}{chapter}{Bibliography}
-	}{}
-\bibliography{Literatur}
+\ifthenelse{\equal{1}{0}}
+    {\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+    }{}
+\ifthenelse{\equal{1}{1}}
+    {\addcontentsline{toc}{chapter}{Bibliography}
+    }{}
+\bibliography{lit/thesis}
 \include{Chapters/Appendix}
 \thispagestyle{empty}\cleardoublepage
 \include{Erklaerung}
 
 \end{document}
-
-%##########################################################################
