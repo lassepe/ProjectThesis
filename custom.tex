@@ -1,9 +1,16 @@
+% setup todo package and make compatible with tikz
 \usepackage{todonotes}
-
 % bug fix for `todonotes` vs `tikz` externalize
 \usepackage{letltxmacro}
 \LetLtxMacro{\oldmissingfigure}{\missingfigure}
 \renewcommand{\missingfigure}[2][]{\tikzexternaldisable\oldmissingfigure[{#1}]{#2}\tikzexternalenable}
-
 \LetLtxMacro{\oldtodo}{\todo}
 \renewcommand{\todo}[2][]{\tikzexternaldisable\oldtodo[#1]{#2}\tikzexternalenable}
+
+% list of abbreviations
+\usepackage{longtable}
+\usepackage[acronym]{glossaries}
+
+% better references
+\usepackage[nameinlink]{cleveref}
+% TODO: maybe overload abbreviations for chapter, figure etc.
