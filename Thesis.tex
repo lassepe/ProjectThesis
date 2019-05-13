@@ -158,6 +158,7 @@
 \graphicspath{{Images/}}
 
 \include{custom}
+\include{glossary}
 
 \begin{document}
 % with this command the path for tikZ pcitures always assumes to be in
@@ -179,6 +180,8 @@
 \cleardoublepage
 
 \pagenumbering{arabic}
+\printglossary[type=\acronymtype,title=List of Abbreviations]
+% TODO: one could also add nomenclature maybe
 \include{Chapters/Introduction}
 \include{Chapters/Theory}
 \include{Chapters/Applications}
