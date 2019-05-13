@@ -41,8 +41,8 @@
 *.pdfsync
 
 ## Build tool directories for auxiliary files
-# latexrun
-latex.out/
+build/*
+!build/.gitkeep
 
 ## Auxiliary and intermediate files from other packages:
 # algorithms
