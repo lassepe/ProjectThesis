@@ -7,7 +7,7 @@ $(MAIN).pdf: $(shell find . -name "*.tex") $(BIB)
 	latexmk -pdf Thesis.tex
 
 show:
-	zathura $(MAIN).pdf
+	zathura $(MAIN).pdf &
 
 clean:
 	latexmk -CA
