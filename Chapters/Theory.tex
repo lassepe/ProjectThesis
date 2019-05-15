@@ -8,9 +8,7 @@ It should be noted that in the interest of conciseness we focus this
 theoretical introduction on only the main tools use. Fundamental concepts of
 statistical inference and tools like \textit{Monte Carlo Integration} are
 assumed to be known. For a thorough discussion of these underlying concept the
-reader may refer to \cite{kochenderfer2015decision} as well as
-\cite{probRobotics}.\todo{Can I also assume knowledge of fully observable
-MDPs?}
+reader may refer to \cite{kochenderfer2015decision, bertsekas2005dynamic, probRobotics}.
 
 In the following, we first introduce the theoretical framework of \glspl{pomdp}
 (\cref{sec:pomdp}). This section discusses modelling assumptions, structure
@@ -31,14 +29,14 @@ complexity of a \ac{pomdp} let us first examine it's fully observable version.
 \glspl{mdp} are sequential decision making problems in which an agent takes
 \vname{actions} $a$ that affect the \vname{state} $s$ of the environment and
 receives \vname{rewards} $r$ based the state-transition and the action taken
-\cite{kochenderfer2015decision}. \todo{cite Bertsekas} The state evolves
+\cite{kochenderfer2015decision, bertsekas2005dynamic}. The state evolves
 according to a stochastic transition model $\mathcal{T}$ that and obeys the
 Markov property. That is, future states are independent of past states given
 the current state and action. By this means, \glspl{mdp} allow to model outcome
 uncertainty. As common in literature, we denote quantities at time time $t$
 with an according subscript. When examining only a single step in a context
-where time does not explicitly matter, we may also refer to states before
-and after the transition as $s$ and $s'$ rather than $s_t$ and $s_{t+1}$.
+where time does not explicitly matter, we may also refer to states before and
+after the transition as $s$ and $s'$ rather than $s_t$ and $s_{t+1}$.
 
 Formally, an \ac{mdp} is fully characterized by the following quantities:
 
@@ -103,10 +101,17 @@ of the agent at time $t$ is informed by the sequence of all previous actions
 and observations as well as some prior, $b_0$. In contrast to the fully
 observable case where the policy is only a function of quantities at the
 current time, the policy in a \ac{pomdp} maps each possible \vname{history},
-$h_t = (b_0, a_0, o_1, a_1, \dots, a_{t-1}, o_t)$ to an action, $a_t$. In cases
-where this \vname{history} can be compressed to a probability for every state
-at time $t$, we will refer to this distribution as the \vname{belief},
-$b_t(s)$.
+$h_t = (b_0, a_0, o_1, a_1, \dots, a_{t-1}, o_t)$ to an action, $a_t$.
+
+In cases where this history can be compressed to a probability for
+every state at time $t$, we will refer to this distribution as the
+\vname{belief}, $b_t(s)$. This belief is a sufficient statistic for optimal
+decision making. Consequently, there exists a policy $\pi^*(b_t)$ only
+dependent on the belief at the current time step, such that choosing $a_t
+= \pi^*(b_t)$ maximizes \cref{eq:mdp-objective} subject to the constraints on
+the information pattern imposed by the \ac{pomdp}.\todo{cite} Loosely speaking,
+$b_t$ preserves all relevant information contained in the
+action-observation-history, $h_t$ necessary to compute the optimal action.
 
 \begin{figure}[htpb]
   \centering
