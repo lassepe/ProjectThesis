@@ -26,20 +26,19 @@ name suggests, this framework is a generalization of the more popular \ac{mdp}
 to the partially observable case. Thus, before proceeding with the full
 complexity of a \ac{pomdp} let us first examine it's fully observable version.
 
-\subsection*{MDP}
+\subsection{MDP}
 
 \glspl{mdp} are sequential decision making problems in which an agent takes
 \vname{actions} $a$ that affect the \vname{state} $s$ of the environment and
 receives \vname{rewards} $r$ based the state-transition and the action taken
 \cite{kochenderfer2015decision}. \todo{cite Bertsekas} The state evolves
 according to a stochastic transition model $\mathcal{T}$ that and obeys the
-Markov property. That is, \emph{future} states are \emph{independent} of
-\emph{past} states given the current \vname{state} and \vname{action}. By this
-means, \glspl{mdp} allow to model outcome uncertainty. As common in literature,
-we denote quantities at time time $t$ with an according subscript. When examining
-only a single step in a context where time does not explicitly matter, we may also
-refer to the states before and after the transition as $s$ and $s'$ rather than
-$s_t$ and $s_{t+1}$.
+Markov property. That is, future states are independent of past states given
+the current state and action. By this means, \glspl{mdp} allow to model outcome
+uncertainty. As common in literature, we denote quantities at time time $t$
+with an according subscript. When examining only a single step in a context
+where time does not explicitly matter, we may also refer to states before
+and after the transition as $s$ and $s'$ rather than $s_t$ and $s_{t+1}$.
 
 Formally, an \ac{mdp} is fully characterized by the following quantities:
 
@@ -54,7 +53,7 @@ Formally, an \ac{mdp} is fully characterized by the following quantities:
     \mathcal{S} \to \reals$.] A deterministic mapping that assigns
     a real-valued reward $r$ to each transition $(s, a, s')$ with finite transition
     probability, $\mathcal{T}(s' \mid s, a) > 0$.
-  \item[Discount Factor $\gamma$.] A scalar that governs how \vname{rewards}
+  \item[Discount Factor $\gamma$.] A scalar that governs how rewards
     are discounted in the future.
 \end{description}
 
@@ -69,22 +68,51 @@ cumulative rewards. Formally, this translates to finding a \vname{policy} $\pi:
 
 An optimal solution to an \ac{mdp} can always be formulated as a deterministic
 Markov policy, even though the reward that a policy achieves may be randomized
-through $\mathcal{T}$. This is, there always exists a maximizer $\pi^*$ of
-\cref{eq:mdp-objective}, where $\pi^*$ assign a single \vname{action} to every
-\vname{state}. Also, since the state obeys the Markov property, no additional
-information beyond the current state at every time is necessary to maximize $J$.
+through $\mathcal{T}$. Consequently, there always exists a maximizer $\pi^*$ of
+\cref{eq:mdp-objective}, where $\pi^*$ assigns a single action to every state.
+Also, since the state obeys the Markov property, no additional information
+beyond the current state at every time is necessary to maximize $J$.\todo{cite}
 
-\subsection*{Partially Observable MDP}
+\subsection{Partially Observable MDP}
 
-The graphical representation of a \ac{pomdp}
-as dynamic decision network is depicted in \cref{fig:pomdp}. \todo{Maybe change
-order of things}.
+A \acf{pomdp} is an \ac{mdp} where the agent cannot directly observe the state,
+but instead at every time step $t$ receives an \vname{observation} $o_t$,
+emission of the latent state $s_t$ and action $a_t$. By this means,
+a \ac{pomdp} is able to encode state uncertainty in addition to the outcome
+uncertainty present in the underlying \ac{mdp}.
+
+Having introduced the properties of an \ac{mdp} in the previous section,
+a generalization of this formalism to the partially observable case is obtained
+by augmenting the 5-tuple $(\mathcal{S}, \mathcal{A}, \mathcal{T}, \mathcal{R},
+\gamma)$ describing the underlying \ac{mdp} with the following quantities:
+
+\begin{description}
+  \item[Observation Space $\mathcal{O}$.] The set of all possible observations.
+  \item[Observation Model $\mathcal{Z}$.] A model to represent the likelihood
+    of each observation $o$ given the current state of the environment and the
+    action taken at that time. Formally, this model provides the
+    conditional probability $\mathcal{Z}(o \mid s, a)$ for each $(o, s, a) \in
+    (\mathcal{O} \times \mathcal{S} \times \mathcal{A})$.
+\end{description}
+
+The dynamic decision network representing the information structure for
+a finite time horizon of a \ac{pomdp} is depicted in
+\cref{fig:pomdp}.\todo{@zach is information structure the right word here? Or
+is this only valid for game theory?} As evident from this figure, the decision
+of the agent at time $t$ is informed by the sequence of all previous actions
+and observations as well as some prior, $b_0$. In contrast to the fully
+observable case where the policy is only a function of quantities at the
+current time, the policy in a \ac{pomdp} maps each possible \vname{history},
+$h_t = (b_0, a_0, o_1, a_1, \dots, a_{t-1}, o_t)$ to an action, $a_t$. In cases
+where this \vname{history} can be compressed to a probability for every state
+at time $t$, we will refer to this distribution as the \vname{belief},
+$b_t(s)$.
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=.7\textwidth]{pomdp-dynamic-decision-network.png}
   \caption{The POMDP as a dynamic decision network. \todo[inline]{Replace with
-  vector graphics.}}
+  vector graphics and add initial information $b0$}}
   \label{fig:pomdp}
 \end{figure}
 
