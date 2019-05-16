@@ -1,10 +1,35 @@
 \chapter{Introduction}\label{chap:introduction}
 
-\todo[inline]{General, broad introduction to Planning in Uncertain Environments
-in the real world featuring some state of the art work.}.
+Many decision making problems in robotics are subject to inherent uncertainty.
+Examples of such problems range from aircraft collision avoidance and
+navigation tasks to multi-agent-interaction
+\cite{kochenderfer2012next}.\todo{cite} While humans have developed good
+intuition for decision making problems present in their day to day lives, many
+of the same tasks -- like planning in autonomous driving -- pose difficult
+problems for robotic agents \cite{levinson2011towards}.
+
+Actively considering uncertainty in planning promises to improve robustness and
+safety of the system. In conventional control theory\todo{what is a better word
+for this?} a typical approach is to model uncertainty in terms of a bounded
+disturbance, robustifying the controller through reasoning over worst case
+disturbance sequences. However, modelling the disturbance as an adversarial
+player is often impractical, since long tail distributions may cause the
+controller to come up with overly conservative, thus poorly performing
+plans.\todo{cite}
+
+Therefore, a tremendous amount of research has focused on incorporating
+uncertainty in decision making through probabilistic models, rather than
+adversarial game type approaches \cite{roy1999coastal, amato2015planning,
+fisac2018probabilistically, choudhury2019dynamic}.
+
+\todo[inline]{Rather: One of the most general frameworks ... ?}
+A principled and general framework for modeling uncertainty in sequential
+decision making is provided by the \ac{pomdp}.
+
+\todo[inline]{Formulating and solving a planning problem as a \ac{pomdp}
+allows the planner to reason over both, state and outcome uncertainty...}
+
 \begin{itemize}
-  \item why does considering uncertainty matter
-  \item very brief introduction to POMDP which can be mainly copied from the project proposal
   \item why is it challenging to do it like this, why do people avoid this:
         point to planning on expectation and making certain assumptions on the structure to
         make the problem simpler or neglecting the fact that
@@ -15,56 +40,45 @@ in the real world featuring some state of the art work.}.
         "motivation" section. (this can be refined at the end)
 \end{itemize}
 
-\section{Motivation}
-
-\todo[inline]{Motivate this work. Maybe this does not need to be a separate subsection.}
-
-\begin{itemize}
-  \item this work seeks to explore the use of POMDPs for planning in uncertain environments
-  \item looking at two popular problems (localization and motion planning)
-  where partial observability is usually neglected or treated with significant
-  simplifications, what is the performance gain that can be achieved.
-\end{itemize}
-
 \section{Chapter Outline}
 
 \todo[inline]{write, when structure has converged}
 
-\todo[inline]{Project proposal. Placed here as a template}
-The \textit{partially observable Markov decision process} (POMDP) provides
-a principled general framework for planning in partially observable stochastic
-environments. In contrast to their well known fully observable counter part,
-the \textit{Markov Decision Process} (MDP), in a POMDP the agent can not access
-state information directly. Instead, the agent is presented with observations
-as stochastic emissions of the true state of the world. Therefore, solving
-a POMDP requires the planner to reason about a distribution over possible
-futures with uncertainty in both the transition and observation model. This
-makes solving a POMDP a significantly more challenging problem than solving the
-corresponding fully observable MDP.\\
-
-A POMDP is a PSPACE-complete problem and thus optimal solutions to problems of
-this class can not be found in polynomial time. Therefore, in robotics
-applications, characterized by limited compute and real time constraints, POMDP
-solution methods are traditionally avoided. Instead, simplifications are made
-that neglect the partial observability or make other assumptions about the
-problem structure.\\
-
-This project aims to explore how despite these challenges the POMDP
-framework can be used to compute robust policies for a robot to optimally
-interact with an uncertain environment. For this purpose, uncertainty in
-two different subsets of the state space are considered:\\
-\textit{External States,}  states of the environment. (e.g. position of the
-robot).\\
-\textit{Internal States,} latent \textit{model parameters} of the
-environment (e.g. intentions of other agents).\\
-
-The use of POMDP solution methods for planning in the face of uncertainty in
-each of these domains will be examined. External state uncertainty will be
-studied in a simulated environment at the example of simultaneous localization
-and planning. Internal state uncertainty will be studied at the example of
-human robot interaction.\\
-In order to address the issue of limited compute in the context of robotics
-applications, this project will investigate how meta reasoning can be employed to
-dynamically switch models during on-line planning in an effort to account for
-the trade-off between accuracy and computational complexity when reasoning about
-future environment states.
+%  \todo[inline]{Project proposal. Placed here as a template}
+%  The \textit{partially observable Markov decision process} (POMDP) provides
+%  a principled general framework for planning in partially observable stochastic
+%  environments. In contrast to their well known fully observable counter part,
+%  the \textit{Markov Decision Process} (MDP), in a POMDP the agent can not access
+%  state information directly. Instead, the agent is presented with observations
+%  as stochastic emissions of the true state of the world. Therefore, solving
+%  a POMDP requires the planner to reason about a distribution over possible
+%  futures with uncertainty in both the transition and observation model. This
+%  makes solving a POMDP a significantly more challenging problem than solving the
+%  corresponding fully observable MDP.\\
+%
+%  A POMDP is a PSPACE-complete problem and thus optimal solutions to problems of
+%  this class can not be found in polynomial time. Therefore, in robotics
+%  applications, characterized by limited compute and real time constraints, POMDP
+%  solution methods are traditionally avoided. Instead, simplifications are made
+%  that neglect the partial observability or make other assumptions about the
+%  problem structure.\\
+%
+%  This project aims to explore how despite these challenges the POMDP
+%  framework can be used to compute robust policies for a robot to optimally
+%  interact with an uncertain environment. For this purpose, uncertainty in
+%  two different subsets of the state space are considered:\\
+%  \textit{External States,}  states of the environment. (e.g. position of the
+%  robot).\\
+%  \textit{Internal States,} latent \textit{model parameters} of the
+%  environment (e.g. intentions of other agents).\\
+%
+%  The use of POMDP solution methods for planning in the face of uncertainty in
+%  each of these domains will be examined. External state uncertainty will be
+%  studied in a simulated environment at the example of simultaneous localization
+%  and planning. Internal state uncertainty will be studied at the example of
+%  human robot interaction.\\
+%  In order to address the issue of limited compute in the context of robotics
+%  applications, this project will investigate how meta reasoning can be employed to
+%  dynamically switch models during on-line planning in an effort to account for
+%  the trade-off between accuracy and computational complexity when reasoning about
+%  future environment states.
