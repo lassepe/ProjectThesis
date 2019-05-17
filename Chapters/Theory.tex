@@ -1,6 +1,6 @@
 \chapter{Theory}
 
-This work showcases the use of \glspl{pomdp} to model and solve decision making
+This work showcases the use of \acp{pomdp} to model and solve decision making
 problems in robotics with inherent uncertainty. In order to provide a baseline
 for further discussions of specific application domains
 (\cref{chap:applications}) we first introduce some of the throughout this work.
@@ -10,9 +10,9 @@ statistical inference and tools like \textit{Monte Carlo Integration} are
 assumed to be known. For a thorough discussion of these underlying concept the
 reader may refer to \cite{kochenderfer2015decision, bertsekas2005dynamic, thrun2005probabilistic}.
 
-In the following, we first introduce the theoretical framework of \glspl{pomdp}
+In the following, we first introduce the theoretical framework of \acp{pomdp}
 (\cref{sec:pomdp}). This section discusses modelling assumptions, structure
-of solutions as well as theoretical properties of \glspl{pomdp}. Thereafter,
+of solutions as well as theoretical properties of \acp{pomdp}. Thereafter,
 \cref{sec:online-pomdp-solvers} describes two state-of-the-art online solution
 methods for problems of this domain.
 
@@ -26,13 +26,13 @@ complexity of a \ac{pomdp} let us first examine it's fully observable version.
 
 \subsection{MDP}
 
-\glspl{mdp} are sequential decision making problems in which an agent takes
+\acp{mdp} are sequential decision making problems in which an agent takes
 \vname{actions} $a$ that affect the \vname{state} $s$ of the environment and
 receives \vname{rewards} $r$ based the state-transition and the action taken
 \cite{kochenderfer2015decision, bertsekas2005dynamic}. The state evolves
 according to a stochastic transition model $\tdist$ that and obeys the
 Markov property. That is, future states are independent of past states given
-the current state and action. By this means, \glspl{mdp} allow to model outcome
+the current state and action. By this means, \acp{mdp} allow to model outcome
 uncertainty. As common in literature, we denote quantities at time time $t$
 with an according subscript. When examining only a single step in a context
 where time does not explicitly matter, we may also refer to states before and
@@ -143,7 +143,7 @@ every possible sequence of actions and observations starting from the root
 belief, $b_0$.\todo{visualization of conditional plan?} This perspective
 reveals that the search space of possible policies rapidly grows with
 increasing size of $\aspace$ and $\ospace$. In fact, it has been shown that
-even in the case of finite-horizon problems \glspl{pomdp} remain
+even in the case of finite-horizon problems \acp{pomdp} remain
 PSPACE-complete. Hence, it is reasonable to assume to that no efficient general
 algorithm for solving large problems of this class can be found
 \cite{papadimitriou1987complexity}. However, recent research has made
