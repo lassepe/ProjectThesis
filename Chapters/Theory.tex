@@ -3,7 +3,7 @@
 This work showcases the use of \acp{pomdp} to model and solve decision making
 problems in robotics with inherent uncertainty. In order to provide a baseline
 for further discussions of specific application domains
-(\cref{chap:applications}) we first introduce some of the throughout this work.
+(\cref{chap:experiments}) we first introduce some of the throughout this work.
 It should be noted that in the interest of conciseness we focus this
 theoretical introduction on only the main tools use. Fundamental concepts of
 statistical inference and tools like \textit{Monte Carlo Integration} are
@@ -11,12 +11,13 @@ assumed to be known. For a thorough discussion of these underlying concept the
 reader may refer to \cite{kochenderfer2015decision, bertsekas2005dynamic, thrun2005probabilistic}.
 
 In the following, we first introduce the theoretical framework of \acp{pomdp}
-(\cref{sec:pomdp}). This section discusses modelling assumptions, structure
-of solutions as well as theoretical properties of \acp{pomdp}. Thereafter,
-\cref{sec:online-pomdp-solvers} describes two state-of-the-art online solution
-methods for problems of this domain.
+used for sequential decision making under uncertainty
+(\cref{sec:sequential-decision-making}). This section discusses modelling
+assumptions, structure of solutions as well as theoretical properties of
+\acp{pomdp}. Thereafter, \cref{sec:online-pomdp-solvers} describes two
+state-of-the-art online solution methods for problems of this domain.
 
-\section{Partially Observable Markov Decision Processes}\label{sec:pomdp}
+\section{Sequential Decision Making Problems Under Uncertainty}\label{sec:sequential-decision-making}
 
 The \acf{pomdp} is a principled mathematical formalism capable of representing
 a broad range of sequential decision making problems under uncertainty. As the
@@ -159,7 +160,7 @@ advantages that one can expect?}
 art and show good performance over a range of problems. Point to Zach's paper
 for solver performance comparison and DESPOT paper.}
 
-\section{POMCPOW}
+\subsection{POMCPOW}
 
 \todo[inline]{write:}
 \begin{itemize}
@@ -170,7 +171,7 @@ for solver performance comparison and DESPOT paper.}
 
 \missingfigure{graphical model of POMCP-Tree with weighted scenarios.}
 
-\section{DESPOT}
+\subsection{DESPOT}
 
 \todo[inline]{write:}
 \begin{itemize}
@@ -182,4 +183,3 @@ for solver performance comparison and DESPOT paper.}
 
 \missingfigure{DESPOT tree visualization}
 \missingfigure{DESPOT algorithm Pseudo Code}
-
