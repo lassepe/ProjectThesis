@@ -156,20 +156,35 @@ advantages that one can expect?}
 
 \section{Online POMDP Solvers}\label{sec:online-pomdp-solvers}
 
-\todo[inline]{The solvers described here were chosen as they are state of the
-art and show good performance over a range of problems. Point to Zach's paper
-for solver performance comparison and DESPOT paper.}
+Once a problem has been formalized as a \ac{pomdp}, a wide range of solution
+methods can be applied to solve it. On an abstract level, there exist two classes
+of solution techniques:
 
-\subsection{POMCPOW}
+\emph{Offline} methods perform most of the computation prior to execution. That
+is, a policy for the entire belief space is computed a priori. At execution
+time, actions are selected according to the assignment computed offline.
 
-\todo[inline]{write:}
-\begin{itemize}
-  \item explain the basic idea of POMCPOW as Monte Carlo with DPW.
-  \item is extension of POMCP with weighted particle beliefs.
-\end{itemize}
-\missingfigure{Pseudo Code with formal description in text.}
+\emph{Online} methods compute the optimal policy at execution time by planning
+from the current belief state. Solution techniques of this kind potentially
+leads to redundant computation and more compute per decision step at runtime.
+However, in practice they allow to solve much larger \acp{pomdp} since the
+reachable belief states are typically a small subset of the full belief space.
+By exploiting this local structure online methods allow to compute solutions to
+large problems that may be intractable for offline approaches
+\cite{kochenderfer2015decision, silver2010pomcp, somani2013despot,
+kurniawati2016online}.
 
-\missingfigure{graphical model of POMCP-Tree with weighted scenarios.}
+In practice, due to the complexity of \acp{pomdp}, even for seemingly simple
+problems finding the exact solution is computationally intensive. However,
+recent research has put forth online solvers that provide good approximations
+to a wide range of problems. This work makes use of two of the most elaborate
+state of the art online \ac{pomdp} solvers -- \ac{despot} and \ac{pomcpow}. We
+choose these methods since they show superior performance in a wide range of
+benchmark problems and outperform other approximate solutions especially for
+large \acp{pomdp} \cite{somani2013despot, sunberg2018online}.
+
+The following subsection introduce \ac{despot} and \ac{pomcpow} in greater
+detail and discuss their theoretical properties.
 
 \subsection{DESPOT}
 
@@ -183,3 +198,16 @@ for solver performance comparison and DESPOT paper.}
 
 \missingfigure{DESPOT tree visualization}
 \missingfigure{DESPOT algorithm Pseudo Code}
+
+\subsection{POMCPOW}
+
+\todo[inline]{write:}
+\begin{itemize}
+  \item explain the basic idea of \ac{mcts} on a high level
+  \item explain the basic idea of POMCPOW as Monte Carlo with DPW.
+  \item is extension of POMCP with weighted particle beliefs.
+\end{itemize}
+\missingfigure{Pseudo Code with formal description in text.}
+
+\missingfigure{graphical model of POMCP-Tree with weighted scenarios.}
+
