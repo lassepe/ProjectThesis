@@ -213,12 +213,47 @@ of \ac{mcts} goes beyond the scope of this work. For a detailed survey of
 a wide range of \ac{mcts} algorithms, the reader may refer to
 \cite{browne2012survey}.
 
+\subsubsection{Monte-Carlo Tree Search}
+\todo[inline]{explain the basic idea of \ac{mcts} on a high level}
+
+A theoretically valid solution method for sequential decision making problems
+is the construction of the entire policy tree. This tree consists of alternating
+layers of states and actions, enumerating all possible future trajectories.
+Given this object, extracting the optimal strategy from is trivial. However,
+for problems relevant in practice the curse of dimensionality makes simulating
+all possible futures intractable.
+
+\acf{mcts} is a method that breaks the curse of dimensionality by utilizing
+Monte-Carlo simulations to incrementally construct only important parts of the
+policy tree in an asymmetric fashion. As the policy is constructed, the samples
+are used to approximate the \vname{state-action value function}, $Q(s, a)$,
+also referred to as the \vname{Q-function}. The approximate Q-function is used
+to focus further exploration of promising parts of the tree, allowing the
+algorithm to approximate the optimal policy without attempting the intractable
+task of constructing the entire policy tree. This behavior is achieved by
+invoking a suitable \emph{tree policy} that balances exploration and
+exploitation, the trade-of between looking at new parts of the state-action
+space (widening the tree) and further exploring promising trajectories
+(deepening the tree).
+
+...
+One iteration of the general \ac{mcts} approach is visualized in \cref{fig:mcts-general}.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.8\linewidth]{mcts-general.png}
+  \caption{One iteration of the general \ac{mcts} approach \cite{browne2012survey}.}
+  \label{fig:mcts-general}
+\end{figure}
+
+\subsubsection{POMCPOW Algorithm}
+
 \todo[inline]{write:}
 \begin{itemize}
-  \item explain the basic idea of \ac{mcts} on a high level
   \item explain the basic idea of POMCPOW as Monte Carlo with DPW.
   \item is extension of POMCP with weighted particle beliefs.
 \end{itemize}
+
 \missingfigure{Pseudo Code with formal description in text.}
 
 \missingfigure{graphical model of POMCP-Tree with weighted scenarios.}
