@@ -234,15 +234,49 @@ task of constructing the entire policy tree. This behavior is achieved by
 invoking a suitable \emph{tree policy} that balances exploration and
 exploitation, the trade-of between looking at new parts of the state-action
 space (widening the tree) and further exploring promising trajectories
-(deepening the tree).
+(deepening the tree). One reason for the popularity of this method is that
+it only requires access to a \vname{generative model}, $G$, used to sample new states
+given a state-action a pair. That is, no explicit model of the state dynamics is
+required, as long as a black box simulator of the environment is available.
 
-...
-One iteration of the general \ac{mcts} approach is visualized in \cref{fig:mcts-general}.
+To date, \ac{mcts} has been applied to a wide range of problems
+\cite{browne2012survey}. While research has put forth many variants of this
+algorithm, conceptually they all share the idea of iteratively running
+Monte-Carlo simulations until a terminal condition is reached. This terminal
+condition may be derived from a convergence criterion, a fixed number of
+iterations or a limited computational budget. One iteration of the general
+\ac{mcts} algorithm is visualized in \cref{fig:mcts-general}. Each cycle
+comprises four steps:
+
+\begin{description}
+  \item[Search] The tree policy is invoked to traverse the policy tree
+    constructed up to this point. That is, at each state node the tree policy
+    selects an action based on the current Q-function approximation. Once an
+    action has been chosen, the next state is selected by sampling from the
+    $G$. This search procedure is repeated in an effort to reach
+    the most urgent leaf node of the policy tree. \todo[inline]{Also often
+    called \emph{selection}.}
+  \item[Expansion] Once an action node is reached that does not have any
+    children, a new node is appended to the policy tree by sampling a state
+    from $G$ and adding the corresponding actions.
+  \item[Rollout] Starting from the newly added node, a reward trajectory is
+    simulated by selecting actions according to a \emph{rollout policy}. This
+    rollout policy may be as trivial as randomly selecting actions until
+    a terminal state is reached or the future cumulative reward becomes
+    negligible due to the compounding discount factor. Alternatively, domain
+    specific knowledge may be utilized to design a more structured rollout
+    strategy. The rollout yields a value estimate for the newly added leaf node.
+  \item[Backpropagation] The value estimate obtained from the rollout
+    simulation is passed back up the tree to update the Q-function estimate on
+    the path to the root node.
+\end{description}
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=0.8\linewidth]{mcts-general.png}
-  \caption{One iteration of the general \ac{mcts} approach \cite{browne2012survey}.}
+  \caption{One iteration of the general \ac{mcts} approach
+  \cite{browne2012survey}.\todo[inline]{Selection should be called search.
+  Simulation should be called Rollout. Draw this in Inkscape.}}
   \label{fig:mcts-general}
 \end{figure}
 
