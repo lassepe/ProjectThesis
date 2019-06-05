@@ -183,8 +183,8 @@ choose these methods since they show superior performance in a wide range of
 benchmark problems and outperform other approximate solutions especially for
 large \acp{pomdp} \cite{somani2013despot, sunberg2018online}.
 
-The following subsection introduce \ac{despot} and \ac{pomcpow} in greater
-detail and discuss their theoretical properties.
+In the following subsections we introduce \ac{despot} and \ac{pomcpow} in
+greater detail and discuss their theoretical properties.
 
 \subsection{DESPOT}
 
@@ -232,7 +232,7 @@ to focus further exploration of promising parts of the tree, allowing the
 algorithm to approximate the optimal policy without attempting the intractable
 task of constructing the entire policy tree. This behavior is achieved by
 invoking a suitable \emph{tree policy} that balances exploration and
-exploitation, the trade-of between looking at new parts of the state-action
+exploitation, the trade-off between looking at new parts of the state-action
 space (widening the tree) and further exploring promising trajectories
 (deepening the tree). One reason for the popularity of this method is that
 it only requires access to a \vname{generative model}, $G$, used to sample new states
@@ -270,6 +270,24 @@ comprises four steps:
     simulation is passed back up the tree to update the Q-function estimate on
     the path to the root node.
 \end{description}
+
+An important factor for the success of of this algorithm is the choice of the
+tree policy as this policy must focus the expansion to the relevant part of the
+tree. A widely used tree policy is the \ac{uct}. This policy is a greedy policy
+with respect to the \vname{upper confidence bound},
+\begin{equation}
+\label{eqn:ucb} \emph{UCB}(s,a) = Q(s,a) + c \sqrt{\frac{\log N(s)}{N(s,a)}}.
+\end{equation}
+
+Here, $N(s, a)$ is the number of times the action node (child) has been
+visited, $N(s) = \sum_{a \in \aspace}{N(s, a)}$ is the number of times the
+corresponding state node (parent) has been visited, and $c$ is a problem
+specific parameter to balance the exploration vs. exploitation trade-off.
+Intuitively, the first term encourages the algorithm to select actions that in
+the past showed promising future reward trajectories while the second term
+urges the tree policy to expand nodes that have not been sufficiently explored.
+For a thorough discussion of convergence properties as well as guidance for the
+tuning of $c$, the reader may refer to \cite{kocsis2006bandit, browne2012survey}.
 
 \begin{figure}[htpb]
   \centering
