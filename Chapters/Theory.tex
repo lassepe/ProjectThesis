@@ -1,4 +1,4 @@
-\chapter{Theory}
+\chapter{Fundamentals}
 
 This work showcases the use of \acp{pomdp} to model and solve decision making
 problems in robotics with inherent uncertainty. In order to provide a baseline
@@ -202,14 +202,16 @@ detail and discuss their theoretical properties.
 \subsection{POMCPOW}
 
 \acf{pomcpow} is an approximate online \ac{pomdp} solver that combines the idea
-of \acf{mcts} with the idea of \acf{dpw} \cite{sunberg2018online}. As such,
-\ac{pomcpow} utilizes \acf{mcts} to break the course of dimensionality
-\cite{silver2010pomcp}.
+of \ac{mcts} -- as utilized in \ac{pomcp} \cite{silver2010pomcp} -- with the
+idea of \ac{dpw} \cite{sunberg2018online}.
 
-In the following, we begin by briefly reviewing the general idea of \ac{mcts}.
-This discussion seeks to provide insight into how this technique is adopted in
-the context of \ac{pomcpow}. For a thorough discussion of a wide range of
-\ac{mcts} algorithms, the reader may refer to \cite{browne2012survey}.
+Before we discuss the algorithmic procedure of \ac{pomcpow} we briefly review
+the general idea of \ac{mcts}. This section is thought to be a concise recap of
+the fundamental concept and seeks to provide a baseline for understanding how
+this technique is adopted in the context of \ac{pomcpow}. A thorough discussion
+of \ac{mcts} goes beyond the scope of this work. For a detailed survey of
+a wide range of \ac{mcts} algorithms, the reader may refer to
+\cite{browne2012survey}.
 
 \todo[inline]{write:}
 \begin{itemize}
@@ -221,3 +223,16 @@ the context of \ac{pomcpow}. For a thorough discussion of a wide range of
 
 \missingfigure{graphical model of POMCP-Tree with weighted scenarios.}
 
+\section{Tools and Software Framework}
+
+\todo[inline]{Some insight into which tools are used and why:}
+\begin{itemize}
+  \item briefly point to speed comparison results (own application specific comparison + official charts)
+  \item prototyping speed C++ vs Julia (Python already out of the game: too slow, see first point)
+  \item Julia: good, general framework provided: \texttt{POMDPs.jl}, an interface for
+  defining, solving, and simulating discrete and continuous, fully and
+  partially observable Markov decision processes.  \cite{egorov2017pomdps}
+  There also exists a C++ framework, but this very verbose and not suitable for
+  rapid prototyping (\url{http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/})
+  \item conclusion: Julia \cite{bezanson2017julia}
+\end{itemize}
