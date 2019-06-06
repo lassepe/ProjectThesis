@@ -188,6 +188,26 @@ greater detail and discuss their theoretical properties.
 
 \subsection{DESPOT}
 
+\begin{algorithm}[htpb]
+  \caption{DESPOT as proposed in \cite{somani2013despot}.}\label{alg:despot}
+  \begin{algorithmic}[1]
+    \Procedure{Plan}{$b_0$}
+      \State $l \gets \Call{BuildDespot}{b_0}$
+      \State $a^* \gets \max_{a \in \aspace}{l(b_0, a)}$
+      \If{$L_0(b_0) > l(b, a^*)$}
+        \State $a^* \gets \pi_0(b_0)$
+      \EndIf
+      \State \textbf{return} $a^*$
+    \EndProcedure
+
+    \Procedure{BuildDespot}{$b_0$}
+      \State $\Phib_{b0} \gets K \text{ scenarios sampled from } b_0$
+      \State $\mathcal{D} \gets \text{new DESPOT with a single node $b_0$ as the root}$
+    \EndProcedure
+  \end{algorithmic}
+  \todo[inline]{Figure out how to space this properly.}
+\end{algorithm}
+
 \todo[inline]{write:}
 \begin{itemize}
   \item formal, high-level idea of a DESPOT (idea of scenarios etc.)
