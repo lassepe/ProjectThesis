@@ -300,13 +300,62 @@ tuning of $c$, the reader may refer to \cite{kocsis2006bandit, browne2012survey}
 
 \subsubsection{POMCPOW Algorithm}
 
+The algorithmic procedure for \ac{pomcpow} is described in \cref{alg:pomcpow}.
+
+\begin{algorithm}[htpb]
+    \caption{POMCPOW as proposed in \cite{sunberg2018online}.}\label{alg:pomcpow}
+    \begin{algorithmic}[1]
+        \Procedure{Plan}{$b$}
+            \For{$i \in 1:n$}
+                \State $s \gets \text{sample from }b$
+                \State $\Call{Simulate}{s, b, d_\text{max}}$
+            \EndFor
+            \State $\textbf{return } \underset{a}{\argmax}\, Q(ba)$
+        \EndProcedure
+
+        \Procedure {ActionProgWiden}{$h$}
+            \If{$|C(h)| \leq k_a N(h)^{\alpha_a}$}
+                \State $a \gets \Call{NextAction}{h}$
+                \State $C(h) \gets C(h) \cup \{a\}$
+            \EndIf
+            \State $\textbf{return } \underset{a \in C(h)}{\argmax}\, Q(ha) + c \sqrt{\frac{\log N(h)}{N(ha)}}$
+        \EndProcedure
+
+        \Procedure {Simulate}{$s$, $h$, $d$}
+            \If{$d = 0$}
+                \State \textbf{return} $0$
+            \EndIf
+            \State $a \gets \Call{ActionProgWiden}{h}$
+            \State $s',o,r \gets G(s,a)$
+            \If{$|C(ha)| \leq k_o N(ha)^{\alpha_o}$}
+                \State $M(hao) \gets M(hao) + 1$
+            \Else
+                \State $o \gets \text{select } o \in C(ha) \text{ w.p. } \frac{M(hao)}{\sum_{o} M(hao)}$
+            \EndIf
+            \State $\text{append } s' \text{ to } B(hao)$ \label{lin:insert}
+            \State $\text{append } \odist(o \mid s, a, s') \text{ to } W(hao)$ \label{lin:weight}
+            \If{$o \notin C(ha)$}
+                \State $C(ha) \gets C(ha) \cup \{o\}$
+                \State $total \gets r + \gamma \Call{Rollout}{s', hao, d-1}$
+            \Else
+                \State $s' \gets \text{select } B(hao)[i] \text{ w.p. } \frac{W(hao)[i]}{\sum_{j=1}^m W(hao)[j]}$ \label{lin:sample}
+                \State $r \gets \reward(s,a,s')$
+                \State $total \gets r + \gamma \Call{Simulate}{s', hao, d-1}$
+            \EndIf
+            \State $N(h) \gets N(h)+1$
+            \State $N(ha) \gets N(ha)+1$
+            \State $Q(ha) \gets Q(ha) + \frac{total - Q(ha)}{N(ha)}$
+            \State \textbf{return} $total$
+        \EndProcedure
+    \end{algorithmic}
+    \todo[inline]{Maybe also add plain POMCP (without DPW) to the appendix for reference?}
+\end{algorithm}
+
 \todo[inline]{write:}
 \begin{itemize}
   \item explain the basic idea of POMCPOW as Monte Carlo with DPW.
   \item is extension of POMCP with weighted particle beliefs.
 \end{itemize}
-
-\missingfigure{Pseudo Code with formal description in text.}
 
 \missingfigure{graphical model of POMCP-Tree with weighted scenarios.}
 
