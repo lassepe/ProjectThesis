@@ -198,7 +198,7 @@ greater detail and discuss their theoretical properties.
         \State $a^* \gets \pi_0(b_0)$
       \EndIf
       \State \textbf{return} $a^*$
-    \EndProcedure
+    \EndProcedure\vspace{10pt}
 
     \Procedure{BuildDespot}{$b_0$}
       \State $\Phib_{b0} \gets K \text{ scenarios sampled from } b_0$
@@ -211,7 +211,7 @@ greater detail and discuss their theoretical properties.
         \State $\epsilon(b_0) \gets \mu(b_0) - \ell(b_0)$ \Comment{TODO: Think about this}
       \EndWhile
       \State \textbf{return} $\ell$
-    \EndProcedure
+    \EndProcedure\vspace{10pt}
 
     \Procedure{Explore}{$\mathcal{D}, b$}
       \While{$\Delta(b) \leq D, E(b) > 0, \text{ and } \Call{Prune}{\mathcal{D}, b} = \text{FALSE}$}
@@ -228,13 +228,40 @@ greater detail and discuss their theoretical properties.
         \State $\Call{MakeDefault}{b}$
       \EndIf
       \State \textbf{return} $b$
-    \EndProcedure
-
-    \Procedure{Prune}{$\mathcal{D}, b$}
-      \State \textsc{Blocked} $\gets$ FALSE
-    \EndProcedure
+    \EndProcedure\vspace{10pt}
   \end{algorithmic}
   \todo[inline]{Figure out how to space this properly.}
+  \todo[inline]{Figure out multi column or multi page solution.}
+\end{algorithm}
+
+\begin{algorithm}[htpb]
+  \begin{algorithmic}[1]
+      \Procedure{Prune}{$\mathcal{D}, b$}
+        \State \textsc{Blocked} $\gets$ FALSE
+        \For{each node $n$ on the path from $b$ to the root of $\mathcal{D}$}
+          \If{$n$ is blocked by any ancestor node in $D$}
+            \State $\Call{MakeDefault}{n}$
+            \State $\Call{Backup}{\mathcal{D}, n}$
+            \State \textsc{Blocked} $\gets$ TRUE
+          \Else
+            \State \textbf{break}
+          \EndIf
+        \EndFor
+        \State \textbf{return} \textsc{Blocked}
+      \EndProcedure\vspace{10pt}
+
+      \Procedure{MakeDefault}{$b$}
+        \State $U(b) \gets L_0(b)$
+        \State $\mu(b) \gets l_0(b)$
+        \State $\ell(b) \gets \ell_0(b)$
+      \EndProcedure\vspace{10pt}
+
+      \Procedure{Backup}{$\mathcal{D}, b$}
+        \For{each node $n$ on the path form $b$ to the root of $D$}
+          \State Perform backup on $\mu(x), l(x)$, and $U(x)$.
+        \EndFor
+      \EndProcedure\vspace{10pt}
+  \end{algorithmic}
 \end{algorithm}
 
 \todo[inline]{write:}
@@ -360,7 +387,7 @@ The algorithmic procedure for \ac{pomcpow} is described in \cref{alg:pomcpow}.
                 \State $\Call{Simulate}{s, b, d_\text{max}}$
             \EndFor
             \State $\textbf{return } \underset{a}{\argmax}\, Q(ba)$
-        \EndProcedure
+        \EndProcedure\vspace{10pt}
 
         \Procedure {ActionProgWiden}{$h$}
             \If{$|C(h)| \leq k_a N(h)^{\alpha_a}$}
@@ -368,7 +395,7 @@ The algorithmic procedure for \ac{pomcpow} is described in \cref{alg:pomcpow}.
                 \State $C(h) \gets C(h) \cup \{a\}$
             \EndIf
             \State $\textbf{return } \underset{a \in C(h)}{\argmax}\, Q(ha) + c \sqrt{\frac{\log N(h)}{N(ha)}}$
-        \EndProcedure
+        \EndProcedure\vspace{10pt}
 
         \Procedure {Simulate}{$s$, $h$, $d$}
             \If{$d = 0$}
@@ -395,7 +422,7 @@ The algorithmic procedure for \ac{pomcpow} is described in \cref{alg:pomcpow}.
             \State $N(ha) \gets N(ha)+1$
             \State $Q(ha) \gets Q(ha) + \frac{total - Q(ha)}{N(ha)}$
             \State \textbf{return} $total$
-        \EndProcedure
+        \EndProcedure\vspace{10pt}
     \end{algorithmic}
     \todo[inline]{Maybe also add plain POMCP (without DPW) to the appendix for reference?}
 \end{algorithm}
