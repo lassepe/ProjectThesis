@@ -374,9 +374,29 @@ tuning of $c$, the reader may refer to \cite{kocsis2006bandit, browne2012survey}
   \label{fig:mcts-general}
 \end{figure}
 
+\subsection{Double Progressive Widening}
+
+\todo[inline]{This needs to be described separately since doing this "in-line"
+makes it hard to follow the idea of POMCPOW.}
+
 \subsubsection{POMCPOW Algorithm}
 
-The algorithmic procedure for \ac{pomcpow} is described in \cref{alg:pomcpow}.
+The algorithmic procedure for \ac{pomcpow} fundamentally resembles the idea of
+\ac{mcts} with a set of modifications for application in the \ac{pomdp} domain.
+Instead of reasoning over state-action sequences, the policy tree spans over
+action-observation trajectories starting from the initial belief, $b_0$. In
+contrast to \ac{pomcp}, \ac{pomcpow} uses \ac{dpw} to focus search on
+a progressively expanded set of actions and observations \cite{silver2010pomcp,
+sunberg2018online}. This enhancement allows to yield deeper and more richly
+sampled policy trees even in the case of large action and observation spaces.
+Finally, since \ac{dpw} constraints the set of considered observations, the
+algorithm uses a weighted particle collection to represent the outcome
+statistics at observation nodes. By this means, the outcome of the generative
+model can be fixed to fall inside the allowed set to avoid sample rejection,
+while the weighted belief update prevents an erroneous distribution shift.
+
+A detailed pseudo code representation of the algorithmic procedure
+is provided in \cref{alg:pomcpow}.
 
 \begin{algorithm}[htpb]
     \caption{POMCPOW as proposed in \cite{sunberg2018online}.}\label{alg:pomcpow}
