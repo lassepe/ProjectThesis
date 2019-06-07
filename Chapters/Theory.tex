@@ -443,8 +443,21 @@ widening. Given this action, a state-observation-reward tuple is sampled from
 the generative model. Subsequently, observation progressive widening
 (\crefrange{alg:lin:oprogwide_start}{alg:lin:oprogwide_end}) is applied to
 either generate a new observation and increment the corresponding counter, or
-sample one of the previously sampled observations, $o \in C(ha)$.
-\todo[inline]{continue here}
+sample one of the previously generated observations, $o \in C(ha)$. The
+generated state, $s'$, is added to the state list at the observation node,
+$B(hao)$. In order to resemble a weighted particle belief, the corresponding
+weight is chosen according to the observation model, $\odist(o \mid s, a, s')$,
+and is stored in the associated weight vector, $W(hao)$.
+
+If the observation is not a child of this action terminated history node, a new
+observation node is created and a rollout in the spirit of \ac{mcts} is
+performed. Otherwise, search on the partially constructed policy tree
+continues one level deeper by sampling a state, $s'$, from the weighted
+particle collection and entering the next \textsc{Simulate} recursion.
+
+Finally, backpropagation is performed by passing the simulated \vname{total}
+reward up the recursion stack and updating the \qfunction approximation
+accordingly.
 
 \begin{algorithm}[H]
     \caption{POMCPOW \cite{sunberg2018online}.}\label{alg:pomcpow}
