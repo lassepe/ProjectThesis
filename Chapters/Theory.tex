@@ -3,12 +3,13 @@
 This work showcases the use of \acp{pomdp} to model and solve decision making
 problems in robotics with inherent uncertainty. In order to provide a baseline
 for further discussions of specific application domains
-(\cref{chap:experiments}) we first introduce some of the throughout this work.
-It should be noted that in the interest of conciseness we focus this
-theoretical introduction on only the main tools use. Fundamental concepts of
-statistical inference and tools like \textit{Monte Carlo Integration} are
-assumed to be known. For a thorough discussion of these underlying concept the
-reader may refer to \cite{kochenderfer2015decision, bertsekas2005dynamic, thrun2005probabilistic}.
+(\cref{chap:localization-and-planning,chap:motion-planning-hri}) we first
+introduce some of the throughout this work. It should be noted that in the
+interest of conciseness we focus this theoretical introduction on only the main
+tools use. Fundamental concepts of statistical inference and tools like
+\textit{Monte Carlo Integration} are assumed to be known. For a thorough
+discussion of these underlying concept the reader may refer to
+\cite{kochenderfer2015decision, bertsekas2005dynamic, thrun2005probabilistic}.
 
 In the following, we first introduce the theoretical framework of \acp{pomdp}
 used for sequential decision making under uncertainty
@@ -25,9 +26,9 @@ name suggests, this framework is a generalization of the more popular \ac{mdp}
 to the partially observable case. Thus, before proceeding with the full
 complexity of a \ac{pomdp} let us first examine it's fully observable version.
 
-\subsection{MDP}
+\subsection{Markov Decision Process (MDP)}
 
-\acp{mdp} are sequential decision making problems in which an agent takes
+\acfp{mdp} are sequential decision making problems in which an agent takes
 \vname{actions} $a$ that affect the \vname{state} $s$ of the environment and
 receives \vname{rewards} $r$ based the state-transition and the action taken
 \cite{kochenderfer2015decision, bertsekas2005dynamic}. The state evolves
@@ -73,7 +74,9 @@ Also, since the state obeys the Markov property, no additional information
 beyond the current state at every time is necessary to maximize $J$
 \cite{altmann1999constrained}.
 
-\subsection{Partially Observable MDP}
+\todo[inline]{Maybe this is a good point to also quickly introduce value functions?}
+
+\subsection{Partially Observable MDP (POMDP)}
 
 A \acf{pomdp} is an \ac{mdp} where the agent cannot directly observe the state,
 but instead at every time step $t$ receives an \vname{observation} $o_t$,
@@ -189,7 +192,7 @@ greater detail and discuss their theoretical properties.
 \subsection{DESPOT}
 
 \begin{algorithm}[htpb]
-  \caption{DESPOT as proposed in \cite{somani2013despot}.}\label{alg:despot}
+  \caption{DESPOT \cite{somani2013despot}.}\label{alg:despot}
   \begin{algorithmic}[1]
     \Procedure{Plan}{$b_0$}
       \State $\ell \gets \Call{BuildDespot}{b_0}$
@@ -303,7 +306,7 @@ all possible futures intractable.
 Monte-Carlo simulations to incrementally construct only important parts of the
 policy tree in an asymmetric fashion. As the policy is constructed, the samples
 are used to approximate the \vname{state-action value function}, $Q(s, a)$,
-also referred to as the \vname{Q-function}. The approximate Q-function is used
+also referred to as the \vname{\qfun}. The approximate \qfun is used
 to focus further exploration of promising parts of the tree, allowing the
 algorithm to approximate the optimal policy without attempting the intractable
 task of constructing the entire policy tree. This behavior is achieved by
@@ -327,7 +330,7 @@ comprises four steps:
 \begin{description}
   \item[Search] The tree policy is invoked to traverse the policy tree
     constructed up to this point. That is, at each state node the tree policy
-    selects an action based on the current Q-function approximation. Once an
+    selects an action based on the current \qfun approximation. Once an
     action has been chosen, the next state is selected by sampling from the
     $G$. This search procedure is repeated in an effort to reach
     the most urgent leaf node of the policy tree. \todo[inline]{Also often
@@ -343,7 +346,7 @@ comprises four steps:
     specific knowledge may be utilized to design a more structured rollout
     strategy. The rollout yields a value estimate for the newly added leaf node.
   \item[Backpropagation] The value estimate obtained from the rollout
-    simulation is passed back up the tree to update the Q-function estimate on
+    simulation is passed back up the tree to update the \qfun estimate on
     the path to the root node.
 \end{description}
 
@@ -379,6 +382,19 @@ tuning of $c$, the reader may refer to \cite{kocsis2006bandit, browne2012survey}
 \todo[inline]{This needs to be described separately since doing this "in-line"
 makes it hard to follow the idea of POMCPOW.}
 
+\begin{algorithm}
+  \caption{Progressive widening applied to the action space \cite{couetoux2011continuous}.}
+  \begin{algorithmic}[1]
+      \Procedure {ActionProgWiden}{$h$}
+          \If{$|C(h)| \leq k_a N(h)^{\alpha_a}$}
+              \State $a \gets \Call{NextAction}{h}$
+              \State $C(h) \gets C(h) \cup \{a\}$
+          \EndIf
+          \State $\textbf{return } \underset{a \in C(h)}{\argmax}\, Q(ha) + c \sqrt{\frac{\log N(h)}{N(ha)}}$
+      \EndProcedure\vspace{10pt}
+  \end{algorithmic}
+\end{algorithm}
+
 \subsubsection{POMCPOW Algorithm}
 
 The algorithmic procedure for \ac{pomcpow} fundamentally resembles the idea of
@@ -395,26 +411,29 @@ statistics at observation nodes. By this means, the outcome of the generative
 model can be fixed to fall inside the allowed set to avoid sample rejection,
 while the weighted belief update prevents an erroneous distribution shift.
 
-A detailed pseudo code representation of the algorithmic procedure
-is provided in \cref{alg:pomcpow}.
+A detailed pseudo code representation of the algorithmic procedure is provided
+in \cref{alg:pomcpow}. With the preceding introduction of \ac{mcts} and the
+aforementioned outline of the algorithms key ideas in mind, we proceed by
+discussing each subroutine in greater detail.
 
-\begin{algorithm}[htpb]
-    \caption{POMCPOW as proposed in \cite{sunberg2018online}.}\label{alg:pomcpow}
+\textsc{Plan}\\
+
+This procedure describes the outer loop of the algorithm. Starting at the initial belief, $b_0$,
+the algorithm performs $n$ iterations of \ac{mcts} to approximate the \qfun.
+
+
+\textsc{Simulate}\\
+test
+
+\begin{algorithm}[H]
+    \caption{POMCPOW \cite{sunberg2018online}.}\label{alg:pomcpow}
     \begin{algorithmic}[1]
-        \Procedure{Plan}{$b$}
+        \Procedure{Plan}{$b_0$}
             \For{$i \in 1:n$}
-                \State $s \gets \text{sample from }b$
-                \State $\Call{Simulate}{s, b, d_\text{max}}$
+                \State $s \gets \text{sample from }b_0$
+                \State $\Call{Simulate}{s, b_0, d_\text{max}}$
             \EndFor
-            \State $\textbf{return } \underset{a}{\argmax}\, Q(ba)$
-        \EndProcedure\vspace{10pt}
-
-        \Procedure {ActionProgWiden}{$h$}
-            \If{$|C(h)| \leq k_a N(h)^{\alpha_a}$}
-                \State $a \gets \Call{NextAction}{h}$
-                \State $C(h) \gets C(h) \cup \{a\}$
-            \EndIf
-            \State $\textbf{return } \underset{a \in C(h)}{\argmax}\, Q(ha) + c \sqrt{\frac{\log N(h)}{N(ha)}}$
+            \State $\textbf{return } \underset{a}{\argmax}\, Q(b_0a)$
         \EndProcedure\vspace{10pt}
 
         \Procedure {Simulate}{$s$, $h$, $d$}
