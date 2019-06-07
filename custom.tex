@@ -1,14 +1,12 @@
 \usepackage[numbers]{natbib}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
-
 \makeatletter
 \let\OldStatex\Statex
 \renewcommand{\Statex}[1][3]{%
   \setlength\@tempdima{\algorithmicindent}%
   \OldStatex\hskip\dimexpr#1\@tempdima\relax}
 \makeatother
-
 % setup todo package and make compatible with tikz
 \usepackage{todonotes}
 % bug fix for `todonotes` vs `tikz` externalize
@@ -45,4 +43,4 @@
 \newcommand{\odist}{\ensuremath{\mathcal{Z}}}
 \newcommand{\reward}{\ensuremath{\mathcal{R}}}
 \newcommand{\bspace}{\ensuremath{\mathcal{B}}}
-\newcommand{\qfun}{$Q$-function}
+\newcommand{\qfunction}{$Q$-function\xspace}
