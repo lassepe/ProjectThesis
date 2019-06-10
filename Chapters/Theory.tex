@@ -379,14 +379,37 @@ tuning of $c$, the reader may refer to \cite{kocsis2006bandit, browne2012survey}
 
 \subsection{Double Progressive Widening}
 
-\todo[inline]{This needs to be described separately since doing this "in-line"
-makes it hard to follow the idea of POMCPOW.}
+For problems with large or continuous the state and action space, standard
+\ac{mcts} as presented in the previous section will produce very shallow trees.
+In fact, if the action space is infinite (e.g. continuous or countably
+infinite), \ac{mcts} using \ac{uct} will never choose a previously expanded
+action at the same state node a second time. This is evident from
+\cref{eqn:ucb}. For any unexplored action ($N(s, a) = 0$) the second term is
+understood to be unbounded, causing the tree policy to favor untried actions.
+Additionally, if the state space is continuous and the transition probability
+density is finite, the event of $G$ generating the same state twice has
+probability zero. As a result, simulated trajectories will never pass through
+the same state node, causing the policy tree to never expand beyond the first
+layer.
+
+Progressive widening addresses this issue by artificially limiting the number
+for children of a node to $kN^\alpha$, where $N$ is the number of times the
+parent has been visited and $k$ and $\alpha$ are problem specific tuning
+parameters \cite{couetoux2011continuous}. Originally, this strategy has been
+applied to the action space, as described in \cref{alg:aprogwiden}. \acf{dpw}
+extends this idea to additionally apply to $\sspace$. In either case, if the
+number of children at a node exceeds the progressively incremented limit
+(\cref{alg:aprogwiden:lin:check}), instead of generating a new child, one of
+the previously generated nodes is selected. By this means, \ac{mcts} expands to
+deeper layers earlier and widens the tree as additional iterations are run.
+This results in less myopic policies for problems with large state and action
+spaces \cite{couetoux2011continuous}.
 
 \begin{algorithm}
-  \caption{Progressive widening applied to the action space \cite{couetoux2011continuous}.}
+  \caption{Progressive widening applied to $\aspace$ \cite{sunberg2018online}.}\label{alg:aprogwiden}
   \begin{algorithmic}[1]
       \Procedure {ActionProgWiden}{$h$}
-          \If{$|C(h)| \leq k_a N(h)^{\alpha_a}$}
+          \If{$|C(h)| \leq k_a N(h)^{\alpha_a}$}\label{alg:aprogwiden:lin:check}
               \State $a \gets \Call{NextAction}{h}$
               \State $C(h) \gets C(h) \cup \{a\}$
           \EndIf
