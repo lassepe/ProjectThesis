@@ -377,7 +377,7 @@ tuning of $c$, the reader may refer to \cite{kocsis2006bandit, browne2012survey}
   \label{fig:mcts-general}
 \end{figure}
 
-\subsection{Double Progressive Widening}
+\subsubsection{Double Progressive Widening}
 
 For problems with large or continuous the state and action space, standard
 \ac{mcts} as presented in the previous section will produce very shallow trees.
@@ -445,9 +445,10 @@ $a_1$, $o_1$, $a_2$, \dots, $a_k$, $o_k$), as introduced in \cref{sec:pomdp},
 $ha$ and $hao$ are shorthand for concatenation of $h$ with $a$ or $(a, o)$,
 respectively. $d$ denotes the remaining depth to explore, with $d_\text{max}$
 the maximum depth; $C(h)$ is the list of children of node $h$; $N(h)$ denotes
-the number of visits of node $h$; $M(h)$ is a count for the number of times the
-observation terminated history $h$ has been generated. $B(h)$ represents a list
-of states associated with node $h$, with $W(h)$ the corresponding weights.
+the number of visits of node $h$; $M(hao)$ is a count for the number of times
+the observation terminated history $hao$ has been sampled by the generative
+model, $G$. $B(h)$ represents a list of states associated with node $h$, with
+$W(h)$ the corresponding weights.
 
 \textbf{Plan}\\
 The \textsc{Plan} procedure represents the outer loop of the algorithm. Input
@@ -476,9 +477,9 @@ and is stored in the associated weight vector, $W(hao)$.
 
 If the observation is not a child of this action terminated history node, a new
 observation node is created and a rollout in the spirit of \ac{mcts} is
-performed. Otherwise, search on the partially constructed policy tree
-continues one level deeper by sampling a state, $s'$, from the weighted
-particle collection and entering the next \textsc{Simulate} recursion.
+performed. Otherwise, search on the partially constructed policy tree continues
+one level deeper by sampling a state, $s'$, from the weighted particle
+collection to proceed with the next \textsc{Simulate} recursion.
 
 Finally, backpropagation is performed by passing the simulated \vname{total}
 reward up the recursion stack and updating the \qfunction approximation
@@ -525,7 +526,7 @@ accordingly.
     \end{algorithmic}
 \end{algorithm}
 
-\missingfigure{graphical model of POMCP-Tree with weighted scenarios.}
+\missingfigure{graphical model of POMCPOW-Tree with weighted scenarios.}
 
 \section{Tools and Software Framework}
 
