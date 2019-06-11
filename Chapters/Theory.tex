@@ -439,13 +439,15 @@ in \cref{alg:pomcpow}. With the preceding introduction of \ac{mcts} and the
 aforementioned outline of the algorithms key ideas in mind, we proceed by
 discussing each subroutine in greater detail.
 
-\todo[inline]{Introduce notation used throughout the following text:}
-\begin{itemize}
-  \item history concatenation
-  \item parameters / constants used
-\end{itemize}
-\todo[inline]{Maybe add a tabular overview for all variables.}
-
+Additionally to the notation defined in the previous sections, we introduce the
+following notation to describe the algorithm: $h$ represents a history, ($b_0$,
+$a_1$, $o_1$, $a_2$, \dots, $a_k$, $o_k$), as introduced in \cref{sec:pomdp},
+$ha$ and $hao$ are shorthand for concatenation of $h$ with $a$ or $(a, o)$,
+respectively. $d$ denotes the remaining depth to explore, with $d_\text{max}$
+the maximum depth; $C(h)$ is the list of children of node $h$; $N(h)$ denotes
+the number of visits of node $h$; $M(h)$ is a count for the number of times the
+observation terminated history $h$ has been generated. $B(h)$ represents a list
+of states associated with node $h$, with $W(h)$ the corresponding weights.
 
 \textbf{Plan}\\
 The \textsc{Plan} procedure represents the outer loop of the algorithm. Input
@@ -521,14 +523,7 @@ accordingly.
             \State \textbf{return} $total$
         \EndProcedure\vspace{10pt}
     \end{algorithmic}
-    \todo[inline]{Maybe also add plain POMCP (without DPW) to the appendix for reference?}
 \end{algorithm}
-
-\todo[inline]{write:}
-\begin{itemize}
-  \item explain the basic idea of POMCPOW as Monte Carlo with DPW.
-  \item is extension of POMCP with weighted particle beliefs.
-\end{itemize}
 
 \missingfigure{graphical model of POMCP-Tree with weighted scenarios.}
 
