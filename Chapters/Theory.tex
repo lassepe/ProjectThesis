@@ -1,4 +1,4 @@
-\chapter{Fundamentals}
+\chapter{Fundamentals}\label{chap:fundamentals}
 
 This work showcases the use of \acp{pomdp} to model and solve decision making
 problems in robotics with inherent uncertainty. In order to provide a baseline
@@ -276,7 +276,6 @@ greater detail and discuss their theoretical properties.
 \end{itemize}
 
 \missingfigure{DESPOT tree visualization}
-\missingfigure{DESPOT algorithm Pseudo Code}
 
 \subsection{POMCPOW}
 
@@ -439,16 +438,16 @@ in \cref{alg:pomcpow}. With the preceding introduction of \ac{mcts} and the
 aforementioned outline of the algorithms key ideas in mind, we proceed by
 discussing each subroutine in greater detail.
 
-Additionally to the notation defined in the previous sections, we introduce the
-following notation to describe the algorithm: $h$ represents a history, ($b_0$,
-$a_1$, $o_1$, $a_2$, \dots, $a_k$, $o_k$), as introduced in \cref{sec:pomdp},
-$ha$ and $hao$ are shorthand for concatenation of $h$ with $a$ or $(a, o)$,
-respectively. $d$ denotes the remaining depth to explore, with $d_\text{max}$
-the maximum depth; $C(h)$ is the list of children of node $h$; $N(h)$ denotes
-the number of visits of node $h$; $M(hao)$ is a count for the number of times
-the observation terminated history $hao$ has been sampled by the generative
-model, $G$. $B(h)$ represents a list of states associated with node $h$, with
-$W(h)$ the corresponding weights.
+In addition to the variables defined in the previous sections, we introduce the
+following notation to describe the \ac{pomcpow} algorithm: $h$ represents
+a history, ($b_0$, $a_1$, $o_1$, $a_2$, \dots, $a_k$, $o_k$), as introduced in
+\cref{sec:pomdp}, $ha$ and $hao$ are shorthand for concatenation of $h$ with
+$a$ or $(a, o)$, respectively. $d$ denotes the remaining depth to explore, with
+$d_\text{max}$ the maximum depth; $C(h)$ is the list of children of node $h$;
+$N(h)$ denotes the number of visits of node $h$; $M(hao)$ is a count for the
+number of times the observation terminated history $hao$ has been sampled by
+the generative model, $G$. $B(h)$ represents a list of states associated with
+node $h$, with $W(h)$ the corresponding weights.
 
 \textbf{Plan}\\
 The \textsc{Plan} procedure represents the outer loop of the algorithm. Input

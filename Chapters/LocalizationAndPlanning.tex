@@ -1,5 +1,108 @@
 \chapter{Simultaneous Localization and Planning}\label{chap:localization-and-planning}
 
-\section{Problem Statement}
-\section{POMDP Formalization}
-\section{Evaluation}
+Typically, robot localization and motion planning are treated as mostly
+independent tasks. Often, the problem provides the agent with a focused initial
+belief or allows the agent to quickly reduce uncertainty by first collecting
+a series of measurements that don't require elaborate motion planning. This is
+particularly the case if the state space is well observed, i.e. there exists
+a sensor that provides the robot with a (noisy) position reading (e.g. GPS).
+For these well behaved problems, a simple yet effective approach is to first
+collect sensor data while executing a default motion, i.e. rotating about the
+yaw axis to collect measurements in all directions. Once state uncertainty is
+reduced to a focused, unimodal belief, the problem is treated as fully observed
+problem and motion planning is performed on expectation. That is, trajectories
+are planned based on the assumption that the expectation of the belief, $E[b]$,
+is a sufficient approximation for the true position of the robot. Furthermore,
+higher statistical moments \todo{What is the right word for this?} may be used
+to trigger additional information gathering. In even simpler problems, plan
+execution may implicitly yield sufficient information gathering, rendering
+explicit consideration of this aspect obsolete.
+
+However, more challenging problems are obtained when information gathering
+happens less naturally. In these cases, a simple approach as outlined above
+does not perform well. Instead, state estimation requires the agent to consider
+the full belief distribution as well as future observations in order to
+identify informative action sequences.
+
+
+\todo[inline]{Rewrite once structure has converged}
+An instance of such problem is studied in this chapter. We begin by stating the
+problem details in \cref{sec:lp-problem-statement}.
+\cref{sec:lp-pomdp-formalization} then formalizes this problem as a \ac{pomdp}.
+Finally, we solve this problem using the methods presented in
+\cref{chap:fundamentals}\todo{fix} to evaluate the performance against a base
+line policy in \cref{sec:lp-evaluation}.
+
+\section{Problem Statement}\label{sec:lp-problem-statement}
+
+\todo[inline]{Reference Stanford Final project here}
+
+Consider a robot operating in a planar, previously mapped room as depicted in
+\cref{fig:roomba-env}. The robot starts at a position drawn uniformly at random
+from the set of all possible position-orientation tuples. This initial position
+is not known by the agent. The robot is equipped with a single sensor that
+provides it with information about collisions with any walls of the room. This
+sensor is imperfect, ... \todo[inline]{details of observation model} The
+robot's dynamics are governed by an underactuated first-order model that allows
+the robot to translate forward and/or rotate about it's vertical axis. The
+agent yields\todo{better phrase for yield?} control authority by choosing the
+translation and rotation rates, respectively. Control commands enter the system
+with noise and are saturated at the physical limits.
+
+The robot is tasked to reach the exit (green) while avoiding falling down the
+stairs (red). Additionally, unnecessary collisions are to be avoided.
+
+\begin{figure}[htpb]
+  \centering
+  \missingfigure{Roomba environment}
+  \caption{Model of the roomba problem as provided by \todo[inline]{cite: Stanford final project.}}
+  \label{fig:roomba-env}
+\end{figure}
+
+A black box simulator for this problem is provided by ...\todo[inline]{cite Stanford final project}
+
+\section{POMDP Formalization}\label{sec:lp-pomdp-formalization}
+
+We formalize this problem as a \ac{pomdp} with the following properties introduced in \cref{sec:pomdp}:
+
+\begin{description}
+	\item[State Space $\sspace$.] The state of the robot is defined as the
+	position, orientation tuple, $s=((x,y), \alpha)$. Respectively, $\sspace$ is
+	the set of all positions-orientation tuples inside the room.
+	\item[Action Space $\aspace$.] An action is defined as a translation-rotation
+		rate tuple, $a=(v, \omega)$. $\aspace$ is the set of all these
+		tuples adhering to the physical limitations of the system.
+	\item[Transition Model $\tdist$.] The transition model is defined implicitly
+		by the black box simulator provided in \todo[inline]{cite: Stanford final project}
+    \todo[inline]{valid? Do I need to state this explicitly? Could point to code.}
+  \item[Reward Function $\reward: \sspace \times \aspace \times
+    \sspace \to \reals$.] The reward model is defined as:
+    \begin{equation}
+      \reward(s, a, s') = r_\text{time} + \chrond(s') r_\text{collision} + \chrond(s') r_\text{goal} + \chrond(s') r_\text{stairs}.
+    \end{equation}
+    Here, $\chrond(s)$ denotes the Chronecka delta function, evaluating "one"
+    if the denoted condition is met \todo{use correct symbol and better
+    explanation}. The reward model is parametrized by the following quantities:
+    $r_\text{time}$ is a living penalty encouraging the robot to minimize the
+    time until the goal is reached; $r_\text{collision}$ is a penalty for
+    collision with walls; $r_\text{goal}$ is the reward obtained when reaching
+    the goal, and $r_\text{stairs}$ the penalty for falling down the stairs.\\
+    \todo[inline]{Discussion of the design? Sparsity etc.?}
+  \item[Discount Factor $\gamma$.] Rewards are discounted with $\gamma = 0.95$.
+  \item[Observation Space $\ospace$.] The sensor provides a binary output. That is,
+    there are only two observations: $o^0$  and $o^1$.
+    \todo[inline]{observation model}
+  \item[Observation Model $\odist$.]
+    \todo[inline]{observation model}
+\end{description}
+
+Using this formalization, the problem is a \ac{pomdp} with continuous state and
+action space and a discrete observation space. The reward model chosen for this
+problem is sparse. That is, it only encodes high level preferences but avoids
+biasing the policy through additional transition dependent rewards (e.g.
+rewards for reducing the distance to the goal).
+
+
+\section{Solution Strategies}
+
+\section{Evaluation}\label{sec:lp-evaluation}
