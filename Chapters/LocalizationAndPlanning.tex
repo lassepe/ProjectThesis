@@ -94,12 +94,15 @@ We formalize this problem as a \ac{pomdp} with the following properties introduc
     when reaching the goal, and $r_\text{stairs}$ the penalty for falling down
     the stairs.\\
     \todo[inline]{Discussion of the design? Sparsity etc.?}
-  \item[Discount Factor $\gamma$.] Rewards are discounted with $\gamma = 0.95$.
-  \item[Observation Space $\ospace$.] The sensor provides a binary output. That is,
-    there are only two observations: $o^0$  and $o^1$.
+  \item[Discount Factor $\gamma$.] Rewards are discounted with $\gamma = 0.99$.
+  \item[Observation Space $\ospace$.] The sensor provides a binary output,
+    stating whether the robot is currently in contact with the wall or not. That
+    is, there are only two observations: $o^0$  and $o^1$.
     \todo[inline]{observation model: figure out hte exact form of this}
-  \item[Observation Model $\odist$.]
-    \todo[inline]{observation model: figure out the exact form of this}
+  \item[Observation Model $\odist$.] The collision sensor is deterministic.
+    That is, the observation model is a Dirac delta function, evaluating
+    non-zero of a state, $s$, if and only if the collision state of $s$ matches
+    the observation, $o$.
 \end{description}
 
 Summarizing, the problem is a \ac{pomdp} with continuous state and action space
