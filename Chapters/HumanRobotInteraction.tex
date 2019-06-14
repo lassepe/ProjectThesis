@@ -1,0 +1,27 @@
+\chapter{Motion Planning with Latent Human Intentions}\label{chap:hri}
+
+\begin{itemize}
+  \item robots need to serve the human: autonomous agents usually share the same space as humans
+  \item navigation around humans is hard because humans are hard to predict
+  \item model mismatch inevitable: humans might not always behave like expected
+  \item robot can not model every aspect of the world
+  \item with missing features: from a robot perspective the human often acts irrational
+  \item deterministic models fail to account for these things
+  \item better: stochastic models
+  \item two ways in which stochasticity can be helpful
+  \begin{itemize}
+    \item high level human intention (e.g. where does the human want to walk)
+    \item stochastic low level behavior (e.g. how does the human walk)
+  \end{itemize}
+  \item There has been a lot of work on this and recent work suggests that modelling the human in a stochastic way is helpful to increase robustness. \cite{fisac2018probabilistically}
+  \item Fisac simplified the problem by neglecting branching on future observations. Hypothesis: makes the solution too conservative due to growing uncertainty in the future.
+  \item This chapter will propose a full POMDP solution (with observation branching) in an effort to investigate the performance gain.
+  \item (motivated by the fact that the we have a fast programming language that makes this feasible)
+\end{itemize}
+
+\section{Problem Statement}\label{sec:hri-problem-statement}
+\section{POMDP Formalization}\label{sec:hri-pomdp-formalization}
+\section{Solution Strategies}\label{sec:hri-solutions}
+\subsection{Base Line}\label{sec:hri-base-line}
+\subsection{POMDP Solution}\label{sec:hri-planners}
+\section{Evaluation}\label{sec:hri-evaluation}
