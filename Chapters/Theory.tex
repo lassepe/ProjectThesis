@@ -99,14 +99,13 @@ by augmenting the 5-tuple $(\sspace, \aspace, \tdist, \reward,
 \end{description}
 
 The dynamic decision network representing the information structure for
-a finite time horizon of a \ac{pomdp} is depicted in
-\cref{fig:pomdp}.\todo{@zach is information structure the right word here? Or
-is this only valid for game theory?} As evident from this figure, the decision
-of the agent at time $t$ is informed by the sequence of all previous actions
-and observations as well as some prior knowledge, $b_0$. In contrast to the
-fully observable case where the policy is only a function of quantities at the
-current time, the policy in a \ac{pomdp} maps each possible \vname{history},
-${h_t = (b_0, a_0, o_1, a_1, \dots, a_{t-1}, o_t)}$ to an action, $a_t$.
+a finite time horizon \ac{pomdp} is depicted in \cref{fig:pomdp}. As evident
+from this figure, the decision of the agent at time $t$ is informed by the
+sequence of all previous actions and observations as well as some prior
+knowledge, $b_0$. In contrast to the fully observable case where the policy is
+only a function of quantities at the current time, the policy in a \ac{pomdp}
+maps each possible \vname{history}, ${h_t = (b_0, a_0, o_1, a_1, \dots,
+a_{t-1}, o_t)}$ to an action, $a_t$.
 
 \begin{figure}[htpb]
   \centering
@@ -144,18 +143,14 @@ objective of maximizing \cref{eq:objective}. Alternatively, when thinking of
 this procedure in terms of action-observation-histories, the policy may be
 envisioned as a conditional plan reasoning over the optimal action to take for
 every possible sequence of actions and observations starting from the root
-belief, $b_0$.\todo{visualization of conditional plan?} This perspective
-reveals that the search space of possible policies rapidly grows with
-increasing size of $\aspace$ and $\ospace$. In fact, it has been shown that
-even in the case of finite-horizon problems \acp{pomdp} remain
-PSPACE-complete. Hence, it is reasonable to assume to that no efficient general
-algorithm for solving large problems of this class can be found
-\cite{papadimitriou1987complexity}. However, recent research has made
+belief, $b_0$. This perspective reveals that the search space of possible
+policies rapidly grows with increasing size of $\aspace$ and $\ospace$. In
+fact, it has been shown that even in the case of finite-horizon problems
+\acp{pomdp} remain PSPACE-complete. Hence, it is reasonable to assume to that
+no efficient general algorithm for solving large problems of this class can be
+found \cite{papadimitriou1987complexity}. However, recent research has made
 significant progress on approximate solution methods, some of which we will use
 in this work \cite{silver2010pomcp, somani2013despot, sunberg2018online}.
-
-\todo[inline]{@zach: should this already contain some of the theoretical
-advantages that one can expect?}
 
 \section{Online POMDP Solvers}\label{sec:online-pomdp-solvers}
 
@@ -292,8 +287,6 @@ a wide range of \ac{mcts} algorithms, the reader may refer to
 \cite{browne2012survey}.
 
 \subsubsection{Monte-Carlo Tree Search}
-\todo[inline]{explain the basic idea of \ac{mcts} on a high level}
-
 A theoretically valid solution method for sequential decision making problems
 is the construction of the entire policy tree. This tree consists of alternating
 layers of states and actions, enumerating all possible future trajectories.
@@ -332,8 +325,7 @@ comprises four steps:
     selects an action based on the current \qfunction approximation. Once an
     action has been chosen, the next state is selected by sampling from the
     $G$. This search procedure is repeated in an effort to reach
-    the most urgent leaf node of the policy tree. \todo[inline]{Also often
-    called \emph{selection}.}
+    the most urgent leaf node of the policy tree.
   \item[Expansion] Once an action node is reached that does not have any
     children, a new node is appended to the policy tree by sampling a state
     from $G$ and adding the corresponding actions.
@@ -372,7 +364,8 @@ tuning of $c$, the reader may refer to \cite{kocsis2006bandit, browne2012survey}
   \includegraphics[width=0.8\linewidth]{mcts-general.png}
   \caption{One iteration of the general \ac{mcts} approach
   \cite{browne2012survey}.\todo[inline]{Selection should be called search.
-  Simulation should be called Rollout. Draw this in Inkscape.}}
+  Simulation should be called Rollout (to be consistent with
+  \cite{kochenderfer2015decision}). Draw this in Inkscape.}}
   \label{fig:mcts-general}
 \end{figure}
 

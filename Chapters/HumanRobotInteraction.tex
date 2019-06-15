@@ -1,5 +1,29 @@
 \chapter{Motion Planning with Latent Human Intentions}\label{chap:hri}
 
+Robots that are designed to assist humans almost inevitably have to operate in
+a shared environment. Close \ac{hri} requires autonomous agents to navigate
+safely in domains that typically don't feature safety barriers to physically
+separate them from humans. Therefore, robots must ensure human safety through
+careful planning and robust behaviors. At the same time, trajectories of humans
+are hard to predict as they follow complex behaviors whose dynamics are only
+partially understood.\todo{cite}. For this reason, research in the past
+has moved from simple rule-based and deterministic models \todo{social forces
+etc.} towards data driven probabilistic predictions that approximate the future
+as a distribution over trajectories \todo{cite: social lstm, and learning to
+predict trajectories}.
+
+Incorporating stochasticity in the prediction pipeline allows the planner to
+model uncertainty over both, high-level intentions (e.g. \emph{where} does the
+human want to go), and low-level motion behavior (e.g. \emph{how} does the
+human want to go there). Planning strategies that take this uncertainty into
+account promise to provide robustified and potentially more efficient policies
+for navigation around humans. While the properties arising from this kind of
+reasoning are desirable for many \ac{hri} problems, reasoning over
+distributions of possible futures may pose a challenging \ac{pomdp}. Therefore,
+a lot of research has focused on recovering some of these properties by
+proposing domain specific simplifications for these applications
+\cite{fern2007decision, sadigh2016information, javdani2018shared, fisac2018probabilistically}.
+
 \begin{itemize}
   \item robots need to serve the human: autonomous agents usually share the same space as humans
   \item navigation around humans is hard because humans are hard to predict
