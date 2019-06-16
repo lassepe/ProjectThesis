@@ -522,6 +522,25 @@ accordingly.
 
 \section{Tools and Software Framework}
 
+Solving a \ac{pomdp} poses a challenging problem from both, the
+implementational\todo{is this the right phrasing?} and computational
+perspective. Therefore, suitable software tooling is required that provides
+a simple but expressive way of describing problems and solvers while leveraging
+the full computational power of the hardware involved.
+
+This section briefly discusses the tooling choices made for the experiments
+conducted throughout this work. This discussion is not thought to be a detailed
+comparison of \ac{pomdp} frameworks but rather seeks to provide insight into
+how the tools used here can help to accelerate the solution process.
+
+To date, there exist a number of frameworks that are capable of solving
+sequential decision making problems under uncertainty, some of which also
+accommodate partially observable domains. In this work we make use of the novel
+framework \emph{POMDPs.jl}, an open-source interface for solving \acp{mdp} and
+\acp{pomdp} \cite{egorov2017pomdps}. Unlike other popular frameworks like APPL
+(\cite{appl}), AI-Toolbox (\cite{aitoolbox}), and ZMDP (\cite{zmdp}) this not written
+in \emph{C++} but in the \emph{Julia} programming language.
+
 \todo[inline]{Some insight into which tools are used and why:}
 \begin{itemize}
   \item briefly point to speed comparison results (own application specific comparison + official charts)
