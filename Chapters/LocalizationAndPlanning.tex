@@ -22,18 +22,18 @@ explicit consideration of this aspect obsolete.
 
 However, more challenging problems are obtained when information gathering
 happens less naturally. In these cases, a simple approach as outlined above
-does not perform well. Instead, state estimation requires the agent to consider
-the full belief distribution as well as future observations in order to
-identify informative action sequences.
-
+may not perform well. Instead, persistently good performance requires the agent
+to consider the full belief distribution as well as future observations in
+order to identify informative action sequences.
 
 \todo[inline]{Rewrite once structure (below) has converged}
 An instance of such problem is studied in this chapter. We begin by stating the
 problem details in \cref{sec:lp-problem-statement}.
 \cref{sec:lp-pomdp-formalization} then formalizes this problem as a \ac{pomdp}.
-Finally, we solve this problem using the methods presented in
-\cref{chap:fundamentals} to evaluate the performance against a base
-line policy in \cref{sec:lp-evaluation}.
+\cref{sec:lp-solutions} presents solution strategies based on \ac{pomdp}
+solvers introduced in \cref{sec:online-pomdp-solvers} as well as two heuristic
+baseline approaches. Finally, we evaluate the performance of each solver and
+discuss the results \cref{sec:lp-evaluation}.
 
 \section{Problem Statement}\label{sec:lp-problem-statement}
 
@@ -74,6 +74,9 @@ problem\footnote{\url{https://github.com/sisl/AA228FinalProject}}.
 \section{POMDP Formalization}\label{sec:lp-pomdp-formalization}
 
 The problem is formalized as a \ac{pomdp} with the following properties introduced in \cref{sec:pomdp}:
+
+\todo[inline]{Mention somewhere that we discretize the action space because
+samples are expensive (problem setup is quite slow)}
 
 \begin{description}
 	\item[State Space $\sspace$.] The state of the robot is defined as the
@@ -122,14 +125,36 @@ reducing the distance to the goal).
 
 \section{Solution Strategies}\label{sec:lp-solutions}
 
-We solve the \ac{pomdp} described in \cref{sec:lp-pomdp-formalization} both
-with \ac{pomcpow} and \ac{despot}. In an effort to
+We solve the \ac{pomdp} described in \cref{sec:lp-pomdp-formalization} using
+\ac{despot} and \ac{pomcpow}, respectively. For each of these solvers we
+propose two domain specific adaptations to guide the policy search. In addition
+to that, we present two baseline policies that use a heuristic policy to
+control the agent. In order to consider efficiency of each algorithm we limit
+the computation time per planning step to $T_\text{max} = \SI{1}{s}$. Each policy
+uses the same particle filter to estimate the root belief.
+\todo[inline]{Maybe point to code attached or to repo.}
 
-\subsection{Base Line}\label{sec:lp-baseline}
+\subsection{Base Lines}\label{sec:lp-baseline}
+
+In order to obtain a baseline we make a common simplifying assumption: Instead
+of planning with the full root belief, $b$, the policy uses only the \emph{most
+likely state}, $\sml = \mode(b)$. Using this approximation, the problem is then
+treated as fully observable. That is, at every time step the control action is
+selected based on the assumption that the true position of the robot matches
+the most likely state. The loop is closed by applying only the first action of
+the policy at each time step to then update the belief and re-plan from the
+next most likely state, $\sml' = \mode(b')$. Based on this assumption we
+propose two heuristic policies:
+
+\begin{description}
+  \item[\ac{mlr}] This policy is a simple reflex agent that
+  \item[\ac{mlmpc}] test
+\end{description}
 
 \subsection{POMDP Solutions}\label{sec:lp-planners}
 
 \section{Evaluation}\label{sec:lp-evaluation}
+
 
 \begin{figure}[ht]
   \begin{adjustbox}{addcode={\begin{minipage}{\width}}{\caption{%
