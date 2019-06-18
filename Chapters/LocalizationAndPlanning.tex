@@ -50,8 +50,7 @@ spread uniformly across the entire room. The robot is equipped with a single
 sensor that provides information about collisions with walls of the room. The
 robot's dynamics are governed by an underactuated first-order model that allows
 the robot to translate forward and/or rotate about it's vertical axis. The
-agent holds control authority tho choose translation and rotation rates,
-respectively.
+agent holds control authority to choose translation and rotation rates.
 
 This problem has originally been published under the name \emph{"Escape
 Roomba"} by the \emph{Stanford Intelligent Systems Laboratory} as part of the
@@ -130,8 +129,8 @@ We solve the \ac{pomdp} described in \cref{sec:lp-pomdp-formalization} using
 propose two domain specific adaptations to guide the policy search. In addition
 to that, we present two baseline policies that use a heuristic policy to
 control the agent. In order to consider efficiency of each algorithm we limit
-the computation time per planning step to $T_\text{max} = \SI{1}{s}$. Each policy
-uses the same particle filter to estimate the root belief.
+the computation time per planning step to $T_\text{max} = \SI{1}{s}$. Each
+policy uses the same particle filter to estimate the root belief.
 \todo[inline]{Maybe point to code attached or to repo.}
 
 \subsection{Baseline Policies}\label{sec:lp-baseline}
@@ -167,11 +166,57 @@ observable case.
 
 \subsection{POMDP Solutions}\label{sec:lp-planners}
 
+We use \ac{despot} and \ac{pomcpow} to solve the \ac{pomdp}. For each solver we
+propose two strategies in which domain knowledge can be utilized to guide the
+policy search for the localization and planning problem.
+
 \subsubsection{DESPOT}\label{sec:lp-planners-despot}
+
+As presented in \cref{sec:theory-despot}, \ac{despot} uses upper and lower
+bounds, $U_0$ and $L_0$, on the value function to guide the policy search and
+prune the determinized policy tree. In theory, the tighter these bounds are on
+the true value function, the more efficiently the algorithm will focus on
+exploring the relevant trajectories. On the other hand, if these estimates
+violate the true bounds on the optimal cost to go, \ac{despot} with perform
+sub-optimally. However, as proven in \cite{somani2013despot}, the algorithm is
+robust against approximation errors. That is, similar to informed graph search
+algorithms like \emph{A*}, the performance of the algorithm will degrade
+gracefully with violations of $U_0$. In fact, similar to bounded relaxations of
+\emph{A*}, non-admissible heuristics may help to find good solutions earlier.
+Therefore, even if $U_0$ is not a true upper bound on the optimal value, it may
+help to improve performance when limited planning time does not allow to
+thoroughly explore the search space. Furthermore, it should be noted that
+finding tight bounds at the expense of high compute also defeats the purpose.
+In the limit, finding the tightest upper and lower bound on the optimal value
+requires solving the entire \ac{pomdp}. Therefore, choosing suitable upper and
+lower bounds is an important design choice when adapting \ac{despot} for
+a specific problem.
+
+There exist a variety of strategies to compute these upper and lower bounds.
+\todo{maybe list some common ones}
+In the following we present two of the strategies we found most effective for
+the problem studied here.
+
+\begin{description}
+  \item[Analytic Bounds] In this strategy we compute the bounds using an
+  analytic, closed form\todo{what is a better phrasing for this?} approximation
+  for $U_0$ and $L_0$. Due to the structure of the reward model, we can directly
+  compute the reward collected on an arbitrary $n$-step, collision-free
+  trajectory. The upper bound uses this mapping 
+
+  For this purpose, we approximate the reward for an
+  $n$-step trajectory 
+  \item[Rollout Lower Bound]
+\end{description}
+
 
 \subsubsection{POMCPOW}\label{sec:lp-planners-pomcpow}
 
 \section{Evaluation}\label{sec:lp-evaluation}
+
+\begin{itemize}
+  \item spending a lot of time to find tight bounds does not help
+\end{itemize}
 
 
 \begin{figure}[ht]
