@@ -219,17 +219,49 @@ the problem studied here.
     return. Using these approximations, $U_0$ is a true upper bound on the
     optimal value. While for $L_0$ there is no strict guarantee to be a true
     lower bound, we found that most cases it is well behaved.
-  \item[Rollout Lower Bound]
-    TODO: same upper bound: address lower bound issue by having a true bound.
+  \item[Rollout Lower Bound] This strategy uses the same upper bound as the
+    first approach. However, for $L_0$ we use a default policy rollout to
+    obtain a true lower bound. In order to generate a structured motion, we use
+    a \emph{fixed-action} policy that always selects the forward action,
+    instead of the common random policy rollout. By this means, the rollout
+    policy provides a tight lower bound once evaluated from a state that
+    already faces the exit of the room.
 \end{description}
 
-
 \subsubsection{POMCPOW}\label{sec:lp-planners-pomcpow}
+
+\ac{pomcpow} uses a value estimate to approximate the remaining reward to be
+collected from a leave node of the policy tree. Due to the design of the
+algorithm, this value estimate is only ever invoked on observation nodes when
+visited for the first time (cf. \cref{alg:pomcpow}). As a result, the
+corresponding belief consists of only a single state and the problem is de
+facto fully observable. Hence, in order to adapt this algorithm for a specific
+problem one can design the value estimate based on the corresponding \ac{mdp}.
+Hereafter, we present two strategies strategies to compute this value estimate
+for the localization and planning problem.
+
+\begin{description}
+  \item[Analytic Value Estimate] We compute an analytic value estimate for
+    state, $s$, with a strategy similar to the one used to obtain analytic
+    bounds for \ac{despot}. We relax the planning problem by assuming that the
+    robot can move immediately from $s$ to the goal on a rectilinear
+    trajectory. Using this relaxation we can compute the estimate on the
+    remaining number of steps to the goal, $\hat{n}$. We then obtain the value
+    estimate for an $\hat{n}$-step, collision-free trajectory by propagating
+    $\hat{n}$ through $\hat{\Sigma}$, introduced above.
+  \item[Rollout Estimate] A commonly used strategy in \ac{mcts} is a random
+    policy rollout \cite{browne2012survey}. For this problem, however, random
+    play-outs do not provide a good value estimate since random trajectories
+    will often fail to reach a terminal state within reasonable time. Instead,
+    we use the \emph{fixed-action} policy proposed for the \ac{despot} lower
+    bound approximation in the preceding paragraph.
+\end{description}
 
 \section{Evaluation}\label{sec:lp-evaluation}
 
 \begin{itemize}
   \item spending a lot of time to find tight bounds does not help
+  \item POMCPOW: In the face of uncertainty it is good to be optimistic
 \end{itemize}
 
 
