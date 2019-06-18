@@ -134,7 +134,7 @@ the computation time per planning step to $T_\text{max} = \SI{1}{s}$. Each polic
 uses the same particle filter to estimate the root belief.
 \todo[inline]{Maybe point to code attached or to repo.}
 
-\subsection{Base Lines}\label{sec:lp-baseline}
+\subsection{Baseline Policies}\label{sec:lp-baseline}
 
 In order to obtain a baseline we make a common simplifying assumption: Instead
 of planning with the full root belief, $b$, the policy uses only the \emph{most
@@ -147,11 +147,29 @@ next most likely state, $\sml' = \mode(b')$. Based on this assumption we
 propose two heuristic policies:
 
 \begin{description}
-  \item[\ac{mlr}] This policy is a simple reflex agent that
-  \item[\ac{mlmpc}] test
+  \item[\ac{mlra}] For this baseline, the agent uses a simple, handcrafted
+  feedback policy that does not involve any active reasoning about future
+  states. Instead, it uses a proportional controller to track the center line
+  of the room to reach exit. As a result, evaluating \ac{mlra} is
+  computationally inexpensive. \ac{mlra} is not an optimal policy for the fully
+  observable problem.
+  \item[\ac{mlmpc}] This planning agent computes the optimal state trajectory
+  for the fully observable problem starting from $\sml$. That is, it uses the
+  negative reward model as a cost function to obtain the objective for the
+  model predictive controller.
 \end{description}
 
+Unlike \ac{mlra}, \ac{mlmpc} is an optimal policy for the fully observed
+problem. However, it should be noted that this result does not necessarily
+translate to the partially observed domain. Appendix TODO\todo{cref to
+appendix} compares the performance of both baseline policies for the fully
+observable case.
+
 \subsection{POMDP Solutions}\label{sec:lp-planners}
+
+\subsubsection{DESPOT}\label{sec:lp-planners-despot}
+
+\subsubsection{POMCPOW}\label{sec:lp-planners-pomcpow}
 
 \section{Evaluation}\label{sec:lp-evaluation}
 
