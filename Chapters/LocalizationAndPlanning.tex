@@ -196,17 +196,31 @@ There exist a variety of strategies to compute these upper and lower bounds.
 \todo{maybe list some common ones}
 In the following we present two of the strategies we found most effective for
 the problem studied here.
+\todo[inline]{point to the code on the cd (or appendix)}
 
 \begin{description}
   \item[Analytic Bounds] In this strategy we compute the bounds using an
-  analytic, closed form\todo{what is a better phrasing for this?} approximation
-  for $U_0$ and $L_0$. Due to the structure of the reward model, we can directly
-  compute the reward collected on an arbitrary $n$-step, collision-free
-  trajectory. The upper bound uses this mapping 
-
-  For this purpose, we approximate the reward for an
-  $n$-step trajectory 
+    analytic, closed form\todo{what is a better phrasing for this?}
+    approximation for $U_0$ and $L_0$. Due to the structure of the reward
+    model, we can directly compute the cumulative reward for an arbitrary
+    $n$-step, collision-free trajectory. Let $\hat{\Sigma}: \naturals \to
+    \reals$ be this mapping. We compute the upper bound, $U_0$, on the optimal
+    value by considering a strict relaxation of the problem: First, we assume
+    that the robot is located at the closest position to the goal out of all
+    particles in the current belief; Second, we assume that the robot can
+    immediately move on a straight line to the target. With this relaxation we
+    compute the minimum remaining number of steps, $n_{\text{min}}$, from the
+    minimum Euclidean distance over all particles to the goal and the maximum
+    translational speed. For the lower bound, $L_0$, we proceed in
+    a similar fashion. In this case, however, we consider the worst case
+    particle by using the $\ell_1$ norm as a distance metric combined with an
+    under-approximation on the velocity to obtain $n_{\text{max}}$. In either
+    case, we use $\hat{\Sigma}$ to map the step estimate to a corresponding
+    return. Using these approximations, $U_0$ is a true upper bound on the
+    optimal value. While for $L_0$ there is no strict guarantee to be a true
+    lower bound, we found that most cases it is well behaved.
   \item[Rollout Lower Bound]
+    TODO: same upper bound: address lower bound issue by having a true bound.
 \end{description}
 
 
