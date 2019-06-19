@@ -259,16 +259,43 @@ for the localization and planning problem.
 
 \section{Evaluation}\label{sec:lp-evaluation}
 
+We evaluate the performance of each strategy by running $N_\text{sim} = 1000$
+simulations for every setup. In an effort to reduce sampling variance, we
+initially fix $N_\text{sim}$ random seeds. These seeds are shared across the
+different setups for a fixed run. By this means, the $i$th run of each setup
+will see the same random outcome (i.e. same initial conditions and noise
+trajectories, etc.).
+
+
+
+A statistical evaluation of these experiments is depicted in
+\cref{fig:lp-evaluation}. The first row shows the \ac{sem} of the cumulative
+discounted reward over the $1000$ experiments for each policy. The second
+row...
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{roomba_plots/lp_value_sem_eval_plot.pdf}
+  \caption{Name}
+  \label{fig:name}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{roomba_plots/lp_value_violin_eval_plot.pdf}
+  \caption{Name}
+  \label{fig:name}
+\end{figure}
+
 \begin{itemize}
+
   \item spending a lot of time to find tight bounds does not help
   \item POMCPOW: In the face of uncertainty it is good to be optimistic
 \end{itemize}
 
-
-\begin{figure}[ht]
-  \begin{adjustbox}{addcode={\begin{minipage}{\width}}{\caption{%
-  \todo[inline]{Describe and fix scaling and font}
-      }\end{minipage}},rotate=90,center}
-      \includegraphics[scale=0.5]{roomba_plots/data_all_plot.pdf}
-  \end{adjustbox}
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{roomba_plots/lp_value_eval_plot.pdf}
+  \caption{Name}
+  \label{fig:name}
 \end{figure}
