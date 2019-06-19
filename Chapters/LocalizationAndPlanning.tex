@@ -266,18 +266,20 @@ different setups for a fixed run. By this means, the $i$th run of each setup
 will see the same random outcome (i.e. same initial conditions and noise
 trajectories, etc.).
 
+\Cref{fig:lp-value-sem} shows the mean and well as the \ac{sem} over the $1000$
+experiments for each policy. The \ac{sem} approximates the standard error
+between the empirical mean obtained from the sampled experiments and the true
+mean of the value distribution, obtained for $N_\text{sim} \to \infty$. The
+results shows that all \ac{pomdp} planners perform significantly better than the
+baseline policies. Within the baselines the planning agent (\ac{mlmpc})
+performs better than the proposed reflex agent (\ac{mlra}). Out of all \ac{pomdp}
+planners \ac{pomcpow} with analytic value estimate achieves the best results.
 
-
-A statistical evaluation of these experiments is depicted in
-\cref{fig:lp-evaluation}. The first row shows the \ac{sem} of the cumulative
-discounted reward over the $1000$ experiments for each policy. The second
-row...
-
-\begin{figure}[htpb]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=1]{roomba_plots/lp_value_sem_eval_plot.pdf}
-  \caption{Name}
-  \label{fig:name}
+  \caption{Mean and \acf{sem} for each policy introduced in \cref{sec:lp-solutions}.}
+  \label{fig:lp-value-sem}
 \end{figure}
 
 \begin{figure}[htpb]
