@@ -320,14 +320,15 @@ policy. \Cref{fig:lp-value-violin-inf-discounted} shows an approximation of the
 probability density function for the value distribution based on the $1000$
 samples for each policy. From this visualization another important difference
 becomes apparent. While the mean performance of all \ac{pomdp} planners is
-approximately the same, the versions of \ac{despot} and \ac{pomcpow} using an
+approximately the same, those versions of \ac{despot} and \ac{pomcpow} using an
 analytic strategy for bound and value approximation manage to reduce the lower
-tail end of the distribution.
+tail end of the distribution. As a result, these planners show less variance in
+performance than solvers using the corresponding rollout estimates.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=1]{roomba_plots/lp_value_violin_eval_plot-inf_discounted_reward.pdf}
-  \caption{Name}
+  \caption{Approximation of the \acf{pdf} for the value distribution gained by each policy.}
   \label{fig:lp-value-violin-inf-discounted}
 \end{figure}
 
@@ -346,6 +347,7 @@ eliminate a cluster. While \ac{despot} and \ac{pomcpow} are able to actively
 identify information gathering strategies for these cases, the baseline
 policies often oscillate until repeated re-sampling in the particle filter
 breaks the symmetry to an extent that allows to stabilize decisions.
+
 Furthermore, one can observe that all \ac{pomdp} planners are significantly
 better at avoiding failures (falling down the stairs). If the planner is
 presented with a belief that features a cluster near the stairs, the agent
@@ -356,16 +358,43 @@ fail when the topology of the reward is such that this state is facing
 the goal while the true position -- guided by particles with a smaller
 likelihood weight -- is facing the stairs.
 
+Finally, we observe that the \ac{pomdp} planners using a rollout strategy to
+guide the search behave more myopic. While shortsighted planning still allows
+the agent to be robust against falling down the stairs, these policies tend to
+get stuck when a long sequence of actions is required to eliminate uncertainty.
+A possible reason for this is the fact that rollouts are more computationally
+expensive than analytic bound and value estimates. Additionally, in these
+regimes the fixed-action rollout typically does not provide a tight lower bound
+or accurate value estimate for \ac{despot} and \ac{pomcpow}, respectively. In
+the case of \ac{despot}, even though the sparse approach most likely allows
+some branches of the tree to be constructed to full depth, the loose lower
+bound causes policy search to be poorly guided while the limit planning time
+does prevents sufficient exploration of more promising branches. In the case of
+\ac{pomcpow} the computationally expensive rollout performed for every iteration
+of the algorithms hinders the policy tree to reach sufficient depth within
+the computation budget. Since rewards are sparse, on a short horizon all
+futures appear to provide similar reward. Hence, \ac{despot} and \ac{pomcpow}
+fail to identify a promising strategy within their mostly shallow policies trees.
+
 \todo[inline]{Maybe have some figures with sequences of frames and beliefs to show
 what the agent does.}
 
+Summarizing the results of this qualitative analysis,
+\emph{\ac{despot}-analytic} and \emph{\ac{pomcpow}-analytic} generate highly
+efficient and robust behaviors. All other policies show weaker with different
+kinds of failure modes: The rollout versions of the \ac{pomdp} planners more
+often fail to reach the exit due to myopia but still show good performance when
+it comes to avoiding failure states; \ac{mlmpc} rarely fails to reach the goal
+state but often takes very long or becomes unlucky when greedily tyring to
+reach the exit; \ac{mlra} shows an overall worse performance than all other
+policies.
 
-\begin{itemize}
-  \item spending a lot of time to find tight bounds does not help
-  \item POMCPOW: In the face of uncertainty it is good to be optimistic
-  \item baseline policies don't totally fail: there seems to be enough passive
-        info gathering that these things work automatically
-\end{itemize}
+These results are additionally confirmed when evaluating metrics other than the
+objective of the optimization problem. \cref{fig:lp_outcome.pdf} shows
+a histogram of the outcome statistics for each policy. We distinguish between
+three classes of outcomes: \emph{success}, the robot reached the exit;
+\emph{failed to exit}, the agent did not make it to the exit within the
+simulation horizon; and \emph{failure}, the robot fell down the stairs.
 
 \begin{figure}[H]
   \centering
