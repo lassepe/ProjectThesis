@@ -264,23 +264,58 @@ simulations for every setup. In an effort to reduce sampling variance, we
 initially fix $N_\text{sim}$ random seeds. These seeds are shared across the
 different setups for a fixed run. By this means, the $i$th run of each setup
 will see the same random outcome (i.e. same initial conditions and noise
-trajectories, etc.).
+trajectories, etc.). In order to handle cases in which the agents fails to
+reach a terminal state in a reasonable amount of time, each simulation is run
+for a maximum of number of time steps, $T_\text{max,sim} = 300$. The choice of
+this upper bound on simulation time is justified by evaluation of the optimal
+policy for the fully observable problem. In the corresponding \ac{mdp} with the
+same set of initial conditions, \ac{mlmpc} reached the goal within a maximum
+number of $56$ over all scenarios. Therefore, it is reasonable to assume that
+a well behaved policy for this \ac{pomdp} should be able to reach a succeeding
+terminal state within a time horizon more than five times longer than the worst
+case fully observable run.
 
-\Cref{fig:lp-value-sem} shows the mean and well as the \ac{sem} over the $1000$
-experiments for each policy. The \ac{sem} approximates the standard error
-between the empirical mean obtained from the sampled experiments and the true
-mean of the value distribution, obtained for $N_\text{sim} \to \infty$. The
-results shows that all \ac{pomdp} planners perform significantly better than the
-baseline policies. Within the baselines the planning agent (\ac{mlmpc})
-performs better than the proposed reflex agent (\ac{mlra}). Out of all \ac{pomdp}
-planners \ac{pomcpow} with analytic value estimate achieves the best results.
+We begin by comparing the performance of each strategy by examining the
+cumulative discounted reward. Since maximizing the sum of discounted rewards is
+the objective function for this optimization function, this is the most natural
+benchmark. In order to account for the reward discarded in cases where
+$T_\text{max, sim}$ is exceeded, we penalize the value of these runs by
+extrapolating the living penalty over infinite horizon. Since the sum over the
+infinite sequence of discounted rewards is geometric series, we obtain the
+closed form solution,
+\begin{equation}
+  r_{T_\text{sim,max}} = \sum_{t=1}^\infty r_\text{time} \gamma^{t-1} =  r_\text{time} \frac{\gamma}{1-\gamma}.
+\end{equation}
+Since this reward is collected at the end of the simulation horizon it must
+discounted accordingly, entering the objective function as
+\begin{equation}
+  \Delta V_{T_\text{max,sim}} = r_{T_\text{sim,max}} \gamma^{(T_\text{max,sim} - 1)}
+\end{equation}
+Following this argument, with the parameters chosen for this problem an agent
+that does not reach a terminal state within the simulation horizon is penalized
+with $\Delta V_{T_\text{max,sim}} = -0.49$.
+
+\Cref{fig:lp-value-sem} shows the mean and \ac{sem} of the cumulative
+discounted reward for $1000$ experiments over each policy. The \ac{sem}
+approximates the standard error between the empirical mean obtained from the
+sampled experiments and the true mean of the distribution, obtained
+hypothetically for $N_\text{sim} \to \infty$. The results shows that under this
+metric all \ac{pomdp} planners perform significantly better than the baseline
+policies. Within the baselines the planning agent (\ac{mlmpc}) performs better
+than the proposed reflex agent (\ac{mlra}). Out of all \ac{pomdp} planners
+\ac{pomcpow} with analytic value estimate achieves the best results. Furthermore,
+notice that \ac{despot} shows approximately the same performance for both bound
+approximations while for \ac{pomcpow} the analytic value estimate shows a yields
+improvement.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=1]{roomba_plots/lp_value_sem_eval_plot.pdf}
+  \includegraphics[scale=1.0]{roomba_plots/lp_value_sem_eval_plot.pdf}
   \caption{Mean and \acf{sem} for each policy introduced in \cref{sec:lp-solutions}.}
   \label{fig:lp-value-sem}
 \end{figure}
+
+While above the performance is compared by the disconte
 
 \begin{figure}[htpb]
   \centering
@@ -290,9 +325,10 @@ planners \ac{pomcpow} with analytic value estimate achieves the best results.
 \end{figure}
 
 \begin{itemize}
-
   \item spending a lot of time to find tight bounds does not help
   \item POMCPOW: In the face of uncertainty it is good to be optimistic
+  \item baseline policies don't totally fail: there seems to be enough passive
+        info gathering that these things work automatically
 \end{itemize}
 
 \begin{figure}[htpb]
