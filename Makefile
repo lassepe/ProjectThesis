@@ -20,13 +20,14 @@ roomba_plots:
 	julia --project -e 'using Pkg; Pkg.instantiate(); include("scripts/generate_plots.jl"); create_eval_plot();'\
 	cd -
 
-from_scratch: install roomba_plots all
+from_scratch: roomba_plots all
 
 show:
 	zathura $(MAIN).pdf &
 
 clean:
 	latexmk -CA
-	trash-put ./Figures/roomba_plots/*.pdf
+	trash-put ./code/RoombaPOMDPs.jl/results/final_results/plots/*.pdf || 1
+	trash-put ./Figures/roomba_plots/*.pdf || 1
 
 .PHONY: all fetch_roomba_plots roomba_plots from_scratch show clean
