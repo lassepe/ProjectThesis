@@ -328,7 +328,8 @@ performance than solvers using the corresponding rollout estimates.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=1]{roomba_plots/lp_value_violin_eval_plot-inf_discounted_reward.pdf}
-  \caption{Approximation of the \acf{pdf} for the value distribution gained by each policy.}
+  \caption{Approximation of the \acf{pdf} for the discounted cumulative reward
+  for each policy.}
   \label{fig:lp-value-violin-inf-discounted}
 \end{figure}
 
@@ -390,11 +391,15 @@ reach the exit; \ac{mlra} shows an overall worse performance than all other
 policies.
 
 These results are additionally confirmed when evaluating metrics other than the
-objective of the optimization problem. \Cref{fig:lp_outcome} shows
-a histogram of the outcome statistics for each policy. We distinguish between
-three classes of outcomes: \emph{success (+)}, the robot reached the exit;
-\emph{failed to exit (0)}, the agent did not make it to the exit within the
-simulation horizon; and \emph{failure (-)}, the robot fell down the stairs.
+objective of the optimization problem. \Cref{fig:lp_outcome} shows a histogram
+of the outcome statistics for each policy. We distinguish between three classes
+of outcomes: \emph{success (+)}, the robot reached the exit; \emph{failed to
+exit (0)}, the agent did not make it to the exit within the simulation horizon;
+and \emph{failure (-)}, the robot fell down the stairs. Notice that
+\emph{\ac{pomcpow}-analytic} succeeds in than $96.9\%$ of all runs. Given the
+fact that about $3\%$ of the perimeter is covered by stairs and initially the
+robot has to take a random guess to receive information, this policy can be
+considered near optimal with respect to safety.
 
 \begin{figure}[htpb]
   \centering
@@ -407,23 +412,29 @@ simulation horizon; and \emph{failure (-)}, the robot fell down the stairs.
 \end{figure}
 
 Additional evidence for the findings discussed above is provided by the
-statistics of the \emph{cumulative undiscoutned reward}. While this metric does
-not match the objective for the inifinite horizon formulation, it may match the
-perceived \emph{qualitative performance} more closely since we can only observe
-the agent for a finite time horizon. \Cref{fig:lp_eval_undiscounted} show the
-\ac{sem} and \ac{pdf} approximation for the undiscoutned reward sequence. Using this
+statistics of the cumulative \emph{undiscoutned} reward. While this metric does
+not match the objective for the infinite horizon formulation, it may alighn more closely with the
+perceived \emph{qualitative performance} since one can only observe the agent
+for a finite time horizon. \Cref{fig:lp_eval_undiscounted} depcits the \ac{sem}
+and \ac{pdf} approximation for the undiscoutned reward sequence. Using this
 metric, it becomes clear that the analytic versions of the \ac{pomdp} planners
-outperform all other strategies. Here, we can additionally identify a subtile
+outperform all other strategies. Here, we can additionally identify a subtle
 performance gap between \emph{\ac{despot}-analytic} and
-\emph{\ac{pomcpow}-analytic}. In fact, the \ac{pdf} approxiamation of the
+\emph{\ac{pomcpow}-analytic}. The \ac{pdf} approximation of the
 cumulative undiscoutned reward show that \emph{\ac{pomcpow}-analytic} manages
-to elimite large parts of the low value tail.
+to eliminate large parts of the low value tail.
 
+In summary we can state that for this problem we were able to generate robust
+and efficient behaviors through \ac{pomdp} planning. We show that by carefully
+integrating domain knowledge in a computationally efficient manner, we obtain
+policies significantly safer and more efficient than the common baseline
+approaches.
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[scale=1]{roomba_plots/lp_value_eval_plot-undiscounted_reward.pdf}
-  \caption{Name}
+  \caption{Statistics of the cumulative \emph{undiscounted} reward for each
+  policy. Top: Mean and \acf{sem}. Bottom: Approximation of the \acf{pdf}.}
   \label{fig:lp_eval_undiscounted}
 \end{figure}
 
