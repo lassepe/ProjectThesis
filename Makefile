@@ -27,7 +27,9 @@ show:
 
 clean:
 	latexmk -CA
-	trash-put ./code/RoombaPOMDPs.jl/results/final_results/plots/*.pdf || 1
 	trash-put ./Figures/roomba_plots/*.pdf || 1
+
+clean_all: clean
+	trash-put ./code/RoombaPOMDPs.jl/results/final_results/plots/*.pdf || 1
 
 .PHONY: all fetch_roomba_plots roomba_plots from_scratch show clean

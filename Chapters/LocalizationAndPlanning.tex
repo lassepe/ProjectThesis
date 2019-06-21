@@ -390,26 +390,43 @@ reach the exit; \ac{mlra} shows an overall worse performance than all other
 policies.
 
 These results are additionally confirmed when evaluating metrics other than the
-objective of the optimization problem. \cref{fig:lp_outcome.pdf} shows
+objective of the optimization problem. \Cref{fig:lp_outcome} shows
 a histogram of the outcome statistics for each policy. We distinguish between
-three classes of outcomes: \emph{success}, the robot reached the exit;
-\emph{failed to exit}, the agent did not make it to the exit within the
-simulation horizon; and \emph{failure}, the robot fell down the stairs.
+three classes of outcomes: \emph{success (+)}, the robot reached the exit;
+\emph{failed to exit (0)}, the agent did not make it to the exit within the
+simulation horizon; and \emph{failure (-)}, the robot fell down the stairs.
 
-\begin{figure}[H]
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1.0]{roomba_plots/lp_outcome_eval_plot.pdf}
+	\caption{Histogram of the outcome frequencies grouped by policy. Outcome
+			     classes: \emph{success (+)}, the robot reached the exit; \emph{failed to
+				   exit (0)}, the agent did not make it to the exit within the simulation horizon;
+		 	 	   and \emph{failure (-)}, the robot fell down the stairs.}
+	\label{fig:lp_outcome}
+\end{figure}
+
+Additional evidence for the findings discussed above is provided by the
+statistics of the \emph{cumulative undiscoutned reward}. While this metric does
+not match the objective for the inifinite horizon formulation, it may match the
+perceived \emph{qualitative performance} more closely since we can only observe
+the agent for a finite time horizon. \Cref{fig:lp_eval_undiscounted} show the
+\ac{sem} and \ac{pdf} approximation for the undiscoutned reward sequence. Using this
+metric, it becomes clear that the analytic versions of the \ac{pomdp} planners
+outperform all other strategies. Here, we can additionally identify a subtile
+performance gap between \emph{\ac{despot}-analytic} and
+\emph{\ac{pomcpow}-analytic}. In fact, the \ac{pdf} approxiamation of the
+cumulative undiscoutned reward show that \emph{\ac{pomcpow}-analytic} manages
+to elimite large parts of the low value tail.
+
+
+\begin{figure}[htpb]
   \centering
   \includegraphics[scale=1]{roomba_plots/lp_value_eval_plot-undiscounted_reward.pdf}
   \caption{Name}
-  \label{fig:name}
+  \label{fig:lp_eval_undiscounted}
 \end{figure}
 
-%  \begin{figure}[H]
-%    \centering
-%    \includegraphics[scale=1]{roomba_plots/lp_value_eval_plot-undiscounted_reward.pdf}
-%    \caption{Name}
-%    \label{fig:name}
-%  \end{figure}
-%  
 %  \begin{figure}[H]
 %    \centering
 %    \includegraphics[scale=1]{roomba_plots/lp_value_eval_plot-undiscounted_reward.pdf}
