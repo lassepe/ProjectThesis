@@ -74,6 +74,8 @@ aim to closely match the setup described in \cite{fisac2018probabilistically}.
 
 \todo[inline]{add screenshot of simulator}
 
+\paragraph{High Level Problem}
+
 Consider a human and a robot navigating in a common environment. As a running
 example, this problem may be envisioned as an indoor navigation problem. In
 this problem, the robot aims to efficiently reach a preset goal location
@@ -87,26 +89,13 @@ location. Furthermore, the human has a small likelihood of changing the
 intended walk target mid way. The robot has a model for some of the locations
 humans might want to go to. However, the planner neither knows the exact path
 the human will take, nor is it's model of human goals complete. That is, the
-person might aim to reach an unmodeled goal location.
+person might aim to reach an unmodeled goal location. At every time step the
+robot receives a perfect observation of the current position of both itself and
+the human. The robot ultimately needs to plan and execute a trajectory to
+a goal state according to some notion of efficiency, while avoiding collisions
+with the human.
 
-In this problem setting, the robot is assumed to have access to suitable human
-reward function. In practice such reward model can be learned offline from
-prior human demonstrations, e.g. using inverse reinforcement
-learning\todo{cite?}. By means of a noisy-rationality model used in cognitive
-science \cite{baker2007goal}, the planner can make probabilistic predictions
-of human actions given the state,
-
-\begin{equation}
-  P\left(a^t_\text{H} | s^t_\text{H}; \beta, \theta \right) \propto e^{\beta Q_\text{H}\left(s^t_\text{H}, a^t_\text{H}; \theta\right)}.
-\end{equation}
-
-Here, $a^t_\text{H}$ is the human action taken at time $t$; $s^t_\text{H}$ is
-the state of the human at this time; $Q_\text{H}(s_\text{H}, a_\text{H}; \theta)$ is the
-state-action value function of the human, with $\theta$ being the parameters of the
-$Q$-value encoding latent human intentions (e.g. the goal location); Finally,
-$\beta$ is the \emph{model confidence}, en
-
-
+\paragraph{Human Behavior Model}
 
 This problem poses a challenging planning problem as it requires the agent to
 carefully reason about the intentions of the human in order to avoid collisions
@@ -115,6 +104,34 @@ cases in which the person tries to approach an unmodeled goal, the agent needs
 to make safe fall-back predictions when the human behaves unexpectedly. At the
 same time, planning with the worst case assumption by trying to avoid the
 humans forward reachable set is too conservative.
+
+In this problem setting, the robot is assumed to have access to suitable human
+reward function. In practice such reward model can be learned offline from
+prior human demonstrations, e.g. using inverse reinforcement
+learning\todo{cite?}. By means of a noisy-rationality model used in cognitive
+science \cite{baker2007goal}, the planner can make probabilistic predictions
+of human actions given the state,
+
+\begin{equation}\label{eq:boltzmann}
+  P\left(a^t_\text{H} | s^t_\text{H}; \beta, \theta \right) \propto e^{\beta Q_\text{H}\left(s^t_\text{H}, a^t_\text{H}; \theta\right)}.
+\end{equation}
+
+Here, $a^t_\text{H}$ is the human action taken at time $t$; $s^t_\text{H}$ is
+the state of the human at this time; $Q_\text{H}(s_\text{H}, a_\text{H}; \theta)$ is the
+state-action value function of the human, with $\theta$ being the parameters of the
+$Q$-value encoding latent human intentions (e.g. the goal location); $\beta$ is
+the so called \emph{rationality coefficient}.\\
+This model encodes the assumption that humans are more likely to select actions that
+provide a higher $Q$-value. The rationality constant, $\beta$, determines the
+degree to which the robot expects the human to align with the provided reward
+model. For $\beta = 0$ the model in \cref{eq:boltzmann} degenerates to
+a uniform distribution over all actions. For $\beta \to \infty$ the human acts
+perfectly rational with respect to the utility model,
+$Q_\text{H}$.
+
+Here, we treat both $\theta$ and $\beta$ as latent parameters. That is, the
+agent needs to reason over the parameters of the human reward model (e.g. it's
+current goal) as well as the accuracy of this model.
 
 \section{POMDP Formalization}\label{sec:hri-pomdp-formalization}
 \section{Solution Strategies}\label{sec:hri-solutions}
