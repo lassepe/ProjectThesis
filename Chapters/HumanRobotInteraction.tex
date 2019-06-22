@@ -67,6 +67,55 @@ for this problem. Finally, we evaluate the performance of both policies and
 discuss the results in \cref{sec:hri-evaluation}.
 
 \section{Problem Statement}\label{sec:hri-problem-statement}
+
+In this chapter we study a motion planning problem for a robot in a shared
+environment with a human actor. The assumptions made for this planning problem
+aim to closely match the setup described in \cite{fisac2018probabilistically}.
+
+\todo[inline]{add screenshot of simulator}
+
+Consider a human and a robot navigating in a common environment. As a running
+example, this problem may be envisioned as an indoor navigation problem. In
+this problem, the robot aims to efficiently reach a preset goal location
+inside the room while trying to avoid collisions with the human. At the same
+time, the human does not pay attention to the robot. That is, the decisions of
+the human actor do not depend on the location of the robot. Furthermore, the
+human has time-varying intentions that are not known by the robot. At every
+time step the human aims to reach a certain goal inside the room. Once arrived
+at this goal, the human may either stay at this goal or proceed to another goal
+location. Furthermore, the human has a small likelihood of changing the
+intended walk target mid way. The robot has a model for some of the locations
+humans might want to go to. However, the planner neither knows the exact path
+the human will take, nor is it's model of human goals complete. That is, the
+person might aim to reach an unmodeled goal location.
+
+In this problem setting, the robot is assumed to have access to suitable human
+reward function. In practice such reward model can be learned offline from
+prior human demonstrations, e.g. using inverse reinforcement
+learning\todo{cite?}. By means of a noisy-rationality model used in cognitive
+science \cite{baker2007goal}, the planner can make probabilistic predictions
+of human actions given the state,
+
+\begin{equation}
+  P\left(a^t_\text{H} | s^t_\text{H}; \beta, \theta \right) \propto e^{\beta Q_\text{H}\left(s^t_\text{H}, a^t_\text{H}; \theta\right)}.
+\end{equation}
+
+Here, $a^t_\text{H}$ is the human action taken at time $t$; $s^t_\text{H}$ is
+the state of the human at this time; $Q_\text{H}(s_\text{H}, a_\text{H}; \theta)$ is the
+state-action value function of the human, with $\theta$ being the parameters of the
+$Q$-value encoding latent human intentions (e.g. the goal location); Finally,
+$\beta$ is the \emph{model confidence}, en
+
+
+
+This problem poses a challenging planning problem as it requires the agent to
+carefully reason about the intentions of the human in order to avoid collisions
+while trying to reach it's own goal. Furthermore, in order to be robust against
+cases in which the person tries to approach an unmodeled goal, the agent needs
+to make safe fall-back predictions when the human behaves unexpectedly. At the
+same time, planning with the worst case assumption by trying to avoid the
+humans forward reachable set is too conservative.
+
 \section{POMDP Formalization}\label{sec:hri-pomdp-formalization}
 \section{Solution Strategies}\label{sec:hri-solutions}
 \subsection{Probabilistically Safe Robot Planning}\label{sec:hri-baseline}
