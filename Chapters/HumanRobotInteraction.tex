@@ -2,15 +2,17 @@
 
 Robots that are designed to assist humans almost inevitably have to operate in
 a shared environment. \ac{hri} requires autonomous agents to navigate
-safely in domains that typically don't feature safety barriers to physically
+safely in domains that typically do not feature safety barriers to physically
 separate them from humans. Therefore, robots must ensure human safety through
 careful planning and robust behaviors. At the same time, trajectories of humans
 are hard to predict as they follow complex behaviors whose dynamics are only
-partially understood.\todo{cite}. For this reason, research in the past
-has moved from simple rule-based and deterministic models \todo{social forces
-etc.} towards data driven probabilistic predictions that approximate the future
-as a distribution over trajectories \todo{cite: social lstm, and learning to
+partially understood.\todo{cite} For this reason, research in the past has
+moved from simple rule-based and deterministic models \todo{social forces etc.}
+towards data driven probabilistic predictions that approximate the future as
+a distribution over trajectories \todo{cite: social lstm, and learning to
 predict trajectories}.
+
+\todo[inline]{Explain the notion of latent, internal state}
 
 Incorporating stochasticity in the prediction pipeline allows the planner to
 model uncertainty over both, high-level intentions (e.g. \emph{where} does the
@@ -18,22 +20,55 @@ human want to go), and low-level motion behavior (e.g. \emph{how} does the
 human want to go there). Planning strategies that take this uncertainty into
 account promise to provide robustified and potentially more efficient policies
 for navigation around humans. While the properties gained from this kind of
-reasoning are desirable for many \ac{hri} problems, reasoning over
-distributions of possible futures may pose a challenging \ac{pomdp}. Therefore,
-a lot of research has focused on recovering some of these properties by
-proposing domain specific simplifications for these applications
-\cite{fern2007decision, sadigh2016information, javdani2018shared, fisac2018probabilistically}.
+planning are desirable for many \ac{hri} problems, reasoning over distributions
+of possible futures may pose a challenging \ac{pomdp}. Therefore, a lot of
+research has focused on recovering some of these properties by proposing domain
+specific simplifications for these applications \cite{fern2007decision,
+sadigh2016information, javdani2018shared, fisac2018probabilistically}.
 
-\begin{itemize}
-  \item There has been a lot of work on this and recent work suggests that modelling the human in a stochastic way is helpful to increase robustness. \cite{fisac2018probabilistically}
-  \item Fisac simplified the problem by neglecting branching on future observations. Hypothesis: makes the solution too conservative due to growing uncertainty in the future.
-  \item This chapter will propose a full POMDP solution (with observation branching) in an effort to investigate the performance gain.
-  \item (motivated by the fact that the we have a fast programming language that makes this feasible)
-\end{itemize}
+On the other hand, recent research in this field suggests that through
+increased performance of modern solvers, \ac{pomdp} approaches for motion
+planning problems with \ac{hri} are becoming increasingly practical and that
+this kind of reasoning can help to generate robustified and more efficient
+behaviors for this domain. \cite{bai2015intention} use the \ac{despot} to
+control the speed of an autonomous golf cart for navigation in a crowd. They
+show that by reasoning over future observations the system is able to maneuver
+more safely while reaching the goal faster and increasing passenger comfort
+through smoother trajectories than the proposed greedy baseline.
+\cite{sunberg2017value} examine the value of inferring the internal state of
+traffic participants for autonomous freeway driving. The results presented in
+their work show that the problem allows for a significant increase in
+performance when the agent is omniscient to the individual internal state of
+other vehicles compared to planning with a static \emph{normal} behavior for
+all traffic participants. They demonstrate that inference of the latent
+behavior parameters in combination with \ac{pomdp} planning allows to greatly
+reduce the gap to the omniscient upper bound.
+
+While a lot of work in motion planning under uncertainty has focus on either
+\emph{problem specific simplifications} on the one hand or \emph{full
+\ac{pomdp} solutions} on the other, few results exist on the direct comparison
+of the two. In this chapter we consider a case of motion planning in the
+presence of humans for which an elaborate domain specific strategy has been
+proposed in \cite{fisac2018probabilistically}. This strategy simplifies the
+planning problem by neglecting future observations. Instead, human prediction
+are performed on expectation from the current belief, providing series of
+probability maps for future human lotions. The authors propose a method that
+allows planning with these probabilistic predictions by means of conventional
+motion planning algorithms. We implement this strategy in the \pomdpsjl
+framework to compare it's performance with behaviors generated by
+\ac{pomcpow}.
+
+We begin by stating the details of the motion planning problem in
+\cref{sec:hri-problem-statement}. \cref{sec:hri-pomdp-formalization} then
+formalizes this problem as a \ac{pomdp}. \cref{sec:hri-solutions} briefly
+presents the domain specific approximate planner proposed in
+\cite{fisac2018probabilistically}, as well as the \ac{pomcpow} solver adapted
+for this problem. Finally, we evaluate the performance of both policies and
+discuss the results in \cref{sec:hri-evaluation}.
 
 \section{Problem Statement}\label{sec:hri-problem-statement}
 \section{POMDP Formalization}\label{sec:hri-pomdp-formalization}
-\section{POMDP Solvers}\label{sec:hri-solutions}
-\subsection{Base Line}\label{sec:hri-base-line}
-\subsection{POMDP Solution}\label{sec:hri-planners}
+\section{Solution Strategies}\label{sec:hri-solutions}
+\subsection{Probabilistically Safe Robot Planning}\label{sec:hri-baseline}
+\subsection{POMCPOW}\label{sec:hri-planners}
 \section{Evaluation}\label{sec:hri-evaluation}
