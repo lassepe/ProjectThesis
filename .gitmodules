@@ -1,3 +1,6 @@
 [submodule "code/RoombaPOMDPs.jl"]
 	path = code/RoombaPOMDPs.jl
 	url = git@github.com:lassepe/RoombaPOMDPs.jl.git
+[submodule "code/HumanSwitching.jl"]
+	path = code/HumanSwitching.jl
+	url = git@github.com:lassepe/HumanSwitching.jl
