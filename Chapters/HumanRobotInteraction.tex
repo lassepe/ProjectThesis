@@ -135,6 +135,73 @@ current goal) as well as the accuracy of this model.
 
 \section{POMDP Formalization}\label{sec:hri-pomdp-formalization}
 
+The problem is formalized as a \ac{pomdp} from the robot perspective. It is
+characterized by the following properties introduced in \cref{sec:pomdp}:
+
+\begin{description}
+  \item[State Space $\sspace$.] The state of the environment is defined as the
+  joint state of the human and the robot. For clarity, we introduce the
+  subscripts $H$ and $R$ to denote the affiliation of a subset of the state to
+  the human or the robot, respectively. Furthermore, we differentiate between
+  \emph{external states} (i.e. states that encode physical properties of the
+  environment) and \emph{internal states} (i.e. states that determine the
+  behavior dynamics of an agent), denoted with subscript $E$ and $I$,
+  respectively. Using this notation, a state state variable $s$ is composed as:
+  \begin{equation}
+    s = [s_\text{E,R}, s_\text{E,H}, s_\text{I,H}]^T
+  \end{equation}
+  It is important to note that, in order to make $s$ Markovian, we need to
+  incorporate the internal state of the human. That is, in contrast to a game theoretic
+  approach, humans are not explicitly modeled as players taking actions but
+  rather in terms of dynamics of the environment. In the model of the robot, the
+  human internal state consists of the reward model parameters, $\theta$, and
+  the model confidence, $\beta$. The external state of each actor is defined
+  by it's current position.
+
+  Using this definition of the state, $\sspace$ is the set of all possible
+  combinations of positions the human and the robot and the human internal state.
+  \item[Action Space $\aspace$.] An action in this problem refers
+  \emph{exclusively} to the robot action. At every time step the robot can select
+  one of the following six actions:
+  \emph{"north", "east", "south", "west", "to goal", and "stay put"}. The keep
+  the robot at it's current position. All other actions ill move the agent with
+  constant velocity in the corresponding direction. Here, \emph{to goal} is
+  a state dependent action, that is directed straight at the robot's goal
+  location. The set of these six actions constitutes the action space, $\aspace$.
+  \item[Transition Model $\tdist$.] The robot transition flows the dynamics of
+    a simple differential drive model. The details of this transition are
+    defined implicitly by the simulator and are treated as a generative black
+    box model.
+  \item[Reward Function $\reward: \sspace \times \aspace \times
+    \sspace \to \reals$.] The reward model is defined as:
+    \begin{equation}
+      \reward(s, a, s') = r_\text{time} + \chrond(s') r_\text{collision} + \chrond(s') r_\text{goal} + \chrond(s') r_\text{stairs}.
+    \end{equation}
+    Here, $\chrond_\text{c}(s)$ denotes the \vname{Kronecke delta} function under the condition, \vname{c}, such that
+    \begin{equation}
+      \chrond_\text{c}(s) = \begin{cases}
+        1, & \text{if condition $c$ holds for $s$}\\
+        0, & \text{otherwise.}
+      \end{cases}
+    \end{equation}
+    The reward model is parametrized by the following
+    quantities: $r_\text{time}$ is a living penalty encouraging the robot to
+    minimize the time until the goal is reached; $r_\text{collision}$ is
+    a penalty for collision with walls; $r_\text{goal}$ is the reward obtained
+    when reaching the goal, and $r_\text{stairs}$ the penalty for falling down
+    the stairs.\\
+  \item[Discount Factor $\gamma$.] Rewards are discounted with $\gamma = 0.99$.
+  \item[Observation Space $\ospace$.] The sensor provides a binary output,
+    stating whether the robot is currently in contact with the wall or not. That
+    is, there are only two observations: $o^0$  and $o^1$.
+  \item[Observation Model $\odist$.] The collision sensor is deterministic.
+    That is, the observation model is a Dirac delta function, evaluating
+    non-zero for a state, $s$, if and only if the collision feature evaluated
+    on $s$ matches the observation, $o$.
+\end{description}
+
+\todo[inline]{Justify the design of the action space.}
+
 \begin{itemize}
   \item this is actually a \ac{momdp}
 \end{itemize}
