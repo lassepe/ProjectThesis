@@ -200,18 +200,27 @@ characterized by the following properties introduced in \cref{sec:pomdp}:
     only if the external state component matches the observation, $o$.
 \end{description}
 
-In order to match the problem described in \cref{sec}
-It must be noted that there are two slightly different versions of this \
+It must be noted that, in order to match the problem statement provided in
+\cref{sec:hri-problem-statement}, we consider two slightly different versions
+of this \ac{pomdp}. One version is used to represent the dynamics of the simulated
+environment, the other is used as a planning model for the robot. This clear
+distinction is necessary to encode the modelling assumption that the robot does not
+know about all human goals. That is, the robot does not have access to the true
+behavior model of the human.
 
-\todo[inline]{Note that there are two versions of this \ac{pomdp}}
-\todo[inline]{Maybe justify the design of the action space.}
-\todo[inline]{Point to the corresponding implementations of these things}
+By inspection of the problem formalized above it becomes apparent that the
+assumptions made in \cite{fisac2018probabilistically} poses a \ac{momdp} --
+a special case of the more general \ac{pomdp}. That is, we can factor the state
+into a fully observed part ($s_\text{E}$, the external state) and a partially
+observed part ($s_\text{I}$).
 
-\begin{itemize}
-  \item this is actually a \ac{momdp}
-\end{itemize}
+\todo[inline]{Point to the corresponding implementations of these things. This
+is the best way of communicating further details.}
 
 \section{Solution Strategies}\label{sec:hri-solutions}
+
+We implement two solution strategies for the problem formalized in \cref{sec:hri-pomdp-formalization}.
+
 \subsection{Probabilistically Safe Robot Planning}\label{sec:hri-baseline}
 \subsection{POMCPOW}\label{sec:hri-planners}
 \section{Evaluation}\label{sec:hri-evaluation}
