@@ -92,7 +92,7 @@ samples are expensive (problem setup is quite slow)}
   \item[Reward Function $\reward: \sspace \times \aspace \times
     \sspace \to \reals$.] The reward model is defined as:
     \begin{equation}
-      \reward(s, a, s') = r_\text{time} + \chrond(s') r_\text{collision} + \chrond(s') r_\text{goal} + \chrond(s') r_\text{stairs}.
+      \reward(s, a, s') = r_\text{time} + \chrond_\text{collision}(s') r_\text{collision} + \chrond_\text{goal}(s') r_\text{goal} + \chrond_\text{stairs}(s') r_\text{stairs}.
     \end{equation}
     Here, $\chrond_\text{c}(s)$ denotes the \vname{Kronecke delta} function under the condition, \vname{c}, such that
     \begin{equation}
