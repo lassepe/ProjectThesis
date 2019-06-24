@@ -296,6 +296,9 @@ horizon \ac{mpc}. That is, at every time step the robot only executes the first
 action of the optimal action sequence computed above. At the next time step,
 all steps are repeated closing the loop over the received observation.
 
+\todo[inline]{@zach: should this feature additional implementation details
+(e.g. KDTree for nearest neighbour search etc?)}
+
 \begin{figure}[htpb]
   \centering
   \missingfigure{Example of probabilistic predictions}.
@@ -308,7 +311,7 @@ all steps are repeated closing the loop over the received observation.
 The \ac{pomdp} formalization presented in \cref{sec:hri-pomdp-formalization}
 allows to directly apply \ac{pomcpow} to the problem. To ensure a fair
 comparison, the planner uses the same particle filter as proposed for \ac{psrp}
-in \cref{sec:hri-baseline} to infer the latent parameters of the human model.
+in \cref{sec:hri-baseline} for inference of the latent parameters of the human model.
 
 Considering the insight obtained from the solver comparison discussed in
 \cref{chap:localization-and-planning}, we choose to embed domain knowledge
@@ -320,6 +323,9 @@ means of this relaxation, the value estimate is given as the discounted sum of
 living penalties over the reaming steps to the goal.
 
 \section{Evaluation}\label{sec:hri-evaluation}
+
+We evaluate the performance of each strategy by running $N_\text{sim} = 1000$ simulations
+for each setup.
 
 \begin{itemize}
   \item prob obstacles is technically a nice idea but it only works for this very problem structure
