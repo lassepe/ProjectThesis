@@ -219,8 +219,40 @@ is the best way of communicating further details.}
 
 \section{Solution Strategies}\label{sec:hri-solutions}
 
-We implement two solution strategies for the problem formalized in \cref{sec:hri-pomdp-formalization}.
+We solve the \ac{pomdp} described in \cref{sec:hri-pomdp-formalization} using
+two different strategies. First, \cref{sec:hri-baseline} presents
+\emph{Probabilistically Safe Robot Planning}, a method proposed in
+\cite{fisac2018probabilistically} that exploits the special structure of the
+problem to reduce the computational effort of solving the full \ac{pomdp}.
+Thereafter, \cref{sec:hri-planners} presents an adaptation of \ac{pomcpow}
+for this problem.
+\todo[inline]{Maybe point to the fact that one could also use \ac{despot}, but
+that we found \ac{pomcpow} to work better (data of Andreea) and that the point
+of this section is rather to compare POMDP vs non-pomdp approaches rather than
+solver internal benchmark.}
 
 \subsection{Probabilistically Safe Robot Planning}\label{sec:hri-baseline}
+
+\emph{Probabilistically Safe Robot Planning} is a method for motion planning
+with probabilistic predictions proposed in \cite{fisac2018probabilistically}.
+The method is designed for a special class of \acp{pomdp} with the following
+constraints: The problem must be a \acp{momdp} in which the notion of
+\emph{immediate safety} can be evaluated solely on fully observed states.
+Furthermore, all such state components affecting immediate safety must be
+either \emph{actuated} (i.e. directly controlled by the robot) or \emph{fully
+decoupled} from the robot dynamics to allow for predictions independent of the
+robot trajectory.
+
+(TODO: the states in the safety criterion of other agents can be predicted independently)
+
+can be computed from the fully observable part of the state and
+the states
+
 \subsection{POMCPOW}\label{sec:hri-planners}
 \section{Evaluation}\label{sec:hri-evaluation}
+
+\begin{itemize}
+  \item prob obstacles is technically a nice idea but it only works for this very problem structure
+  \item this kind of reasoning does not work when the human reacts to the robot since open loop predictions
+  require knowledge of the robot position in the future.
+\end{itemize}
