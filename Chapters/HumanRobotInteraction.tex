@@ -304,6 +304,21 @@ all steps are repeated closing the loop over the received observation.
 \end{figure}
 
 \subsection{POMCPOW}\label{sec:hri-planners}
+
+The \ac{pomdp} formalization presented in \cref{sec:hri-pomdp-formalization}
+allows to directly apply \ac{pomcpow} to the problem. To ensure a fair
+comparison, the planner uses the same particle filter as proposed for \ac{psrp}
+in \cref{sec:hri-baseline} to infer the latent parameters of the human model.
+
+Considering the insight obtained from the solver comparison discussed in
+\cref{chap:localization-and-planning}, we choose to embed domain knowledge
+through an analytic value estimate. Using the same kind of reasoning as
+discussed in \cref{sec:lp-planners-pomcpow} we approximate the value at the
+leaf of the policy tree using a relaxed version of the problem in which the
+robot can move on a straight, collision-free line to it's goal location. By
+means of this relaxation, the value estimate is given as the discounted sum of
+living penalties over the reaming steps to the goal.
+
 \section{Evaluation}\label{sec:hri-evaluation}
 
 \begin{itemize}
