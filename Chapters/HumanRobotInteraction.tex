@@ -221,32 +221,87 @@ is the best way of communicating further details.}
 
 We solve the \ac{pomdp} described in \cref{sec:hri-pomdp-formalization} using
 two different strategies. First, \cref{sec:hri-baseline} presents
-\emph{Probabilistically Safe Robot Planning}, a method proposed in
-\cite{fisac2018probabilistically} that exploits the special structure of the
-problem to reduce the computational effort of solving the full \ac{pomdp}.
-Thereafter, \cref{sec:hri-planners} presents an adaptation of \ac{pomcpow}
-for this problem.
-\todo[inline]{Maybe point to the fact that one could also use \ac{despot}, but
-that we found \ac{pomcpow} to work better (data of Andreea) and that the point
-of this section is rather to compare POMDP vs non-pomdp approaches rather than
-solver internal benchmark.}
+\ac{psrp}, a method proposed in \cite{fisac2018probabilistically} that exploits
+the special structure of the problem to reduce the computational effort of
+solving the full \ac{pomdp}. Thereafter, \cref{sec:hri-planners} presents an
+adaptation of \ac{pomcpow} for this problem. \todo[inline]{Maybe point to the
+fact that one could also use \ac{despot}, but that we found \ac{pomcpow} to
+work better (data of Andreea) and that the point of this section is rather to
+compare POMDP vs non-pomdp approaches rather than solver internal benchmark.}
 
 \subsection{Probabilistically Safe Robot Planning}\label{sec:hri-baseline}
 
-\emph{Probabilistically Safe Robot Planning} is a method for motion planning
-with probabilistic predictions proposed in \cite{fisac2018probabilistically}.
-The method is designed for a special class of \acp{pomdp} with the following
-constraints: The problem must be a \acp{momdp} in which the notion of
+\acf{psrp} is a method for motion planning with probabilistic predictions.
+While an exhaustive discussion of the details of this method is beyond the
+scope of this work, we aim to provide insight into the general idea of this
+method as a basis for further discussion. For additional information the reader
+may refer to the original paper \cite{fisac2018probabilistically}.
+
+\ac{psrp} is designed for a special class of \acp{pomdp} with the following
+properties: The problem must be a \acp{momdp} in which the notion of
 \emph{immediate safety} can be evaluated solely on fully observed states.
 Furthermore, all such state components affecting immediate safety must be
-either \emph{actuated} (i.e. directly controlled by the robot) or \emph{fully
+either \emph{actuated} (i.e. directly controlled by the agent) or \emph{fully
 decoupled} from the robot dynamics to allow for predictions independent of the
-robot trajectory.
+agent's decisions. Both requirements are satisfied for the problem studied in
+this chapter: Immediate safety depends only on the position of the human and
+the robot, both contained in the \emph{external} (fully observed) part of the
+state; Predictions of the human state can be made independently of the robots
+trajectory as she ignores the robot position in her decision making process.
 
-(TODO: the states in the safety criterion of other agents can be predicted independently)
+The methods exploits these properties to significantly reduce the complexity of
+policy search by essentially converting it to an equivalent non-probabilistic
+formulation. The converted problem can then be solved using conventional
+motion-planning techniques. On an abstract level the algorithmic procedure of
+\ac{psrp} performs the following computations to select the next action:
 
-can be computed from the fully observable part of the state and
-the states
+\begin{description}
+  \item[Inference / Belief Update] At every times step the robot receives an
+    exact observation of the external state of the environment. These
+    observations are used to maintain a belief over the latent parameters of
+    the human model presented in \cref{eq:boltzmann}. These are the goal
+    location of the human, $\theta$, and the model confidence, $\beta$. The
+    exact update of the joint belief takes the form \begin{equation} b'(\theta,
+    \beta) \propto P(s_\text{E,H} | s_\text{H}; \theta, \beta) b(\theta,
+    \beta). \end{equation} Since the exact Bayesian update is computationally
+    demanding, we perform Monte-Carlo integration to run the inference. Note
+    that this is a subtle difference to the original implementation, where the
+    authors decide the discretize the parameter and state space to obtain
+    a tractable update rule.
+  \item[Prediction] Using the belief provided by the inference, the agent
+    computes a probabilistic prediction of the human position for $K$ future
+    time steps. This is done by recursively propagating the particles belief
+    through a generative model matching the statistics of \cref{eq:boltzmann}.
+    Since the human is modeled to act noisily rational and additionally the
+    particle belief represents a distribution over possible human behaviors,
+		the prediction introduces uncertainty to the future trajectory of the
+		human. That is, while at the current time step the exact position of the
+ 		human is known from the most recent observation, at future times the
+	  robot only has a probabilistic estimate of the person's location.
+    An example of such open-loop predictions of the human location is depicted
+    in \cref{fig:psrp-prediction-example}. These predictions are used to
+    synthesize a probabilistic obstacle map for the next $K$ time steps.
+  \item[Planning] The agent uses the $K$ probabilistic obstacle maps obtained
+    from the preceding step to compute the optimal sequence of actions for the
+    next $K$ time steps. Since the action-space is finite, we use $A^\ast$ to
+    solve this policy search problem. We use the negative reward model as
+    a cost function to obtain the cost function for the graph search problem.
+    Additionally, in line with the idea of \cite{fisac2018probabilistically} we
+    prune search nodes for which the collision likelihood exceeds a preset
+    threshold, $\varepsilon$.
+\end{description}
+
+The result of this computation is applied in the fashion of a $K$-step receding
+horizon \ac{mpc}. That is, at every time step the robot only executes the first
+action of the optimal action sequence computed above. At the next time step,
+all steps are repeated closing the loop over the received observation.
+
+\begin{figure}[htpb]
+  \centering
+  \missingfigure{Example of probabilistic predictions}.
+  \caption{Exemplary predictions of the human future location in \acf{psrp}.\todo[inline]{Refine caption once figure is finished.}}
+  \label{fig:psrp-prediction-example}
+\end{figure}
 
 \subsection{POMCPOW}\label{sec:hri-planners}
 \section{Evaluation}\label{sec:hri-evaluation}
