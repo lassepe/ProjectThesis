@@ -278,7 +278,7 @@ case fully observable run.
 
 We begin by comparing the performance of each strategy by examining the
 cumulative discounted reward. Since maximizing the sum of discounted rewards is
-the objective function for this optimization function, this is the most natural
+the objective function for this optimization problem, this is the most natural
 benchmark. In order to account for the reward discarded in cases where
 $T_\text{max, sim}$ is exceeded, we penalize the value of these runs by
 extrapolating the living penalty over infinite horizon. Since the sum over the
@@ -312,7 +312,7 @@ improvement.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=1.0]{roomba_plots/lp_value_sem_eval_plot-inf_discounted_reward.pdf}
-  \caption{Mean and \acf{sem} for each policy introduced in \cref{sec:lp-solutions}.}
+  \caption{Mean and \acf{sem} of the cumulative discounted reward for each policy introduced in \cref{sec:lp-solutions}.}
   \label{fig:lp-value-sem-inf-discounted}
 \end{figure}
 

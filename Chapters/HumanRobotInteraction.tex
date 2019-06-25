@@ -334,61 +334,83 @@ samples for which the simulated naive policy allows the robot to reach it's goal
 
 In contrast to the experiments presented in
 \cref{chap:localization-and-planning}, we don't explicitly set an upper bound
-on the decision time per step for \ac{pomcpow} but instead fix the number of
-\ac{mcts} iterations. We choose the number of iterations by evaluating the
+on the decision time per step for \ac{pomcpow} but fix the number of
+\ac{mcts} iterations instead. We choose the number of iterations by evaluating the
 performance of \ac{pomcpow} over a sequence of parameters and select the number
 of iterations beyond which saturation is observed. Furthermore, for the
 experiments discussed we are able to simulate all policies until a terminal
-state is reached. That is, we don't need adjust the returns to account for
+state is reached. Hence, we don't need to adjust the returns to account for
 rewards beyond the simulated horizon.
+
+We begin by comparing the performance of each policy by examining the
+cumulative discounted reward -- the metric whose maximization is the objective
+of this optimization problem. \Cref{fig:hri_eval_value_sem} shows the mean and
+\ac{sem} of the cumulative discounted reward for $5000$ experiments over both
+policies. These results show that \ac{pomcpow} performs significantly better
+than \ac{psrp}.
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[scale=1]{hri_plots/hri_value_sem_plot.pdf}
-  \caption{TODO}
+  \caption{Mean and \acf{sem} of the cumulative discounted reward for
+  \ac{pomcpow} (blue) and \ac{psrp} (yellow) as introduced in \cref{sec:hri-solutions}.}
   \label{fig:hri_eval_value_sem}
 \end{figure}
 
-\begin{figure}[htpb]
-  \centering
-  \includegraphics[scale=1]{hri_plots/hri_value_density_plot.pdf}
-  \caption{TODO}
-  \label{fig:hri_eval_value_density}
-\end{figure}
+Further insight is gained by evaluating the outcome statistics for each policy.
+\Cref{fig:hri_outcome_histogram} depicts the frequencies of outcomes for each
+policy. Since both policies reach a terminal state within the simulated horizon
+for all sampled scenarios, here we only consider two classes of outcomes:
+\emph{success}, the robot reached the goal location; and \emph{failure} the
+robot collided with a wall or the human. The outcome statistics show that both
+policies are able to successfully navigate the robot to it's goal location in
+the vast majority of all scenarios. However, \ac{pomcpow} still performs
+significantly better with respect to safety. In fact, the collision rate in the
+sampled scenarios for \ac{pomcpow} ($3.40\%$) is only half has high as for
+\ac{psrp} ($7.08\%$).
 
-\begin{figure}[htpb]
-  \centering
-  \includegraphics[scale=1]{hri_plots/hri_value_compute_scatter_plot.pdf}
-  \caption{TODO}
-  \label{fig:hri_eval_value_compute_scatter}
-\end{figure}
+\todo[inline]{Note the adversarial character of these examples: many scenarios are rejected}
 
-\begin{figure}[htpb]
-  \centering
-  \includegraphics[scale=1]{hri_plots/hri_nstep_sem_plot.pdf}
-  \caption{TODO}
-  \label{fig:hri_eval_nstep_sem}
-\end{figure}
-
-\begin{figure}[htpb]
-  \centering
-  \includegraphics[scale=1]{hri_plots/hri_nstep_density_plot.pdf}
-  \caption{TODO}
-  \label{fig:hri_eval_nstep_density}
-\end{figure}
-
-\begin{figure}[htpb]
-  \centering
-  \includegraphics[scale=1]{hri_plots/hri_compute_density_plot.pdf}
-  \caption{TODO}
-  \label{fig:hri_eval_compute_density}
-\end{figure}
+%  \begin{figure}[htpb]
+%    \centering
+%    \includegraphics[scale=1]{hri_plots/hri_value_density_plot.pdf}
+%    \caption{TODO}
+%    \label{fig:hri_eval_value_density}
+%  \end{figure}
+%  
+%  \begin{figure}[htpb]
+%    \centering
+%    \includegraphics[scale=1]{hri_plots/hri_value_compute_scatter_plot.pdf}
+%    \caption{TODO}
+%    \label{fig:hri_eval_value_compute_scatter}
+%  \end{figure}
+%  
+%  \begin{figure}[htpb]
+%    \centering
+%    \includegraphics[scale=1]{hri_plots/hri_nstep_sem_plot.pdf}
+%    \caption{TODO}
+%    \label{fig:hri_eval_nstep_sem}
+%  \end{figure}
+%  
+%  \begin{figure}[htpb]
+%    \centering
+%    \includegraphics[scale=1]{hri_plots/hri_nstep_density_plot.pdf}
+%    \caption{TODO}
+%    \label{fig:hri_eval_nstep_density}
+%  \end{figure}
+%  
+%  \begin{figure}[htpb]
+%    \centering
+%    \includegraphics[scale=1]{hri_plots/hri_compute_density_plot.pdf}
+%    \caption{TODO}
+%    \label{fig:hri_eval_compute_density}
+%  \end{figure}
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[scale=1]{hri_plots/hri_outcome_histogram_plot.pdf}
   \caption{TODO}
-  \label{fig:hri_eval_outcome_histogram}
+  \label{fig:hri_outcome_histogram}
 \end{figure}
 
 \begin{itemize}
