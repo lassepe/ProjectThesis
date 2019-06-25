@@ -324,13 +324,72 @@ living penalties over the reaming steps to the goal.
 
 \section{Evaluation}\label{sec:hri-evaluation}
 
-We evaluate the performance of each strategy by running $N_\text{sim} = 1000$ simulations
-for each setup.
+We evaluate the performance of each strategy by running $5000$ simulations for
+each policy. Again, each policy is simulated on the same set of random seeds to
+reduce sampling variance. Additionally, in an effort to obtain a comparison
+that focuses on safety critical situations, we only consider scenarios in which
+a naive \emph{straight-to-goal} policy is not successful. We create these
+scenarios by sampling initial conditions from uniform prior and reject all
+samples for which the simulated naive policy allows the robot to reach it's goal.
 
-Describe setup:
-\begin{itemize}
-  \item sample adversarial examples in which the "straight to goal policy" does not succeed
-\end{itemize}
+In contrast to the experiments presented in
+\cref{chap:localization-and-planning}, we don't explicitly set an upper bound
+on the decision time per step for \ac{pomcpow} but instead fix the number of
+\ac{mcts} iterations. We choose the number of iterations by evaluating the
+performance of \ac{pomcpow} over a sequence of parameters and select the number
+of iterations beyond which saturation is observed. Furthermore, for the
+experiments discussed we are able to simulate all policies until a terminal
+state is reached. That is, we don't need adjust the returns to account for
+rewards beyond the simulated horizon.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{hri_plots/hri_value_sem_plot.pdf}
+  \caption{TODO}
+  \label{fig:hri_eval_value_sem}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{hri_plots/hri_value_density_plot.pdf}
+  \caption{TODO}
+  \label{fig:hri_eval_value_density}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{hri_plots/hri_value_compute_scatter_plot.pdf}
+  \caption{TODO}
+  \label{fig:hri_eval_value_compute_scatter}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{hri_plots/hri_nstep_sem_plot.pdf}
+  \caption{TODO}
+  \label{fig:hri_eval_nstep_sem}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{hri_plots/hri_nstep_sem_plot.pdf}
+  \caption{TODO}
+  \label{fig:hri_eval_nstep_sem}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{hri_plots/hri_nstep_density_plot.pdf}
+  \caption{TODO}
+  \label{fig:hri_eval_nstep_density}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{hri_plots/hri_compute_density_plot.pdf}
+  \caption{TODO}
+  \label{fig:hri_eval_compute_density}
+\end{figure}
 
 \begin{itemize}
   \item prob obstacles is technically a nice idea but it only works for this very problem structure
