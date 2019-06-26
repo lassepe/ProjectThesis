@@ -186,6 +186,20 @@ greater detail and discuss their theoretical properties.
 
 \subsection{DESPOT}\label{sec:theory-despot}
 
+\acf{despot} is an approximate online solver for \acp{pomdp} that performs
+policy search on a sparse approximation of the standard belief tree
+\cite{somani2013despot}. In this paper we use the \emph{anytime heuristic
+search} version of \ac{despot} as implemented by \cite{ardespotImpl}. In this
+section we outline the general idea of the algorithm. While we aim to provide
+insight to enable a high level understanding of the algorithm, a detailed
+discussion of implementation details and convergence properties is beyond the
+scope of this work. For further insight into the theoretical foundations of
+this algorithm the reader may refer to \cite{somani2013despot}. A detailed
+benchmark comparing the performance of this algorithm to other state-of-the-art
+solvers is provided in \cite{somani2013despot, sunberg2018online}. Beyond that,
+\cite{ardespotImpl} provides a well structured implementation that closely matches
+the pseudo code of the original paper.
+
 \begin{algorithm}[htpb]
   \caption{DESPOT \cite{somani2013despot}.}\label{alg:despot}
   \begin{algorithmic}[1]
@@ -199,14 +213,14 @@ greater detail and discuss their theoretical properties.
     \EndProcedure\vspace{10pt}
 
     \Procedure{BuildDespot}{$b_0$}
-      \State $\Phib_{b0} \gets K \text{ scenarios sampled from } b_0$
+      \State $\Phib_{b_0} \gets K \text{ scenarios sampled from } b_0$
       \State $\mathcal{D} \gets \text{new DESPOT with a single node $b_0$ as the root}$
       \State Initialize $U(b_0), L_0(b_0), \mu(b_0),$ and $\ell(b_0)$ \Comment{TODO: Explain}
       \State $\epsilon(b_0) \gets \mu(b_0) - \ell(b_0)$
       \While{$\epsilon(b_0) > \epsilon_0$ and total running $< T_{\text{max}}$}
         \State $b \gets \Call{Explore}{\mathcal{D}, b}$
         \State $\Call{Backup}{\mathcal{D}, b}$
-        \State $\epsilon(b_0) \gets \mu(b_0) - \ell(b_0)$ \Comment{TODO: Think about this}
+        \State $\epsilon(b_0) \gets \mu(b_0) - \ell(b_0)$
       \EndWhile
       \State \textbf{return} $\ell$
     \EndProcedure\vspace{10pt}
@@ -219,8 +233,8 @@ greater detail and discuss their theoretical properties.
           \Statex[3] and initialize $U(b'), L_0(b'), \mu{(b')}$, and $\ell(b')$.
         \EndIf
         \State $a^* \gets \argmax_{a \in \aspace}{\mu(b, a)}$
-        \State $o^* \gets \argmax_{o \in \ospace_{b, a^*}}{E(\tau(b, a^*, z))}$\Comment{Think about this}
-        \State $b \gets \tau(b, a^*, z^*)$
+        \State $o^* \gets \argmax_{o \in \ospace_{b, a^*}}{E(\tau(b, a^*, o))}$\Comment{reduce excess uncertainty.}
+        \State $b \gets \tau(b, a^*, o^*)$
       \EndWhile
       \If{$\Delta(b) > D$}
         \State $\Call{MakeDefault}{b}$
@@ -250,7 +264,7 @@ greater detail and discuss their theoretical properties.
 
       \Procedure{MakeDefault}{$b$}
         \State $U(b) \gets L_0(b)$
-        \State $\mu(b) \gets l_0(b)$
+        \State $\mu(b) \gets \ell_0(b)$
         \State $\ell(b) \gets \ell_0(b)$
       \EndProcedure\vspace{10pt}
 
