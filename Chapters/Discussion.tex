@@ -1,4 +1,24 @@
+\iffalse
 \chapter{Discussion}\label{chap:discussion}
+
+\todo[inline]{Note: The analysis/discussion for each application example has
+been "inlined" with the qualitative analysis at the end of each chapter. In
+this chapter I now only summarize the mechanisms and give some advice for "when
+does it make sense to model a problem as a POMDP". Maybe this is not enough for
+a whole chapter and rather redundant.}
+
+The experiments presented in \cref{chap:localization-and-planning,chap:hri}
+show that \ac{pomdp} solvers are able to generate well performing behaviors for
+different planning problems. The quantitative and qualitative analysis
+performed for these examples reveal that the benefits provided by this kind of
+reasoning are cause by different mechanisms.
+
+\begin{itemize}
+  \item prob obstacles is technically a nice idea but it only works for this very problem structure
+  \item this kind of reasoning does not work when the human reacts to the robot since open loop predictions
+  require knowledge of the robot position in the future.
+\end{itemize}
+
 \todo[inline]{This section will mainly contain the "lessons learned"
 + a comparison between the problems, explaining the mechanisms which lead to
 the improvement in each case.}
@@ -32,3 +52,4 @@ the improvement in each case.}
       of the state.)
     \end{itemize}
 \end{itemize}
+\fi
