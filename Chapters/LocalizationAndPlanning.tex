@@ -1,7 +1,5 @@
 \chapter{Simultaneous Localization and Planning}\label{chap:localization-and-planning}
 
-\todo[inline]{Rework according to results}
-
 Typically, robot localization and motion planning are treated as mostly
 independent tasks. Often, the problem provides the agent with a focused initial
 belief or allows the agent to quickly reduce uncertainty by first collecting
@@ -26,7 +24,6 @@ may not perform well. Instead, persistently good performance requires the agent
 to consider the full belief distribution as well as future observations in
 order to identify informative action sequences.
 
-\todo[inline]{Rewrite once structure (below) has converged}
 An instance of such problem is studied in this chapter. We begin by stating the
 problem details in \cref{sec:lp-problem-statement}.
 \cref{sec:lp-pomdp-formalization} then formalizes this problem as a \ac{pomdp}.
@@ -378,8 +375,8 @@ the computation budget. Since rewards are sparse, on a short horizon all
 futures appear to provide similar reward. Hence, \ac{despot} and \ac{pomcpow}
 fail to identify a promising strategy within their mostly shallow policies trees.
 
-\todo[inline]{Maybe have some figures with sequences of frames and beliefs to show
-what the agent does.}
+% \todo[inline]{Maybe have some figures with sequences of frames and beliefs to show
+% what the agent does?}
 
 Summarizing the results of this qualitative analysis,
 \emph{\ac{despot}-analytic} and \emph{\ac{pomcpow}-analytic} generate highly

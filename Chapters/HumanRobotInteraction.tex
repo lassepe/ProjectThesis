@@ -214,8 +214,8 @@ a special case of the more general \ac{pomdp}. That is, we can factor the state
 into a fully observed part ($s_\text{E}$, the external state) and a partially
 observed part ($s_\text{I}$).
 
-\todo[inline]{Point to the corresponding implementations of these things. This
-is the best way of communicating further details.}
+% \todo[inline]{Point to the corresponding implementations of these things. This
+% is the best way of communicating further details.}
 
 \section{Solution Strategies}\label{sec:hri-solutions}
 
@@ -224,10 +224,12 @@ two different strategies. First, \cref{sec:hri-baseline} presents
 \ac{psrp}, a method proposed in \cite{fisac2018probabilistically} that exploits
 the special structure of the problem to reduce the computational effort of
 solving the full \ac{pomdp}. Thereafter, \cref{sec:hri-planners} presents an
-adaptation of \ac{pomcpow} for this problem. \todo[inline]{Maybe point to the
-fact that one could also use \ac{despot}, but that we found \ac{pomcpow} to
-work better (data of Andreea) and that the point of this section is rather to
-compare POMDP vs non-pomdp approaches rather than solver internal benchmark.}
+adaptation of \ac{pomcpow} for this problem.
+
+% \todo[inline]{Maybe point to the
+% fact that one could also use \ac{despot}, but that we found \ac{pomcpow} to
+% work better (data of Andreea) and that the point of this section is rather to
+% compare POMDP vs non-pomdp approaches rather than solver internal benchmark.}
 
 \subsection{Probabilistically Safe Robot Planning}\label{sec:hri-baseline}
 
@@ -369,10 +371,9 @@ the vast majority of all scenarios. However, \ac{pomcpow} still performs
 significantly better with respect to safety. In fact, the collision rate in the
 sampled scenarios for \ac{pomcpow} ($3.40\%$) is only half has high as for
 \ac{psrp} ($7.08\%$).
+% \todo[inline]{Should I note the adversarial character of these examples: many scenarios are rejected}
 
-\todo[inline]{Note the adversarial character of these examples: many scenarios are rejected}
-
-\begin{figure}[htpb]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=1]{hri_plots/hri_outcome_histogram_plot.pdf}
   \caption{Histogram of outcome frequencies grouped by policy. Outcome classes:
