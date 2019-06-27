@@ -239,10 +239,7 @@ action-branches but only the sparse set of observation-nodes encountered under
 the prefixed scenarios.
 
 As the number of scenarios increases, this sparse representation has been shown
-to converge to the true belief tree. In practice, however, a limited number of
-scenarios sufficiently approximates the true belief tree such that the optimal
-decision computed on $\mathcal{D}$ is a near-optimal decision for the dense
-problem.
+to converge to the true belief tree.
 
 \begin{figure}[H]
   \centering
@@ -256,7 +253,28 @@ problem.
 
 \subsubsection{Anytime Heuristic Search on a DESPOT}\label{sec:despot-search}
 
-\begin{algorithm}[htpb]
+The sparse belief tree representation presented in \cref{sec:despot-tree} can
+be significantly more compact than a standard belief tree if the number of
+scenarios $K$ is small. Therefore, it constitutes a potentially suitable
+representation for policy search. Since a \ac{despot} $\mathcal{D}$ obtained
+under a finite number of scenarios only considers a subset of trajectories, in
+general the optimal policy on $\mathcal{D}$ may be suboptimal for the dense
+formulation. In practice, however, a limited number of scenarios may
+sufficiently approximate the true belief tree such that the optimal decision
+computed on $\mathcal{D}$ is near-optimal for the full problem. In fact, it has
+been shown that for a policy optimized on $\mathcal{D}$ the error of it's value
+when transfered to the dense problem stays bounded.
+
+Therefore, in theory a near-optimal policy $\hat{\pi}$ could be computed by
+constructing the entire \ac{despot} in advance and performing dynamic
+programming to find to optimize $\hat{\pi}$ on $\mathcal{D}$. However, a fully
+constructed \ac{despot} obtained under $K$ scenarios still contains $\oof(|A|^D
+K)$ belief nodes. Therefore, the authors of \cite{somani2013despot} propose
+a \emph{forward search} strategy to incrementally construct the sparse belief
+tree. The search method uses a heuristic to guide the exploration and performs
+regularization to prevent overfitting to the sampled scenarios.
+
+\begin{algorithm}[H]
   \caption{DESPOT \cite{somani2013despot}.}\label{alg:despot}
   \begin{algorithmic}[1]
     \Procedure{Plan}{$b_0$}
@@ -302,7 +320,7 @@ problem.
   \todo[inline]{Figure out multi column or multi page solution.}
 \end{algorithm}
 
-\begin{algorithm}[htpb]
+\begin{algorithm}[H]
   \begin{algorithmic}[1]
       \Procedure{Prune}{$\mathcal{D}, b$}
         \State \textsc{Blocked} $\gets$ FALSE
