@@ -200,6 +200,62 @@ solvers is provided in \cite{somani2013despot, sunberg2018online}. Beyond that,
 \cite{ardespotImpl} provides a well structured implementation that closely matches
 the pseudo code of the original paper.
 
+First, it must be noted that the term \emph{\ac{despot}} is used
+interchangeably for both, the representation of the belief tree, $\mathcal{D}$,
+as well as the \ac{pomdp} solver using this representation to compute
+a solution. We proceed by first introducing the high level idea of the belief
+tree representation in \cref{sec:despot-tree}. Based on that, in
+\cref{sec:despot-search} we discuss an anytime heuristic search method that
+incrementally constructs a \ac{despot} $\mathcal{D}$ to simultaneously find the
+optimal policy on this sparse belief tree.
+
+\subsubsection{Determinized Sparse Partially Observable Trees}\label{sec:despot-tree}
+
+A \ac{despot} is a sparse approximation of a belief tree that alleviates the
+\emph{curse of dimensionality} by sampling states from root belief and
+considering only a limited number of random \emph{scenarios} when
+simulating future observations.
+
+A \emph{scenario} is an abstract concept which may be envisioned as an object
+that determinizes the outcome of a random process. Loosely speaking, under
+a fixed scenario $\phib$ an action sequence $(a_1, a_2, ...)$ applied starting
+from belief $b$ always traverses the same state-action-observation sequence ($s_0,
+a_1, o_1, a_2, o_2,\dots$).\todo{Should I also add the formal definition using
+the determinized simulative mode? May be already implementation details (even
+though distribution details matter)} In \ac{despot}, scenarios are used to
+obtain a sparse presentation of the future. \Cref{fig:despot-tree} depicts
+a partially constructed \ac{despot} $\mathcal{D}$ rooted at the current belief,
+$b_0$, obtained under two scenarios (marked in blue and orange). Each node
+implicitly represents a particle belief constructed from the distribution of
+outcomes encountered under all scenarios passing through that node.
+
+The tree is constructed by sampling an initial state under each scenario,
+$\phi_i$. Starting from the corresponding initial, for each scenario \emph{all
+actions} $a \in \aspace$ are simulated one step into the future. For the
+observations encountered during these determinized simulations a new node is
+created one level deeper and the corresponding state-outcomes are recorded
+to form a particle belief at every node. As result, the tree considers all
+action-branches but only the sparse set of observation-nodes encountered under
+the prefixed scenarios.
+
+As the number of scenarios increases, this sparse representation has been shown
+to converge to the true belief tree. In practice, however, a limited number of
+scenarios sufficiently approximates the true belief tree such that the optimal
+decision computed on $\mathcal{D}$ is a near-optimal decision for the dense
+problem.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{despot_tree.pdf} \caption{A partially
+  constructed \ac{despot} $\mathcal{D}$ rooted at the current
+  belief,~$b_0$~\cite{somani2013despot}. The tree is obtained under two
+  scenarios highlighted orange and blue.}
+  \label{fig:despot-tree}
+\end{figure}
+
+
+\subsubsection{Anytime Heuristic Search on a DESPOT}\label{sec:despot-search}
+
 \begin{algorithm}[htpb]
   \caption{DESPOT \cite{somani2013despot}.}\label{alg:despot}
   \begin{algorithmic}[1]
@@ -283,8 +339,6 @@ the pseudo code of the original paper.
   \item explain the difference to POMCPOW (or Monte Carlo methods in general)
   \item point to literature for convergence guarantees
 \end{itemize}
-
-\missingfigure{DESPOT tree visualization}
 
 \subsection{POMCPOW}\label{sec:theory-pomcpow}
 
