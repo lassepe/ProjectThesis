@@ -3,17 +3,17 @@
 Typically, robot localization and motion planning are treated as mostly
 independent tasks. Often, the problem provides the agent with a focused initial
 belief or allows the agent to quickly reduce uncertainty by first collecting
-a series of measurements that don't require elaborate motion planning. This is
+a series of measurements that do not require elaborate motion planning. This is
 particularly the case if the state space is well observed, i.e. there exists
 a sensor that provides the robot with a (noisy) position reading (e.g. GPS).
 For these well behaved problems, a simple yet effective approach is to first
 collect sensor data while executing a default motion, i.e. rotating about the
 yaw axis to collect measurements in all directions. Once state uncertainty is
 reduced to a focused, unimodal belief, the problem is treated as fully observed
-problem and motion planning is performed on expectation. That is, trajectories
+problem and motion planning is performed on expectation. That is\todo[author=ZS]{"That is" isn't normally used to start a sentence}, trajectories
 are planned based on the assumption that the expectation of the belief, $E[b]$,
 is a sufficient approximation for the true position of the robot. Furthermore,
-higher statistical moments \todo{What is the right word for this?} may be used
+higher statistical moments \todo{What is the right word for this?}\todo{maybe "higher entropy"} may be used
 to trigger additional information gathering. In even simpler problems, plan
 execution may implicitly yield sufficient information gathering, rendering
 explicit consideration of this aspect obsolete.
@@ -37,7 +37,7 @@ discuss the results in \cref{sec:lp-evaluation}.
 In this chapter we study an instance of simultaneous localization and planning.
 Consider a robot operating in a planar, previously mapped room as depicted in
 \cref{fig:roomba-env}. In this figure the red marker denotes the true position
-of the robot, while the blue particles represent the robot's belief of it's
+of the robot, while the blue particles represent the robot's belief of its
 current location in the room. The agent is tasked to reach the exit (green)
 while avoiding falling down the stairs (red). Additionally, unnecessary
 collisions are to be avoided. The scene shows the simulation in it's initial
@@ -172,7 +172,7 @@ policy search for the localization and planning problem.
 
 As presented in \cref{sec:theory-despot}, \ac{despot} uses upper and lower
 bounds, $U_0$ and $L_0$, on the value function to guide the policy search and
-prune the determinized policy tree. In theory, the tighter these bounds are on
+prune the determinized policy tree. Intuitively, the tighter these bounds are on
 the true value function, the more efficiently the algorithm will focus on
 exploring the relevant trajectories. On the other hand, if these estimates
 violate the true bounds on the optimal cost to go, \ac{despot} with perform
@@ -196,7 +196,7 @@ the problem studied here.
 
 \begin{description}
   \item[Analytic Bounds] In this strategy we compute the bounds using an
-    analytic, closed form\todo{what is a better phrasing for this?}
+      analytic, closed form\todo{what is a better phrasing for this?}/todo{seems ok to me}
     approximation for $U_0$ and $L_0$. Due to the structure of the reward
     model, we can directly compute the cumulative reward for an arbitrary
     $n$-step, collision-free trajectory. Let $\hat{\Sigma}: \naturals \to
@@ -210,7 +210,7 @@ the problem studied here.
     translational speed. For the lower bound, $L_0$, we proceed in
     a similar fashion. In this case, however, we consider the worst case
     particle by using the $\ell_1$ norm as a distance metric combined with an
-    under-approximation on the velocity to obtain $n_{\text{max}}$. In either
+    under-approximation on the velocity to obtain $n_{\text{max}}$\todo[author=ZS]{Wow, this seems like a really poor bound; it's very interesting to know that it works.}. In either
     case, we use $\hat{\Sigma}$ to map the step estimate to a corresponding
     return. Using these approximations, $U_0$ is a true upper bound on the
     optimal value. While for $L_0$ there is no strict guarantee to be a true
@@ -227,7 +227,7 @@ the problem studied here.
 \subsubsection{POMCPOW}\label{sec:lp-planners-pomcpow}
 
 \ac{pomcpow} uses a value estimate to approximate the remaining reward to be
-collected from a leave node of the policy tree. Due to the design of the
+collected from a leaf node of the policy tree. Due to the design of the
 algorithm, this value estimate is only ever invoked on observation nodes when
 visited for the first time (cf. \cref{alg:pomcpow}). As a result, the
 corresponding belief consists of only a single state and the problem is de
@@ -277,7 +277,7 @@ the objective function for this optimization problem, this is the most natural
 benchmark. In order to account for the reward discarded in cases where
 $T_\text{max, sim}$ is exceeded, we penalize the value of these runs by
 extrapolating the living penalty over infinite horizon. Since the sum over the
-infinite sequence of discounted rewards is geometric series, we obtain the
+infinite sequence of discounted rewards is a geometric series, we obtain the
 closed form solution,
 \begin{equation}
   r_{T_\text{sim,max}} = \sum_{t=1}^\infty r_\text{time} \gamma^{t-1} =  r_\text{time} \frac{\gamma}{1-\gamma}.
@@ -356,7 +356,7 @@ the goal while the true position -- guided by particles with a smaller
 likelihood weight -- is facing the stairs.
 
 Finally, we observe that the \ac{pomdp} planners using a rollout strategy to
-guide the search behave more myopic. While shortsighted planning still allows
+guide the search behave more myopically. While shortsighted planning still allows
 the agent to be robust against falling down the stairs, these policies tend to
 get stuck when a long sequence of actions is required to eliminate uncertainty.
 A possible reason for this is the fact that rollouts are more computationally
@@ -366,7 +366,7 @@ or accurate value estimate for \ac{despot} and \ac{pomcpow}, respectively. In
 the case of \ac{despot}, even though the sparse approach most likely allows
 some branches of the tree to be constructed to full depth, the loose lower
 bound causes policy search to be poorly guided while the limit planning time
-does prevents sufficient exploration of more promising branches. In the case of
+prevents sufficient exploration of more promising branches. In the case of
 \ac{pomcpow} the computationally expensive rollout performed for every iteration
 of the algorithms hinders the policy tree to reach sufficient depth within
 the computation budget. Since rewards are sparse, on a short horizon all
@@ -409,15 +409,15 @@ considered near optimal with respect to safety.
 
 Additional evidence for the findings discussed above is provided by the
 statistics of the cumulative \emph{undiscoutned} reward. While this metric does
-not match the objective for the infinite horizon formulation, it may alighn more closely with the
+not match the objective for the infinite horizon formulation, it may align more closely with the
 perceived \emph{qualitative performance} since one can only observe the agent
-for a finite time horizon. \Cref{fig:lp_eval_undiscounted} depcits the \ac{sem}
+for a finite time horizon. \Cref{fig:lp_eval_undiscounted} depicts the \ac{sem}
 and \ac{pdf} approximation for the undiscoutned reward sequence. Using this
 metric, it becomes clear that the analytic versions of the \ac{pomdp} planners
 outperform all other strategies. Here, we can additionally identify a subtle
 performance gap between \emph{\ac{despot}-analytic} and
 \emph{\ac{pomcpow}-analytic}. The \ac{pdf} approximation of the
-cumulative undiscoutned reward show that \emph{\ac{pomcpow}-analytic} manages
+cumulative undiscounted reward show that \emph{\ac{pomcpow}-analytic} manages
 to eliminate large parts of the low value tail.
 
 In summary we can state that for this problem we were able to generate robust

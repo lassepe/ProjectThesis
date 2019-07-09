@@ -3,12 +3,12 @@
 This work showcases the use of \acp{pomdp} to model and solve decision making
 problems in robotics with inherent uncertainty. In order to provide a baseline
 for further discussions of specific application domains
-(\cref{chap:localization-and-planning,chap:hri}) we first
-introduce some of the throughout this work. It should be noted that in the
+(\cref{chap:localization-and-planning,chap:hri}), we first
+introduce some of the \todo{missing word?}throughout this work. It should be noted that in the
 interest of conciseness we focus this theoretical introduction on only the main
-tools use. Fundamental concepts of statistical inference and tools like
+tools used. Fundamental concepts of statistical inference and tools like
 \textit{Monte Carlo Integration} are assumed to be known. For a thorough
-discussion of these underlying concept the reader may refer to
+discussion of these underlying concepts the reader may refer to
 \cite{kochenderfer2015decision, bertsekas2005dynamic, thrun2005probabilistic}.
 
 In the following, we first introduce the theoretical framework of \acp{pomdp}
@@ -24,7 +24,7 @@ The \acf{pomdp} is a principled mathematical formalism capable of representing
 a broad range of sequential decision making problems under uncertainty. As the
 name suggests, this framework is a generalization of the more popular \ac{mdp}
 to the partially observable case. Thus, before proceeding with the full
-complexity of a \ac{pomdp} let us first examine it's fully observable version.
+complexity of a \ac{pomdp} let us first examine its fully observable version.
 
 \subsection{Markov Decision Process (MDP)}\label{sec:mdp}
 
@@ -35,7 +35,7 @@ receives \vname{rewards} $r$ based the state-transition and the action taken
 according to a stochastic transition model $\tdist$ that and obeys the
 Markov property. That is, future states are independent of past states given
 the current state and action. By this means, \acp{mdp} allow to model outcome
-uncertainty. As common in literature, we denote quantities at time time $t$
+uncertainty. As is common in literature, we denote quantities at time \todo{double word?}time $t$
 with an according subscript. When examining only a single step in a context
 where time does not explicitly matter, we may also refer to states before and
 after the transition as $s$ and $s'$ rather than $s_t$ and $s_{t+1}$.
@@ -79,7 +79,7 @@ beyond the current state at every time is necessary to maximize $J$
 \subsection{Partially Observable MDP (POMDP)}\label{sec:pomdp}
 
 A \acf{pomdp} is an \ac{mdp} where the agent cannot directly observe the state,
-but instead at every time step $t$ receives an \vname{observation} $o_t$,
+but instead at every time step $t$ receives an \vname{observation} $o_t$,\todo{comma here seems weird}
 emission of the latent state $s_t$ and action $a_t$. By this means,
 a \ac{pomdp} is able to encode state uncertainty in addition to the outcome
 uncertainty present in the underlying \ac{mdp}.
@@ -132,7 +132,7 @@ a Bayesian update,
 \end{equation}
 with incoming observations, $o$. In the case of a discrete state space,
 $\sspace$ integrals a to be replaced with sums. In cases where this update rule
-is too complex to be evaluated analytically, Monte Carlo integration may be
+is too complex to be evaluated analytically, Monte Carlo integration\todo{maybe mention the name "particle filter" here?} may be
 used for approximate inference \cite{kochenderfer2015decision,
 thrun2005probabilistic}.
 
@@ -146,7 +146,7 @@ every possible sequence of actions and observations starting from the root
 belief, $b_0$. This perspective reveals that the search space of possible
 policies rapidly grows with increasing size of $\aspace$ and $\ospace$. In
 fact, it has been shown that even in the case of finite-horizon problems
-\acp{pomdp} remain PSPACE-complete. Hence, it is reasonable to assume to that
+\acp{pomdp} remain PSPACE-complete. Hence, it is reasonable to assume that
 no efficient general algorithm for solving large problems of this class can be
 found \cite{papadimitriou1987complexity}. However, recent research has made
 significant progress on approximate solution methods, some of which we will use
@@ -167,7 +167,7 @@ from the current belief state. Solution techniques of this kind potentially
 leads to redundant computation and more compute per decision step at runtime.
 However, in practice they allow to solve much larger \acp{pomdp} since the
 reachable belief states are typically a small subset of the full belief space.
-By exploiting this local structure online methods allow to compute solutions to
+By exploiting this local structure, online methods allow to compute solutions to
 large problems that may be intractable for offline approaches
 \cite{kochenderfer2015decision, silver2010pomcp, somani2013despot,
 kurniawati2016online}.
@@ -175,7 +175,7 @@ kurniawati2016online}.
 In practice, due to the complexity of \acp{pomdp}, even for seemingly simple
 problems finding the exact solution is computationally intensive. However,
 recent research has put forth online solvers that provide good approximations
-to a wide range of problems. This work makes use of two of the most elaborate
+to a wide range of problems. This work makes use of two of the most elaborate\todo{see other note on "elaborate"}
 state of the art online \ac{pomdp} solvers -- \ac{despot} and \ac{pomcpow}. We
 choose these methods since they show superior performance in a wide range of
 benchmark problems and outperform other approximate solutions especially for
@@ -212,12 +212,12 @@ optimal policy on this sparse belief tree.
 \subsubsection{Determinized Sparse Partially Observable Trees}\label{sec:despot-tree}
 
 A \ac{despot} is a sparse approximation of a belief tree that alleviates the
-\emph{curse of dimensionality} by sampling states from root belief and
+\emph{curse of dimensionality}\todo{I don't think you defined "curse of dimensionality"} by sampling states from root belief and
 considering only a limited number of random \emph{scenarios} when
 simulating future observations.
 
 A \emph{scenario} is an abstract concept which may be envisioned as an object
-that determinizes the outcome of a random process. Loosely speaking, under
+that determinizes the outcome of a random process. Loosely speaking\todo{I don't think you need "loosly speaking" here}, under
 a fixed scenario $\phib$ an action sequence $(a_1, a_2, ...)$ applied starting
 from belief $b$ always traverses the same state-action-observation sequence ($s_0,
 a_1, o_1, a_2, o_2,\dots$). In \ac{despot}, scenarios are used to obtain
@@ -231,7 +231,7 @@ that node.
 The tree is constructed by sampling an initial state under each scenario.
 Starting from this initial state, for each scenario \emph{all actions} $a \in
 \aspace$ are simulated one step into the future. For the observations
-encountered during these determinized simulations a new node is created one
+encountered during these determinized simulations, a new node is created one
 level deeper and the corresponding state-outcomes are recorded to form
 a particle belief at every node. As a result, the tree considers all
 action-branches but only the sparse set of observation-nodes encountered under
@@ -296,6 +296,7 @@ already formulated in \cite{somani2013despot}. However, I have a hard time
 discussing the pseudo-code in \cref{alg:despot} without introducing all the
 math / symbols / concepts (to be able to discuss the difference between $\ell$
 vs $L$ and $\mu$ vs $U$.)}
+\todo[author=ZS]{I think you should not spend very much space on the specifics of the algorithm - I don't think I would even put pseudocode in. I would just say in prose what each node represents (using L,U, and V instead of l, mu, and v), and how it chooses what to expand.}
 
 A pseudo code representation of the algorithm is provided in \Cref{alg:despot}.
 
@@ -401,9 +402,9 @@ of \ac{mcts} -- as utilized in \ac{pomcp} \cite{silver2010pomcp} -- with the
 idea of \ac{dpw} \cite{sunberg2018online}.
 
 Before we discuss the algorithmic procedure of \ac{pomcpow} we briefly review
-the general idea of \ac{mcts}. This section is thought to be a concise recap of
+the general idea of \ac{mcts}. This section is a concise recap of
 the fundamental concept and seeks to provide a baseline for understanding how
-this technique is adopted in the context of \ac{pomcpow}. A thorough discussion
+this technique is adopted in the context of \ac{pomcpow}; a thorough discussion
 of \ac{mcts} is beyond the scope of this work. For a detailed survey of a wide
 range of \ac{mcts} algorithms, the reader may refer to \cite{browne2012survey}.
 An extensive comparison of \ac{pomcpow} with other state-of-the-art solvers is
@@ -542,7 +543,7 @@ Instead of reasoning over state-action sequences, the policy tree spans over
 action-observation trajectories starting from the initial belief, $b_0$. In
 contrast to \ac{pomcp}, \ac{pomcpow} uses \ac{dpw} to focus search on
 a progressively expanded set of actions and observations \cite{silver2010pomcp,
-sunberg2018online}. This enhancement allows to yield deeper and more richly
+sunberg2018online}. This enhancement produces deeper and more richly
 sampled policy trees even in the case of large action and observation spaces.
 Finally, since \ac{dpw} constraints the set of considered observations, the
 algorithm uses a weighted particle collection to represent the outcome
@@ -647,7 +648,7 @@ accordingly.
 \section{Tools and Software Framework}
 
 Solving a \ac{pomdp} poses a challenging problem from both, the
-implementational\todo{@zach is "implementational" even a word?} and computational
+implementational\todo{@zach is "implementational" even a word?}\todo[author=ZS]{Haha, no - there is probably not one word that can express this well. Maybe "expressiveness" or "convenience" get close, but I would just use a couple sentences for it.} and computational
 perspective. Therefore, suitable software tooling is required that provides
 a simple but expressive way of describing problems and solvers while leveraging
 the full computational power of the hardware involved.
@@ -672,7 +673,7 @@ code written in \emph{Julia} can still compete with \emph{C++} implementations.
 In fact, experiments we ran to evaluate the runtime for one of the problems
 studied in \cref{chap:hri} suggest that the highly-optimized code produced by
 the \emph{Julia} compiler may even outperform a \emph{C++} implementation,
-unless the later is carefully tuned by an experienced software engineer.
+unless the latter is carefully tuned by an experienced software engineer.
 
 In addition to the advantages generated by the choice of programming language,
 \pomdpsjl provides a simple yet expressive interface to describe, solve and
