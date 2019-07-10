@@ -3,10 +3,10 @@
 This work showcases the use of \acp{pomdp} to model and solve decision making
 problems in robotics with inherent uncertainty. In order to provide a baseline
 for further discussions of specific application domains
-(\cref{chap:localization-and-planning,chap:hri}), we first
-introduce some of the \todo{missing word?}throughout this work. It should be noted that in the
-interest of conciseness we focus this theoretical introduction on only the main
-tools used. Fundamental concepts of statistical inference and tools like
+(\cref{chap:localization-and-planning,chap:hri}), we first introduce some of
+the theory used throughout this work. It should be noted that in the interest
+of conciseness we focus this theoretical introduction on only the main tools
+used. Fundamental concepts of statistical inference and tools like
 \textit{Monte Carlo Integration} are assumed to be known. For a thorough
 discussion of these underlying concepts the reader may refer to
 \cite{kochenderfer2015decision, bertsekas2005dynamic, thrun2005probabilistic}.
@@ -35,10 +35,10 @@ receives \vname{rewards} $r$ based the state-transition and the action taken
 according to a stochastic transition model $\tdist$ that and obeys the
 Markov property. That is, future states are independent of past states given
 the current state and action. By this means, \acp{mdp} allow to model outcome
-uncertainty. As is common in literature, we denote quantities at time \todo{double word?}time $t$
-with an according subscript. When examining only a single step in a context
-where time does not explicitly matter, we may also refer to states before and
-after the transition as $s$ and $s'$ rather than $s_t$ and $s_{t+1}$.
+uncertainty. As is common in literature, we denote quantities at time $t$ with
+an according subscript. When examining only a single step in a context where
+time does not explicitly matter, we may also refer to states before and after
+the transition as $s$ and $s'$ rather than $s_t$ and $s_{t+1}$.
 
 Formally, an \ac{mdp} is fully characterized by the following quantities:
 
@@ -79,7 +79,7 @@ beyond the current state at every time is necessary to maximize $J$
 \subsection{Partially Observable MDP (POMDP)}\label{sec:pomdp}
 
 A \acf{pomdp} is an \ac{mdp} where the agent cannot directly observe the state,
-but instead at every time step $t$ receives an \vname{observation} $o_t$,\todo{comma here seems weird}
+but instead at every time step $t$ receives an \vname{observation} $o_t$
 emission of the latent state $s_t$ and action $a_t$. By this means,
 a \ac{pomdp} is able to encode state uncertainty in addition to the outcome
 uncertainty present in the underlying \ac{mdp}.
@@ -132,9 +132,8 @@ a Bayesian update,
 \end{equation}
 with incoming observations, $o$. In the case of a discrete state space,
 $\sspace$ integrals a to be replaced with sums. In cases where this update rule
-is too complex to be evaluated analytically, Monte Carlo integration\todo{maybe mention the name "particle filter" here?} may be
-used for approximate inference \cite{kochenderfer2015decision,
-thrun2005probabilistic}.
+is too complex to be evaluated analytically, a particle filter may be used for
+approximate inference \cite{kochenderfer2015decision, thrun2005probabilistic}.
 
 Solutions to a \ac{pomdp} are Markov policies on belief states. That is, the
 optimal policy $\pi^*(b(s)): \bspace \to \aspace$ selects action ${a =
@@ -175,7 +174,7 @@ kurniawati2016online}.
 In practice, due to the complexity of \acp{pomdp}, even for seemingly simple
 problems finding the exact solution is computationally intensive. However,
 recent research has put forth online solvers that provide good approximations
-to a wide range of problems. This work makes use of two of the most elaborate\todo{see other note on "elaborate"}
+to a wide range of problems. This work makes use of two of the most advanced
 state of the art online \ac{pomdp} solvers -- \ac{despot} and \ac{pomcpow}. We
 choose these methods since they show superior performance in a wide range of
 benchmark problems and outperform other approximate solutions especially for
@@ -217,11 +216,11 @@ considering only a limited number of random \emph{scenarios} when
 simulating future observations.
 
 A \emph{scenario} is an abstract concept which may be envisioned as an object
-that determinizes the outcome of a random process. Loosely speaking\todo{I don't think you need "loosly speaking" here}, under
-a fixed scenario $\phib$ an action sequence $(a_1, a_2, ...)$ applied starting
-from belief $b$ always traverses the same state-action-observation sequence ($s_0,
-a_1, o_1, a_2, o_2,\dots$). In \ac{despot}, scenarios are used to obtain
-a sparse presentation of the future. \Cref{fig:despot-tree} depicts a partially
+that determinizes the outcome of a random process. Under a fixed scenario
+$\phib$ an action sequence $(a_1, a_2, ...)$ applied starting from belief $b$
+always traverses the same state-action-observation sequence ($s_0, a_1, o_1,
+a_2, o_2,\dots$). In \ac{despot}, scenarios are used to obtain a sparse
+presentation of the future. \Cref{fig:despot-tree} depicts a partially
 constructed \ac{despot} $\mathcal{D}$ rooted at the current belief, $b_0$,
 obtained under two scenarios (marked in blue and orange). Each node implicitly
 represents a particle belief, $\Phib$, constructed from the distribution of
@@ -261,7 +260,7 @@ general the optimal policy on $\mathcal{D}$ may be suboptimal for the dense
 formulation. In practice, however, a limited number of scenarios may
 sufficiently approximate the true belief tree such that the optimal decision
 computed on $\mathcal{D}$ is near-optimal for the full problem. In fact, it has
-been shown that for a policy optimized on $\mathcal{D}$ the error of it's value
+been shown that for a policy optimized on $\mathcal{D}$ the error of its value
 when transfered to the dense problem stays bounded.
 
 Therefore, in theory a near-optimal policy $\hat{\pi}$ could be computed by

@@ -13,7 +13,7 @@ reduced to a focused, unimodal belief, the problem is treated as fully observed
 problem and motion planning is performed on expectation. That is\todo[author=ZS]{"That is" isn't normally used to start a sentence}, trajectories
 are planned based on the assumption that the expectation of the belief, $E[b]$,
 is a sufficient approximation for the true position of the robot. Furthermore,
-higher statistical moments \todo{What is the right word for this?}\todo{maybe "higher entropy"} may be used
+characteristic properties of the belief (e.g. the entropy) may be evaluated
 to trigger additional information gathering. In even simpler problems, plan
 execution may implicitly yield sufficient information gathering, rendering
 explicit consideration of this aspect obsolete.
@@ -40,14 +40,14 @@ Consider a robot operating in a planar, previously mapped room as depicted in
 of the robot, while the blue particles represent the robot's belief of its
 current location in the room. The agent is tasked to reach the exit (green)
 while avoiding falling down the stairs (red). Additionally, unnecessary
-collisions are to be avoided. The scene shows the simulation in it's initial
+collisions are to be avoided. The scene shows the simulation in its initial
 configuration: The robot starts at a position drawn uniformly at random from
 the set of all possible position-orientation tuples. This initial position is
 not known by the agent, thus the particles representing the initial belief are
 spread uniformly across the entire room. The robot is equipped with a single
 sensor that provides information about collisions with walls of the room. The
 robot's dynamics are governed by an underactuated first-order model that allows
-the robot to translate forward and/or rotate about it's vertical axis. The
+the robot to translate forward and/or rotate about its vertical axis. The
 agent holds control authority to choose translation and rotation rates.
 
 This problem has originally been published under the name \emph{"Escape
@@ -196,25 +196,25 @@ the problem studied here.
 
 \begin{description}
   \item[Analytic Bounds] In this strategy we compute the bounds using an
-      analytic, closed form\todo{what is a better phrasing for this?}/todo{seems ok to me}
-    approximation for $U_0$ and $L_0$. Due to the structure of the reward
-    model, we can directly compute the cumulative reward for an arbitrary
-    $n$-step, collision-free trajectory. Let $\hat{\Sigma}: \naturals \to
-    \reals$ be this mapping. We compute the upper bound, $U_0$, on the optimal
-    value by considering a strict relaxation of the problem: First, we assume
-    that the robot is located at the closest position to the goal out of all
-    particles in the current belief; Second, we assume that the robot can
-    immediately move on a straight line to the target. With this relaxation we
-    compute the minimum remaining number of steps, $n_{\text{min}}$, from the
-    minimum Euclidean distance over all particles to the goal and the maximum
-    translational speed. For the lower bound, $L_0$, we proceed in
-    a similar fashion. In this case, however, we consider the worst case
-    particle by using the $\ell_1$ norm as a distance metric combined with an
-    under-approximation on the velocity to obtain $n_{\text{max}}$\todo[author=ZS]{Wow, this seems like a really poor bound; it's very interesting to know that it works.}. In either
-    case, we use $\hat{\Sigma}$ to map the step estimate to a corresponding
-    return. Using these approximations, $U_0$ is a true upper bound on the
-    optimal value. While for $L_0$ there is no strict guarantee to be a true
-    lower bound, we found that most cases it is well behaved.
+      analytic, closed form approximation for $U_0$ and $L_0$. Due to the
+      structure of the reward model, we can directly compute the cumulative
+      reward for an arbitrary $n$-step, collision-free trajectory. Let
+      $\hat{\Sigma}: \naturals \to \reals$ be this mapping. We compute the
+      upper bound, $U_0$, on the optimal value by considering a strict
+      relaxation of the problem: First, we assume that the robot is located at
+      the closest position to the goal out of all particles in the current
+      belief; Second, we assume that the robot can immediately move on
+      a straight line to the target. With this relaxation we compute the
+      minimum remaining number of steps, $n_{\text{min}}$, from the minimum
+      Euclidean distance over all particles to the goal and the maximum
+      translational speed. For the lower bound, $L_0$, we proceed in a similar
+      fashion. In this case, however, we consider the worst case particle by
+      using the $\ell_1$ norm as a distance metric combined with an
+      under-approximation on the velocity to obtain $n_{\text{max}}$. In either
+      case, we use $\hat{\Sigma}$ to map the step estimate to a corresponding
+      return. Using these approximations, $U_0$ is a true upper bound on the
+      optimal value. While for $L_0$ there is no strict guarantee to be a true
+      lower bound, we found that most cases it is well behaved.
   \item[Rollout Lower Bound] This strategy uses the same upper bound as the
     first approach. However, for $L_0$ we use a default policy rollout to
     obtain a true lower bound. In order to generate a structured motion, we use
@@ -336,7 +336,7 @@ eliminate a lot of uncertainty. The baseline strategies on the other hand only
 passively reduce uncertainty by colliding with wall if the mode of the belief
 is located in cluster far away from the true position of the robot. For many
 cases this kind of passive information gathering is strong enough to help the
-robot eventually reach it's goal. However, we notice that for certain
+robot eventually reach its goal. However, we notice that for certain
 typologies of the belief the baseline policies fail to reduce uncertainty, e.g.
 if the belief is highly symmetric. In these cases, often slight modifications
 of the trajectory would have been sufficient to break symmetry and completely
