@@ -643,9 +643,12 @@ accordingly.
 
 \section{Tools and Software Framework}
 
-Solving a \ac{pomdp} poses a challenging problem from both, the
-implementational\todo{@zach is "implementational" even a word?}\todo[author=ZS]{Haha, no - there is probably not one word that can express this well. Maybe "expressiveness" or "convenience" get close, but I would just use a couple sentences for it.} and computational
-perspective. Therefore, suitable software tooling is required that provides
+Solving a \ac{pomdp} poses a challenging problem due to several aspects.
+\ac{pomdp} solvers, like those presented in \cref{sec:online-pomdp-solvers},
+typically are complex algorithms that are not straight forward to implement
+correctly. Furthermore, the computational complexity of these algorithms
+requires sophisticated optimization in order to achieve sufficiently fast
+execution times. Therefore, suitable software tooling is required that provides
 a simple but expressive way of describing problems and solvers while leveraging
 the full computational power of the hardware involved.
 
