@@ -32,9 +32,9 @@ complexity of a \ac{pomdp} let us first examine its fully observable version.
 \vname{actions} $a$ that affect the \vname{state} $s$ of the environment and
 receives \vname{rewards} $r$ based the state-transition and the action taken
 \cite{kochenderfer2015decision, bertsekas2005dynamic}. The state evolves
-according to a stochastic transition model $\tdist$ that and obeys the
-Markov property. That is, future states are independent of past states given
-the current state and action. By this means, \acp{mdp} allow to model outcome
+according to a stochastic transition model $\tdist$ and obeys the Markov
+property. That is, future states are independent of past states given the
+current state and action. By this means, \acp{mdp} allow to model outcome
 uncertainty. As is common in literature, we denote quantities at time $t$ with
 an according subscript. When examining only a single step in a context where
 time does not explicitly matter, we may also refer to states before and after
@@ -210,9 +210,9 @@ optimal policy on this sparse belief tree.
 \subsubsection{Determinized Sparse Partially Observable Trees}\label{sec:despot-tree}
 
 A \ac{despot} is a sparse approximation of a belief tree that alleviates the
-\emph{curse of dimensionality}\todo{I don't think you defined "curse of dimensionality"} by sampling states from root belief and
-considering only a limited number of random \emph{scenarios} when
-simulating future observations.
+exponentially complex problem of reasoning over the belief evolution by sampling
+states from the root belief and considering only a limited number of random
+\emph{scenarios} when simulating future observations.
 
 A \emph{scenario} is an abstract concept which may be envisioned as an object
 that determinizes the outcome of a random process. Under a fixed scenario
