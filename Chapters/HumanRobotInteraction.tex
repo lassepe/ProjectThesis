@@ -299,9 +299,16 @@ horizon \ac{mpc}. That is, at every time step the robot only executes the first
 action of the optimal action sequence computed above. At the next time step,
 all steps are repeated closing the loop over the received observation.
 
-\todo[inline]{@zach: should this feature additional implementation details
-(e.g. KDTree for nearest neighbour search etc?)}
-\todo[author=ZS]{Yeah, I would mention them, just to show that we did due diligence implementing this efficiently, but just spend a few sentences on it.}
+We implement this solver using the \pomdpsjl interface. By this means we can
+share the procedures for inference and sampling, thus allowing for a direct
+comparison of the solver performance. Our implementation of this algorithm is
+carefully optimized for computational efficiency. In particular, we use k-d
+trees to perform nearest-neighbor search when checking for collisions of
+particles in the belief prediction. Furthermore, we implement an optimized
+lightweight graph search library to efficiently solve the policy search
+problem. The latter has been published as an open-source Julia
+package\footnote{\url{https://github.com/lassepe/GraphSearchZero.jl}} to allow
+for usage in other projects.
 
 \begin{figure}[htpb]
   \centering
