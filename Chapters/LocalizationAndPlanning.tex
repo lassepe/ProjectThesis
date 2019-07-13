@@ -10,7 +10,7 @@ For these well behaved problems, a simple yet effective approach is to first
 collect sensor data while executing a default motion, i.e. rotating about the
 yaw axis to collect measurements in all directions. Once state uncertainty is
 reduced to a focused, unimodal belief, the problem is treated as fully observed
-problem and motion planning is performed on expectation. That is\todo[author=ZS]{"That is" isn't normally used to start a sentence}, trajectories\todo[author=LP]{Stephen Hawking does use it this way.}
+problem and motion planning is performed on expectation. That is, trajectories
 are planned based on the assumption that the expectation of the belief, $E[b]$,
 is a sufficient approximation for the true position of the robot. Furthermore,
 characteristic properties of the belief (e.g. the entropy) may be evaluated
@@ -72,16 +72,17 @@ problem\footnote{\url{https://github.com/sisl/AA228FinalProject}}.
 
 The problem is formalized as a \ac{pomdp} with the following properties introduced in \cref{sec:pomdp}:
 
-\todo[inline]{Mention somewhere that we discretize the action space because
-samples are expensive (problem setup is quite slow)}
-
 \begin{description}
 	\item[State Space $\sspace$.] The state of the robot is defined as the
 	position, orientation tuple, $s=((x,y), \alpha)$. Respectively, $\sspace$ is
 	the set of all positions-orientation tuples inside the room.
 	\item[Action Space $\aspace$.] An action is defined as a translation-rotation
-		rate tuple, $a=(v, \omega)$. $\aspace$ is the set of all these
-		tuples adhering to the physical limitations of the system.
+    rate tuple, $a=(v, \omega)$. The provided implementation of the generative
+    model only allows sampling of state transitions at significant
+    computational cost. Thus, we reduce the policy search space by discretizing
+    the action space to three actions: \emph{"left"}, \emph{"right"} and
+    \emph{"straight"}. The set of these three actions constitutes the action
+    space, $\aspace$.
   \item[Transition Model $\tdist$.] The robot transition follows the dynamics of
     a simple differential drive model. The details of this transition are
     defined implicitly by the simulator and are treated as a generative black
