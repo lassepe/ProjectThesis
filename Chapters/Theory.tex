@@ -269,7 +269,12 @@ constructed \ac{despot} obtained under $K$ scenarios still contains $\oof(|A|^D
 K)$ belief nodes. Therefore, the authors of \cite{somani2013despot} propose
 a \emph{forward search} strategy to incrementally construct the sparse belief
 tree. The search method uses a heuristic to guide the exploration and performs
-regularization to prevent overfitting to the sampled scenarios.
+regularization to prevent overfitting to the sampled scenarios. In the
+following we present the high level idea of this \emph{anytime heuristic
+search} strategy to determine a near-optimal policy on a \ac{despot}. This
+section aims to provide intuition for the core concepts of this algorithm.
+For a detailed discussion of the algorithm and precise mathematical justification
+of the individual steps the reader may refer to \cite{somani2013despot}.
 
 We aim to derive a policy from $\mathcal{D}$ that maximizes the \emph{regularized empirical value}
 under the sampled scenarios,
@@ -287,37 +292,13 @@ making sure that complex policies with a lot of flexibly to adopt to different
 scenarios need to perform significantly better than policies with a smaller
 representation size.
 
-\todo[inline]{@zach: Can you give me some feedback on how many mathematical
-details I should include here? I would prefer to describe \ac{despot} on an
-abstract level that provides intuition. The mathematically precise version is
-already formulated in \cite{somani2013despot}. However, I have a hard time
-discussing the pseudo-code in \cref{alg:despot} without introducing all the
-math / symbols / concepts (to be able to discuss the difference between $\ell$
-vs $L$ and $\mu$ vs $U$.)}
-\todo[author=ZS]{I think you should not spend very much space on the specifics of the algorithm - I don't think I would even put pseudocode in. I would just say in prose what each node represents (using L,U, and V instead of l, mu, and v), and how it chooses what to expand.}
+In the \emph{anytime} version of this algorithm we are additionally given
+a maximum planning time, $T_\text{max}$. The algorithm procee
 
+\todo[author=ZS,inline]{I think you should not spend very much space on the specifics of the algorithm - I don't think I would even put pseudocode in. I would just say in prose what each node represents (using L,U, and V instead of l, mu, and v), and how it chooses what to expand.}
+
+\todo[inline]{Move to appendix:}
 A pseudo code representation of the algorithm is provided in \Cref{alg:despot}.
-
-\todo[inline]{Introduce variables}
-
-\textbf{Plan}
-
-The \textsc{Plan} procedure represents the outer loop the algorithm. Starting
-from the current belief, $b_0$, the algorithm constructs constructs
-a \ac{despot} to obtain a lower bound, $\ell(b_0, a)$, on the value of each
-action at the root. The planner selects the action, $a^\ast$, that maximizes
-this computed lower bound. Unless outperformed by the default policy, $\pi_0$,
-this action is returned.
-
-\textbf{BuildDespot}
-
-\todo[inline]{Finish once it is clear how to handle the "notation" overhead.}
-
-% The \text{BuildDespot} procedure incrementally constructs a \ac{despot}
-% $\mathcal{D}$ rooted at $b$ by considering $K$ scenarios. Initially,
-% $\mathcal{D}$ only contains a single belief node $\Phib_b$ obtained by sampling
-% from $b_0$ under each scenario. The upper and lower bounds, $U$ and $L$, on the
-
 
 \begin{algorithm}[H]
   \caption{DESPOT \cite{somani2013despot}.}\label{alg:despot}
