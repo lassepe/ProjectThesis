@@ -264,7 +264,7 @@ when transfered to the dense problem stays bounded.
 
 Therefore, in theory a near-optimal policy $\hat{\pi}$ could be computed by
 constructing the entire \ac{despot} in advance and performing dynamic
-programming to find to optimize $\hat{\pi}$ on $\mathcal{D}$. However, a fully
+programming to optimize $\hat{\pi}$ on $\mathcal{D}$. However, a fully
 constructed \ac{despot} obtained under $K$ scenarios still contains $\oof(|A|^D
 K)$ belief nodes. Therefore, the authors of \cite{somani2013despot} propose
 a \emph{forward search} strategy to incrementally construct the sparse belief
@@ -277,23 +277,44 @@ For a detailed discussion of the algorithm and precise mathematical justificatio
 of the individual steps the reader may refer to \cite{somani2013despot}.
 
 We aim to derive a policy from $\mathcal{D}$ that maximizes the \emph{regularized empirical value}
-under the sampled scenarios,
-
-\begin{equation}
-  \hat{V}^\ast = \max_{\pi\in\Pi_\mathcal{D}}\left(\hat{V}_\pi(b_0 - \lambda|\pi|)\right).
+\begin{equation}\label{eq:despot-rev}
+  \hat{V}^\ast = \max_{\pi\in\Pi_\mathcal{D}}\left(\hat{V}_\pi(b_0)- \lambda|\pi|\right)
 \end{equation}
-
+under the sampled scenarios within a maximum planning time, $T_\text{max}$.
 Here, $b_0$ is the current belief; $\pi$ is a policy in $\Pi_\mathcal{D}$, the
 set of all policies on \ac{despot} $\mathcal{D}$; $\hat{V}_\pi$ is the
 empirical value of that policy when evaluated on $\mathcal{D}$; and $\lambda
-> 0$ is a constant to regularize the empirical value based on the size of the
-policy, $|\pi|$. Intuitively, the regularization alleviates overfitting by
-making sure that complex policies with a lot of flexibly to adopt to different
-scenarios need to perform significantly better than policies with a smaller
-representation size.
+\in \reals_{> 0}$ is a constant to regularize the empirical value based on the
+size of the policy, $|\pi|$. Intuitively, the regularization alleviates
+overfitting by making sure that complex policies with a lot of flexibly to
+adopt to different scenarios need to perform significantly better than policies
+with a smaller representation size.
 
-In the \emph{anytime} version of this algorithm we are additionally given
-a maximum planning time, $T_\text{max}$. The algorithm procee
+On an abstract level we determine a policy optimized according to
+\cref{eq:despot-rev} by incrementally constructing a \ac{despot} under $K$
+scenarios while maintaining upper and lower bounds ($U$ and $L$, respectively)
+on the regularized empirical value at very node. An initial estimate of these
+bounds is provided by user and may be used to encode domain knowledge. The
+\ac{despot} is constructed until the estimated value gap at the root $b_0$
+satisfy the target gap $\epsilon(b_0)$ or the maximum planning time
+$T_\text{max}$ is reached. Once either of these terminal conditions is met, we
+extract the optimized action at the root that maximizes the lower bound
+estimate on the objective value.
+
+Incremental construction of a \ac{despot} is achieved by iteratively performing
+\emph{exploration} and \emph{backup}. Each of these steps is briefly discussed below.
+
+\paragraph{Exploration}
+
+Initially the DESPOT only contains the root belief (one particle for each
+scenario) and the bounds are initialized with U and L as provided by the user
+(domain knowledge)
+
+The partially constructed despot is explored starting from the root node. Each exploration aims to reduce the current gap $\epsilon(b_0)$ at the root of the tree by by a factor of $0 < \xi < 1$. If the current node $b$ is a leaf node, the tree is expanded one level deeper by simulating all actions under each scenario and initializing the bounds for each child node. Otherwise, the tree is traversed with the following tree policy: First, we greedily select the action branch $a^\ast$ maximizing the upper bound estimate on the value. On this action branch we select the observation branch that features the highest \emph{excess uncertainty}
+\begin{equation}
+    o^\ast = \argmax_{o \in \ospace_{b, a^\ast}}\left\{\epsilon(b') - \frac{K_{b'}}{K}\cdot \xi\epsilon(b_0)\right\}
+\end{equation}
+at the associated child node $b'$. Here, $\epsilon(b')$ is the current gap at the belief node $b'$; $K_{b'}/K$ is the fraction of the number of scenarios passing through that node; and $\xi\epsilon(b_0)$ is the target gap at the root for this exploration. Thus, the excess uncertainty at $b'$ measures the difference between the current gap at this node and the expected gap at $b'$ if the target gap $\xi\epsilon(b_0)$ at the root is satisfied. By this means, the tree policy seeks to focus on promising parts of the search space. Exploration at a node $b$ is terminated under three conditions. First, the maximum depth $D$ of the tree is reached. Second, the excess uncertainty is negative, indicating that further exploration will not significantly reduce the gap at the root. Finally, $b$ is blocked by an ancestor node. Since the objective features regularization through $\lambda|\pi|$ (cf. \cref{eq:despot-rev}), the \emph{regularized} utility $\hat{V}^\ast$ at an ancestor $b'$ may be reduced if it's policy subtree is enlarged by expanding $b$. Thus, a node $b$ is considered blocked if expanding this node reduces the $\hat{V}^\ast$ at an ancestor $b'$. In particular, this is the case if an insufficient number of scenarios passes through $b'$ and further exploration entails the risk of overfitting.
 
 \todo[author=ZS,inline]{I think you should not spend very much space on the specifics of the algorithm - I don't think I would even put pseudocode in. I would just say in prose what each node represents (using L,U, and V instead of l, mu, and v), and how it chooses what to expand.}
 
