@@ -303,106 +303,133 @@ are often crucial for the success of \ac{despot} when operating under limited
 planning time. A practical example for the design of suitable upper and lower
 bounds for a specific application domain is provided in
 \cref{sec:lp-planners-despot}. The \ac{despot} is constructed until the
-value gap $\epsilon(b_0)$ at the root $b_0$ satisfy the target gap $\epsilon_0$
+value gap $\epsilon(b_0)$ at the root $b_0$ satisfy the target gap $\varepsilon_0$
 or the maximum planning time $T_\text{max}$ is exceeded. Once either of these
 terminal conditions is met, we extract the optimized action at the root that
 maximizes the lower bound estimate on regularized empirical value.
 
 While on an abstract level this algorithm is very simple, a key element of this
-search strategy is the incremental construction of the despot. We therefore proceed
+search strategy is the incremental construction of the \ac{despot}. We therefore proceed
 by explaining the two main steps -- \emph{exploration} and \emph{backup} --
 that are iteratively applied to enlarge the tree.
 
 \paragraph{Exploration}
 
-Initially the DESPOT only contains the root belief (one particle for each
-scenario) and the bounds are initialized with U and L as provided by the user
-(domain knowledge)
-
-The partially constructed despot is explored starting from the root node. Each exploration aims to reduce the current gap $\epsilon(b_0)$ at the root of the tree by by a factor of $0 < \xi < 1$. If the current node $b$ is a leaf node, the tree is expanded one level deeper by simulating all actions under each scenario and initializing the bounds for each child node. Otherwise, the tree is traversed with the following tree policy: First, we greedily select the action branch $a^\ast$ maximizing the upper bound estimate on the value. On this action branch we select the observation branch that features the highest \emph{excess uncertainty}
+The partially constructed \ac{despot} $\mathcal{D}$ is explored starting from
+the root node, $b_0$. Initially, $\mathcal{D}$ only contains the root belief --
+an unweighted particle collection featuring a state particle for every
+scenario. The bounds at the root are initialized with $U_0(b_0)$ and $L_0(b_0)$ as
+provided by the user. Each exploration aims to reduce the current gap
+$\epsilon(b_0)$ at the root of the tree by a factor of $0 < \xi < 1$. If node
+$b$ is a leaf node, the tree is expanded one level deeper by simulating all
+actions under each scenario and initializing the bounds for each child node.
+Otherwise, the tree is traversed according to the following tree policy: First,
+we greedily select the action branch $a^\ast$ maximizing the upper bound
+estimate on the value. On this action branch we select the observation branch
 \begin{equation}
-    o^\ast = \argmax_{o \in \ospace_{b, a^\ast}}\left\{\epsilon(b') - \frac{K_{b'}}{K}\cdot \xi\epsilon(b_0)\right\}
+    o^\ast = \argmax_{o \in \ospace_{b, a^\ast}} E(b') = \argmax_{o \in \ospace_{b, a^\ast}}\left\{\epsilon(b') - \frac{K_{b'}}{K}\cdot \xi\epsilon(b_0)\right\}
 \end{equation}
-at the associated child node $b'$. Here, $\epsilon(b')$ is the current gap at the belief node $b'$; $K_{b'}/K$ is the fraction of the number of scenarios passing through that node; and $\xi\epsilon(b_0)$ is the target gap at the root for this exploration. Thus, the excess uncertainty at $b'$ measures the difference between the current gap at this node and the expected gap at $b'$ if the target gap $\xi\epsilon(b_0)$ at the root is satisfied. By this means, the tree policy seeks to focus on promising parts of the search space. Exploration at a node $b$ is terminated under three conditions. First, the maximum depth $D$ of the tree is reached. Second, the excess uncertainty is negative, indicating that further exploration will not significantly reduce the gap at the root. Finally, $b$ is blocked by an ancestor node. Since the objective features regularization through $\lambda|\pi|$ (cf. \cref{eq:despot-rev}), the \emph{regularized} utility $\hat{V}^\ast$ at an ancestor $b'$ may be reduced if it's policy subtree is enlarged by expanding $b$. Thus, a node $b$ is considered blocked if expanding this node reduces the $\hat{V}^\ast$ at an ancestor $b'$. In particular, this is the case if an insufficient number of scenarios passes through $b'$ and further exploration entails the risk of overfitting.
+that features the highest \emph{excess uncertainty} at the associated child
+node $b'$. Here, $\epsilon(b')$ is the current gap at the belief node $b'$;
+$K_{b'}/K$ is the fraction of the number of scenarios passing through that
+node; and $\xi\epsilon(b_0)$ is the target gap at the root for this
+exploration. Thus, the excess uncertainty at $b'$ measures the difference
+between the current gap at the node and the expected gap at $b'$ if the target
+gap $\xi\epsilon(b_0)$ at the root is satisfied. By this means, the tree policy
+seeks to greedily reduce uncertainty to quickly tighten the bounds at the root.
+Exploration at a node $b$ is terminated under three conditions. First, the
+maximum depth $D$ of the tree is reached. Second, the excess uncertainty is
+negative, indicating that further exploration will not significantly reduce the
+gap at the root. Finally, $b$ is blocked by an ancestor node. Since the
+objective features regularization through $\lambda|\pi|$ (cf.
+\cref{eq:despot-rev}), the \emph{regularized} utility $\hat{V}^\ast$ at an
+ancestor $b'$ may be reduced if it's policy subtree is enlarged by expanding
+$b$. Thus, a node is considered blocked if expanding this node reduces the
+$\hat{V}^\ast$ at an ancestor. In particular, this is the case if an
+insufficient number of scenarios passes through $b'$ and further exploration
+entails the risk of overfitting. Blocked nodes are pruned from the \ac{despot}.
 
-\todo[author=ZS,inline]{I think you should not spend very much space on the specifics of the algorithm - I don't think I would even put pseudocode in. I would just say in prose what each node represents (using L,U, and V instead of l, mu, and v), and how it chooses what to expand.}
+\paragraph{Backup}
 
-\todo[inline]{Move to appendix:}
-A pseudo code representation of the algorithm is provided in \Cref{alg:despot}.
+Once exploration terminates according to the conditions mentioned above, we
+trace the path back to the root and update the bounds at all ancestors using
+Bellmans's principle. By this means, information obtained from expanding leaf
+nodes of $\mathcal{D}$ is propagated up the tree. Therefore, this step is often
+referred to as \emph{backpropagation} or \emph{backup}.
 
-\begin{algorithm}[H]
-  \caption{DESPOT \cite{somani2013despot}.}\label{alg:despot}
-  \begin{algorithmic}[1]
-    \Procedure{Plan}{$b_0$}
-      \State $\ell \gets \Call{BuildDespot}{b_0}$
-      \State $a^* \gets \max_{a \in \aspace}{\ell(b_0, a)}$
-      \If{$L_0(b_0) > \ell(b, a^*)$}
-        \State $a^* \gets \pi_0(b_0)$
-      \EndIf
-      \State \textbf{return} $a^*$
-    \EndProcedure\vspace{10pt}
-
-    \Procedure{BuildDespot}{$b$}
-      \State $\Phib_{b} \gets K \text{ scenarios sampled from } b$
-      \State $\mathcal{D} \gets \text{new DESPOT with a single node $b$ as the root}$
-      \State Initialize $U(b), L_0(b), \mu(b),$ and $\ell(b)$ \Comment{TODO: Explain}
-      \State $\epsilon(b) \gets \mu(b) - \ell(b)$
-      \While{$\epsilon(b) > \epsilon_0$ and total running $< T_{\text{max}}$}
-        \State $b \gets \Call{Explore}{\mathcal{D}, b}$
-        \State $\Call{Backup}{\mathcal{D}, b}$
-        \State $\epsilon(b) \gets \mu(b) - \ell(b)$
-      \EndWhile
-      \State \textbf{return} $\ell$
-    \EndProcedure\vspace{10pt}
-
-    \Procedure{Explore}{$\mathcal{D}, b$}
-      \While{$\Delta(b) \leq D, E(b) > 0, \text{ and } \Call{Prune}{\mathcal{D}, b} = \text{FALSE}$}
-        \If{$b$ is a leaf node in $\mathcal{D}$}
-          \State Expand $b$ one level deeper.
-          \Statex[3] Insert each new child $b'$ of $b$ into $\mathcal{D}$,
-          \Statex[3] and initialize $U(b'), L_0(b'), \mu{(b')}$, and $\ell(b')$.
-        \EndIf
-        \State $a^* \gets \argmax_{a \in \aspace}{\mu(b, a)}$
-        \State $o^* \gets \argmax_{o \in \ospace_{b, a^*}}{E(\tau(b, a^*, o))}$\Comment{reduce excess uncertainty.}
-        \State $b \gets \tau(b, a^*, o^*)$
-      \EndWhile
-      \If{$\Delta(b) > D$}
-        \State $\Call{MakeDefault}{b}$
-      \EndIf
-      \State \textbf{return} $b$
-    \EndProcedure\vspace{10pt}
-  \end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[H]
-  \begin{algorithmic}[1]
-      \Procedure{Prune}{$\mathcal{D}, b$}
-        \State \textsc{Blocked} $\gets$ FALSE
-        \For{each node $n$ on the path from $b$ to the root of $\mathcal{D}$}
-          \If{$n$ is blocked by any ancestor node in $D$}
-            \State $\Call{MakeDefault}{n}$
-            \State $\Call{Backup}{\mathcal{D}, n}$
-            \State \textsc{Blocked} $\gets$ TRUE
-          \Else
-            \State \textbf{break}
-          \EndIf
-        \EndFor
-        \State \textbf{return} \textsc{Blocked}
-      \EndProcedure\vspace{10pt}
-
-      \Procedure{MakeDefault}{$b$}
-        \State $U(b) \gets L_0(b)$
-        \State $\mu(b) \gets \ell_0(b)$
-        \State $\ell(b) \gets \ell_0(b)$
-      \EndProcedure\vspace{10pt}
-
-      \Procedure{Backup}{$\mathcal{D}, b$}
-        \For{each node $n$ on the path form $b$ to the root of $D$}
-          \State Perform backup on $\mu(n), l(n)$, and $U(n)$.
-        \EndFor
-      \EndProcedure\vspace{10pt}
-  \end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}[H]
+%   \caption{DESPOT \cite{somani2013despot}.}\label{alg:despot}
+%   \begin{algorithmic}[1]
+%     \Procedure{Plan}{$b_0$}
+%       \State $\ell \gets \Call{BuildDespot}{b_0}$
+%       \State $a^* \gets \max_{a \in \aspace}{\ell(b_0, a)}$
+%       \If{$L_0(b_0) > \ell(b, a^*)$}
+%         \State $a^* \gets \pi_0(b_0)$
+%       \EndIf
+%       \State \textbf{return} $a^*$
+%     \EndProcedure\vspace{10pt}
+% 
+%     \Procedure{BuildDespot}{$b$}
+%       \State $\Phib_{b} \gets K \text{ scenarios sampled from } b$
+%       \State $\mathcal{D} \gets \text{new DESPOT with a single node $b$ as the root}$
+%       \State Initialize $U(b), L_0(b), \mu(b),$ and $\ell(b)$ \Comment{TODO: Explain}
+%       \State $\epsilon(b) \gets \mu(b) - \ell(b)$
+%       \While{$\epsilon(b) > \epsilon_0$ and total running $< T_{\text{max}}$}
+%         \State $b \gets \Call{Explore}{\mathcal{D}, b}$
+%         \State $\Call{Backup}{\mathcal{D}, b}$
+%         \State $\epsilon(b) \gets \mu(b) - \ell(b)$
+%       \EndWhile
+%       \State \textbf{return} $\ell$
+%     \EndProcedure\vspace{10pt}
+% 
+%     \Procedure{Explore}{$\mathcal{D}, b$}
+%       \While{$\Delta(b) \leq D, E(b) > 0, \text{ and } \Call{Prune}{\mathcal{D}, b} = \text{FALSE}$}
+%         \If{$b$ is a leaf node in $\mathcal{D}$}
+%           \State Expand $b$ one level deeper.
+%           \Statex[3] Insert each new child $b'$ of $b$ into $\mathcal{D}$,
+%           \Statex[3] and initialize $U(b'), L_0(b'), \mu{(b')}$, and $\ell(b')$.
+%         \EndIf
+%         \State $a^* \gets \argmax_{a \in \aspace}{\mu(b, a)}$
+%         \State $o^* \gets \argmax_{o \in \ospace_{b, a^*}}{E(\tau(b, a^*, o))}$\Comment{reduce excess uncertainty.}
+%         \State $b \gets \tau(b, a^*, o^*)$
+%       \EndWhile
+%       \If{$\Delta(b) > D$}
+%         \State $\Call{MakeDefault}{b}$
+%       \EndIf
+%       \State \textbf{return} $b$
+%     \EndProcedure\vspace{10pt}
+%   \end{algorithmic}
+% \end{algorithm}
+% 
+% \begin{algorithm}[H]
+%   \begin{algorithmic}[1]
+%       \Procedure{Prune}{$\mathcal{D}, b$}
+%         \State \textsc{Blocked} $\gets$ FALSE
+%         \For{each node $n$ on the path from $b$ to the root of $\mathcal{D}$}
+%           \If{$n$ is blocked by any ancestor node in $D$}
+%             \State $\Call{MakeDefault}{n}$
+%             \State $\Call{Backup}{\mathcal{D}, n}$
+%             \State \textsc{Blocked} $\gets$ TRUE
+%           \Else
+%             \State \textbf{break}
+%           \EndIf
+%         \EndFor
+%         \State \textbf{return} \textsc{Blocked}
+%       \EndProcedure\vspace{10pt}
+% 
+%       \Procedure{MakeDefault}{$b$}
+%         \State $U(b) \gets L_0(b)$
+%         \State $\mu(b) \gets \ell_0(b)$
+%         \State $\ell(b) \gets \ell_0(b)$
+%       \EndProcedure\vspace{10pt}
+% 
+%       \Procedure{Backup}{$\mathcal{D}, b$}
+%         \For{each node $n$ on the path form $b$ to the root of $D$}
+%           \State Perform backup on $\mu(n), l(n)$, and $U(n)$.
+%         \EndFor
+%       \EndProcedure\vspace{10pt}
+%   \end{algorithmic}
+% \end{algorithm}
 
 \subsection{POMCPOW}\label{sec:theory-pomcpow}
 
