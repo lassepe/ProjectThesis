@@ -110,23 +110,23 @@ The problem is formalized as a \ac{pomdp} with the following properties introduc
     stating whether the robot is currently in contact with the wall or not. That
     is, there are only two observations: $o^0$  and $o^1$.
   \item[Observation Model $\odist$.] The collision sensor is deterministic.
-    That is, the observation model is a Dirac delta function, evaluating
+    Therefore, the observation model is a Dirac delta function, evaluating
     non-zero for a state, $s$, if and only if the collision feature evaluated
     on $s$ matches the observation, $o$.
 \end{description}
 
-Summarizing, the problem is a \ac{pomdp} with continuous state and action space
-and a discrete observation space. The reward model chosen for this problem is
-sparse. That is, it only encodes high level preferences but avoids biasing the
-solution through additional transition dependent rewards (e.g. rewards for
+Summarizing, the problem is a \ac{pomdp} with continuous state space and
+discrete action and observation space. The reward model chosen for this problem
+is sparse. By this means it only encodes high level preferences but avoids biasing
+the solution through additional transition dependent rewards (e.g. rewards for
 reducing the distance to the goal).
 
 \section{Solution Strategies}\label{sec:lp-solutions}
 
 We solve the \ac{pomdp} described in \cref{sec:lp-pomdp-formalization} using
 \ac{despot} and \ac{pomcpow}, respectively. For each of these solvers we
-propose two domain specific adaptations to guide the policy search. In addition
-to that, we present two baseline policies that use a heuristic policy to
+propose two domain specific adaptations to guide the policy search.
+Additionally, we present two baseline policies that use a heuristic policy to
 control the agent. In order to consider efficiency of each algorithm we limit
 the computation time per planning step to $T_\text{max} = \SI{1}{s}$. Each
 policy uses the same particle filter to estimate the root belief.
