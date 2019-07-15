@@ -24,7 +24,7 @@ The \acf{pomdp} is a principled mathematical formalism capable of representing
 a broad range of sequential decision making problems under uncertainty. As the
 name suggests, this framework is a generalization of the more popular \ac{mdp}
 to the partially observable case. Thus, before proceeding with the full
-complexity of a \ac{pomdp} let us first examine its fully observable version.
+complexity of a \ac{pomdp} let us first examine it's fully observable version.
 
 \subsection{Markov Decision Process (MDP)}\label{sec:mdp}
 
@@ -254,12 +254,12 @@ The sparse belief tree representation presented in \cref{sec:despot-tree} can
 be significantly more compact than a standard belief tree if the number of
 scenarios $K$ is small. Therefore, it constitutes a potentially suitable
 representation for policy search. Since a \ac{despot} $\mathcal{D}$ obtained
-under a finite number of scenarios only considers a subset of trajectories, in
-general the optimal policy on $\mathcal{D}$ may be suboptimal for the dense
-formulation. In practice, however, a limited number of scenarios may
+under a finite number of scenarios only considers a subset of potential
+outcomes, in general the optimal policy on $\mathcal{D}$ may be suboptimal for
+the dense formulation. In practice, however, a limited number of scenarios may
 sufficiently approximate the true belief tree such that the optimal decision
 computed on $\mathcal{D}$ is near-optimal for the full problem. In fact, it has
-been shown that for a policy optimized on $\mathcal{D}$ the error of its value
+been shown that for a policy optimized on $\mathcal{D}$ the error of it's value
 when transfered to the dense problem stays bounded.
 
 Therefore, in theory a near-optimal policy $\hat{\pi}$ could be computed by
@@ -271,10 +271,10 @@ a \emph{forward search} strategy to incrementally construct the sparse belief
 tree. The search method uses a heuristic to guide the exploration and performs
 regularization to prevent overfitting to the sampled scenarios. In the
 following we present the high level idea of this \emph{anytime heuristic
-search} strategy to determine a near-optimal policy on a \ac{despot}. This
-section aims to provide intuition for the core concepts of this algorithm.
-For a detailed discussion of the algorithm and precise mathematical justification
-of the individual steps the reader may refer to \cite{somani2013despot}.
+search} on a \ac{despot}. This section aims to provide intuition for the core
+concepts of this procedure. For a detailed discussion of the algorithm and
+precise mathematical justification of the individual steps the reader may refer
+to \cite{somani2013despot}.
 
 We aim to derive a policy from $\mathcal{D}$ that maximizes the \emph{regularized empirical value}
 \begin{equation}\label{eq:despot-rev}
@@ -292,17 +292,26 @@ with a smaller representation size.
 
 On an abstract level we determine a policy optimized according to
 \cref{eq:despot-rev} by incrementally constructing a \ac{despot} under $K$
-scenarios while maintaining upper and lower bounds ($U$ and $L$, respectively)
-on the regularized empirical value at very node. An initial estimate of these
-bounds is provided by user and may be used to encode domain knowledge. The
-\ac{despot} is constructed until the estimated value gap at the root $b_0$
-satisfy the target gap $\epsilon(b_0)$ or the maximum planning time
-$T_\text{max}$ is reached. Once either of these terminal conditions is met, we
-extract the optimized action at the root that maximizes the lower bound
-estimate on the objective value.
+scenarios while maintaining upper bounds $U(b)$ and lower bounds $L(b)$
+on the regularized empirical value at very node, $b$. An initial estimate of these
+bounds ($L_0$ and $U_0$) is provided by the user and may be used to encode
+domain knowledge. There exists a wide range of strategies to compute these
+bounds. A common strategy to obtain a lower bound is the simulation of
+a default policy. An upper bound can be computed by reasoning over relaxed
+versions of the problem. In practice, tight initial bounds on $\hat{V}^\ast$
+are often crucial for the success of \ac{despot} when operating under limited
+planning time. A practical example for the design of suitable upper and lower
+bounds for a specific application domain is provided in
+\cref{sec:lp-planners-despot}. The \ac{despot} is constructed until the
+value gap $\epsilon(b_0)$ at the root $b_0$ satisfy the target gap $\epsilon_0$
+or the maximum planning time $T_\text{max}$ is exceeded. Once either of these
+terminal conditions is met, we extract the optimized action at the root that
+maximizes the lower bound estimate on regularized empirical value.
 
-Incremental construction of a \ac{despot} is achieved by iteratively performing
-\emph{exploration} and \emph{backup}. Each of these steps is briefly discussed below.
+While on an abstract level this algorithm is very simple, a key element of this
+search strategy is the incremental construction of the despot. We therefore proceed
+by explaining the two main steps -- \emph{exploration} and \emph{backup} --
+that are iteratively applied to enlarge the tree.
 
 \paragraph{Exploration}
 
