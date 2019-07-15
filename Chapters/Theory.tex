@@ -74,7 +74,15 @@ Also, since the state obeys the Markov property, no additional information
 beyond the current state at every time is necessary to maximize $J$
 \cite{altmann1999constrained}.
 
-%\todo[inline]{Maybe this is a good point to also quickly introduce value functions?}
+The objective of an \ac{mdp} is often discussed in terms of the \emph{optimal
+value function} $V^\ast: \sspace \to \reals$. The optimal value function
+evaluated at state $s$ represents the expected cumulative reward if the agents
+acts optimally starting from $s$. Additionally, we introduce the \emph{optimal
+state-action value function} $Q^\ast:\sspace\times\aspace \to \reals$,
+concisely referred to as \emph{Q-function} or \emph{Q-value} of a state-action
+tuple. The Q-value, $Q(s, a)$, is defined as the expected cumulative reward
+given that the agent starts at state $s$, immediately takes action $a$, and
+then follows the optimal policy \cite{bertsekas2005dynamic}.
 
 \subsection{Partially Observable MDP (POMDP)}\label{sec:pomdp}
 
