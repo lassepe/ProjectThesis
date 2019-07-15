@@ -24,7 +24,7 @@ The \acf{pomdp} is a principled mathematical formalism capable of representing
 a broad range of sequential decision making problems under uncertainty. As the
 name suggests, this framework is a generalization of the more popular \ac{mdp}
 to the partially observable case. Thus, before proceeding with the full
-complexity of a \ac{pomdp} let us first examine it's fully observable version.
+complexity of a \ac{pomdp} let us first examine its fully observable version.
 
 \subsection{Markov Decision Process (MDP)}\label{sec:mdp}
 
@@ -267,7 +267,7 @@ outcomes, in general the optimal policy on $\mathcal{D}$ may be suboptimal for
 the dense formulation. In practice, however, a limited number of scenarios may
 sufficiently approximate the true belief tree such that the optimal decision
 computed on $\mathcal{D}$ is near-optimal for the full problem. In fact, it has
-been shown that for a policy optimized on $\mathcal{D}$ the error of it's value
+been shown that for a policy optimized on $\mathcal{D}$ the error of its value
 when transfered to the dense problem stays bounded.
 
 Therefore, in theory a near-optimal policy $\hat{\pi}$ could be computed by
@@ -351,7 +351,7 @@ negative, indicating that further exploration will not significantly reduce the
 gap at the root. Finally, $b$ is blocked by an ancestor node. Since the
 objective features regularization through $\lambda|\pi|$ (cf.
 \cref{eq:despot-rev}), the \emph{regularized} utility $\hat{V}^\ast$ at an
-ancestor $b'$ may be reduced if it's policy subtree is enlarged by expanding
+ancestor $b'$ may be reduced if its policy subtree is enlarged by expanding
 $b$. Thus, a node is considered blocked if expanding this node reduces the
 $\hat{V}^\ast$ at an ancestor. In particular, this is the case if an
 insufficient number of scenarios passes through $b'$ and further exploration
