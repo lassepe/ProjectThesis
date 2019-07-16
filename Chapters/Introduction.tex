@@ -96,10 +96,15 @@ interchangeability of different human models and builds upon \pomdpsjl to allow
 for a direct comparison of different planning approaches.
 
 \section{Outline}
-\todo[inline]{write, when structure has converged}
 
-\begin{description}
-  \item[Theory] Theoretical properties and background of POMDPs. Solution methods: POMCPOW, DESPOT.
-  \item[Experiments] Applications of POMDPs to two problem domains: Simultaneous localization an planning, Motion planning with latent human intentions.
-  \item[Summary] The summary of this work.
-\end{description}
+This work is structured as follows: In \cref{chap:fundamentals} we review some
+of the fundamentals of sequential decision making under uncertainty, we present
+solution methods and introduce software tooling suitable for solving
+\acp{pomdp}. Subsequently, in \cref{chap:localization-and-planning} we study
+the problem domain of \emph{simultaneous localization and planning} to quantify
+the performance of full \ac{pomdp} solutions as compared to solvers based on
+common problem specific simplifications.  In \cref{chap:hri} we compare
+a sophisticated domain specific solver for \emph{motion planning with latent
+human intentions} proposed by \cite{fisac2018probabilistically} to a full
+\ac{pomdp} approach. Finally, in \cref{chap:summary} we summarize the results
+of this work.
