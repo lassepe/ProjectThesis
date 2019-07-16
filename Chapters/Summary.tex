@@ -1,5 +1,43 @@
 \chapter{Summary}
 
+This work examines the use of \acf{pomdp} for planning in uncertain
+environments in the context of robotics. At the example of two continuous-space
+application domains we provide a detailed comparison of approximate numerical
+\ac{pomdp} solutions to approaches based on problem specific simplifications.
+
+We begin by reviewing some of the fundamentals of sequential decision making
+under uncertainty. We introduce the theoretical framework of \acp{pomdp} and
+present two state-of-the-art approximate online \ac{pomdp} solvers:
+\acf{despot}, and \acf{pomcpow}. Furthermore, we briefly discuss our choice of
+tools and software framework that is suitable for modelling and solving
+\acp{pomdp}.
+
+Based on this theoretical introduction we examine use of \acp{pomdp} for
+robotic planning problems under uncertainty. Specifically, we make the
+following contributions.\\
+\todo[inline]{Add results of evaluation to each contribution.}
+First, we systematically quantify the performance
+advantage of full \ac{pomdp} solutions with both analytic and empirical
+heuristic guidance compared to problem specific simplifications in a
+continuous-space problem domains. For this purpose we focus on
+\emph{simultaneous localization and planning}, a problem characterized by
+inherent uncertainty in the physical state of the robot.\\
+The second contribution is a detailed comparison of the problem specific
+planning approach by \cite{fisac2018probabilistically} to a state-of-the-art
+\ac{pomdp} solver. This comparison aims to show how well a problem may be
+solved without considering the full complexity of \acp{pomdp} and to which
+extent such an approximation can not keep up with the full \ac{pomdp} solution.
+For this purpose we study an instance of motion planning in a shared space with
+a human actor. In this application domain, latent human intentions force the
+agent to consider uncertainty in order to reach its goal safely.\\
+Finally, as part of our work on motion planning with latent human intentions
+we contribute an implementation of a software model to simulate
+interacting humans and robots with near real time \ac{pomdp} planning
+capabilities. This implementation is designed to accommodate convenient
+interchangeability of different human models and builds upon \pomdpsjl to allow
+for a direct comparison of different planning approaches.
+
+
 \todo[inline]{Write once everything else has converged.}
 
 % This results in robust policies for optimized interaction with uncertain
