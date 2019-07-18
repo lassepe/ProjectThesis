@@ -50,8 +50,8 @@ While a lot of work in motion planning under uncertainty has focus on either
 of the two. In this chapter we consider a case of motion planning in the
 presence of humans for which a sophisticated domain specific strategy has been
 proposed in \cite{fisac2018probabilistically}. This strategy simplifies the
-planning problem by neglecting future observations. Instead, human prediction
-are performed on expectation from the current belief, providing series of
+planning problem by neglecting future observations. Instead, human predictions
+are performed on expectation from the current belief, providing a series of
 probability maps for future human motion. The authors propose a method that
 allows planning with these probabilistic predictions by means of conventional
 motion planning algorithms. We implement this strategy in the \pomdpsjl
@@ -194,7 +194,7 @@ characterized by the following properties introduced in \cref{sec:pomdp}:
   \item[Discount Factor $\gamma$.] Rewards are discounted with $\gamma = 0.99$.
   \item[Observation Space $\ospace$.] At every time step the robot receives an
     exact measurement of the human and itself. That is, the robot gets to observe
-    the external state, $s_\text{E}$ of both actors. As a result, $\ospace$ is
+    the external state, $s_\text{E}$ of both actors. As a result, $\ospace$ is a
     strict subset of the state space.
   \item[Observation Model $\odist$.] Since the position sensor is exact, the observation
     model is a Dirac delta function, evaluating non-zero for a state, $s$, if and
@@ -359,7 +359,7 @@ trajectory. The inferred goal of each particle is highlighted in blue and
 connected with a line. The right half of the figure shows additional meta data.
 Here, the top half displays a histogram over the current belief of the model
 confidence, $\beta$. The lower half shows the evolution of the cumulative
-reward up to current time step.
+reward up to the current time step.
 
 \begin{figure}[htpb]
   \centering

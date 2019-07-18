@@ -24,8 +24,8 @@ may not perform well. Instead, persistently good performance requires the agent
 to consider the full belief distribution as well as future observations in
 order to identify informative action sequences.
 
-An instance of such problem is studied in this chapter. We begin by stating the
-problem details in \cref{sec:lp-problem-statement}.
+An instance of such a problem is studied in this chapter. We begin by stating
+the problem details in \cref{sec:lp-problem-statement}.
 \cref{sec:lp-pomdp-formalization} then formalizes this problem as a \ac{pomdp}.
 \cref{sec:lp-solutions} presents solution strategies based on \ac{pomdp}
 solvers introduced in \cref{sec:online-pomdp-solvers}, as well as two heuristic
@@ -270,7 +270,7 @@ different setups for a fixed run. By this means, the $i$th run of each setup
 see the same random outcome (\ie same initial conditions and noise
 trajectories, etc.). In order to handle cases in which the agents fails to
 reach a terminal state in a reasonable amount of time, each simulation is run
-for a maximum of number of time steps, $T_\text{max,sim} = 300$. The choice of
+for a maximum number of time steps, $T_\text{max,sim} = 300$. The choice of
 this upper bound on simulation time is justified by evaluation of the optimal
 policy for the fully observable problem. In the corresponding \ac{mdp} with the
 same set of initial conditions, \ac{mlmpc} reached the goal within a maximum
@@ -373,7 +373,7 @@ regimes the fixed-action rollout typically does not provide a tight lower bound
 or accurate value estimate for \ac{despot} and \ac{pomcpow}, respectively. In
 the case of \ac{despot}, even though the sparse approach most likely allows
 some branches of the tree to be constructed to full depth, the loose lower
-bound causes policy search to be poorly guided while the limit planning time
+bound causes policy search to be poorly guided while the limited planning time
 prevents sufficient exploration of more promising branches. In the case of
 \ac{pomcpow} the computationally expensive rollout performed for every iteration
 of the algorithms hinders the policy tree to reach sufficient depth within
@@ -416,11 +416,11 @@ considered near optimal with respect to safety.
 \end{figure}
 
 Additional evidence for the findings discussed above is provided by the
-statistics of the cumulative \emph{undiscoutned} reward. While this metric does
+statistics of the cumulative \emph{undiscounted} reward. While this metric does
 not match the objective for the infinite horizon formulation, it may align more closely with the
 perceived \emph{qualitative performance} since one can only observe the agent
 for a finite time horizon. \Cref{fig:lp_eval_undiscounted} depicts the \ac{sem}
-and \ac{pdf} approximation for the undiscoutned reward sequence. Using this
+and \ac{pdf} approximation for the undiscounted reward sequence. Using this
 metric, it becomes clear that the analytic versions of the \ac{pomdp} planners
 outperform all other strategies. Here, we can additionally identify a subtle
 performance gap between \emph{\ac{despot}-analytic} and
