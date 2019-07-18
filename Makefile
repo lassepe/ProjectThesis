@@ -33,16 +33,18 @@ compile_hri_plots:
 	cd -
 
 # compile all plots, copy them to the figure directory and compile the latex document
-from_scratch: compile_roomba_plots fetch_roomba_plots compile_hri_plots fetch_hri_plots all
+from_scratch: compile_roomba_plots fetch_roomba_plots compile_hri_plots fetch_hri_plots all appendix_archive
 
 # compose the appendix archive
 appendix_archive:
 	trash-put ./AppendixArchive || true
 	# create appendix file structure
 	mkdir ./AppendixArchive/
+	# copy the thesis file
+	cp ./Thesis.pdf ./AppendixArchive/PRO_035_Peters.pdf
 	# copy latex files
 	mkdir ./AppendixArchive/Latex
-	cp -r ./*.tex ./*.bst ./.latexmkrc ./Makefile ./Chapters/ ./Figures/ ./lit/ ./Styles/ ./AppendixArchive/Latex/
+	cp -r ./*.tex ./*.bst ./.latexmkrc ./Chapters/ ./Figures/ ./lit/ ./Styles/ ./AppendixArchive/Latex/
 	# copy data
 	mkdir ./AppendixArchive/Data
 	cp -r ./code/* ./AppendixArchive/Data/
