@@ -47,7 +47,7 @@ In order to clean all build files, run:
 make clean
 ```
 
-### PDF + compile plots
+### compile all plots + PDF + appendix archive
 
 If you want to create the plots yourself, you will need to setup the git submodules first. Simply run:
 
@@ -55,11 +55,13 @@ If you want to create the plots yourself, you will need to setup the git submodu
 make install_submodules
 ```
 
-In order to compile the plots, fetch the plots and compile the `pdf` document, run:
+In order to compile the plots, fetch the plots, compile the `pdf` document and create the appendix archive, run:
 
 ```bash
 make from_scratch
 ```
+
+In order to run individual steps of the `from_scratch` target, refer to the list below:
 
 #### Compile Plots
 
@@ -78,4 +80,11 @@ In order to fetch the plots from the submodules, run:
 # fetch roomba plots:
 make fetch_roomba_plots
 make fetch_hri_plots
+```
+
+#### Create Appendix Archive
+
+```bash
+# create appendix archive:
+make appendix_archive
 ```
