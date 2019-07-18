@@ -127,11 +127,13 @@ degree to which the robot expects the human to align with the provided reward
 model. For $\beta = 0$ the model in \cref{eq:boltzmann} degenerates to
 a uniform distribution over all actions. For $\beta \to \infty$ the human acts
 perfectly rational with respect to the utility model,
-$Q_\text{H}$.
-
+$Q_\text{H}$.\\
 Here, we treat both $\theta$ and $\beta$ as latent parameters. That is, the
 agent needs to reason over the parameters of the human reward model (\eg its
 current goal) as well as the accuracy of this model.
+
+The implementation of the human behavior model is provided in
+\texttt{\appdata/MotionPlanningHRI/src/human\_behaviors/\\human\_boltzmann.jl} of \cref{apx:archive}.
 
 \section{POMDP Formalization}\label{sec:hri-pomdp-formalization}
 
@@ -215,8 +217,9 @@ a special case of the more general \ac{pomdp}. That is, we can factor the state
 into a fully observed part ($s_\text{E}$, the external state) and a partially
 observed part ($s_\text{I}$).
 
-% \todo[inline]{Point to the corresponding implementations of these things. This
-% is the best way of communicating further details.}
+An implementation of this \ac{pomdp} is provided in \cref{apx:archive}.
+Specifically, the code for the high level specification of this problem is
+provided in \texttt{\appdata/MotionPlanningHRI/src/pomdp\_main.jl}.
 
 \section{Solution Strategies}\label{sec:hri-solutions}
 
@@ -308,7 +311,8 @@ particles in the belief prediction. Furthermore, we implement an optimized
 lightweight graph search library to efficiently solve the policy search
 problem. The latter has been published as an open-source Julia
 package\footnote{\url{https://github.com/lassepe/GraphSearchZero.jl}} to allow
-for usage in other projects.
+for usage in other projects. Our implementation of \ac{psrp} is provided in
+\texttt{\appdata/MotionPlanningHRI/src/prob\_obstacle\_solver/} of \cref{apx:archive}.
 
 \begin{figure}[htpb]
   \centering
@@ -333,8 +337,7 @@ robot can move on a straight, collision-free line to its goal location. By
 means of this relaxation, the value estimate is given as the discounted sum of
 living penalties over the remaining steps to the goal.
 
-\section{A Software Model for Motion Planning with Latent Human
-Intentions}\label{sec:hri-software-model}
+\section{A Software Model for Interacting Humans and Robots}\label{sec:hri-software-model}
 
 We implement a generic software model in the Julia programming language to
 simulate robotic navigation problems in the presence of humans. With the reuse
@@ -368,6 +371,9 @@ reward up to the current time step.
            additional meta data (right).}
   \label{fig:hri-software-model}
 \end{figure}
+
+The implementation of this software model is provided in
+\texttt{\appdata/MotionPlanningHRI} of \cref{apx:archive}.
 
 \section{Evaluation and Discussion}\label{sec:hri-evaluation}
 
