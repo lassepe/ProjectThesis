@@ -35,11 +35,26 @@ compile_hri_plots:
 # compile all plots, copy them to the figure directory and compile the latex document
 from_scratch: compile_roomba_plots fetch_roomba_plots compile_hri_plots fetch_hri_plots all
 
+# compose the appendix archive
+appendix_archive:
+	trash-put ./AppendixArchive || true
+	# create appendix file structure
+	mkdir ./AppendixArchive/
+	# copy latex files
+	mkdir ./AppendixArchive/Latex
+	cp -r ./*.tex ./*.bst ./.latexmkrc ./Makefile ./Chapters/ ./Figures/ ./lit/ ./Styles/ ./AppendixArchive/Latex/
+	# copy data
+	mkdir ./AppendixArchive/Data
+	cp -r ./code/* ./AppendixArchive/Data/
+	# copy presentation
+	mkdir ./AppendixArchive/Presentation
+	# TODO
+
 clean:
 	latexmk -CA
 
 clean_all:
-	trash-put ./Figures/roomba_plots/*.pdf || 1
-	trash-put ./code/RoombaPOMDPs.jl/results/final_results/plots/*.pdf || 1
+	trash-put ./Figures/roomba_plots/*.pdf || true
+	trash-put ./code/RoombaPOMDPs.jl/results/final_results/plots/*.pdf || true
 
 .PHONY: all install_submodules with_submodules fetch_roomba_plots compile_roomba_plots fetch_hri_plots from_scratch
