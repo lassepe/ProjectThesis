@@ -114,9 +114,44 @@ Dieses enthält in der obersten Dateistruktur die Einträge
 	\end{itemize}
 }{}
 
-\section{Comparison of \ac{mlra} and \ac{mlmpc} for the Fully Observable Case}\label{apx:fo-comparison}
+\clearpage
+\section{Comparison of \ac{mlra} and \ac{mlmpc} for the Fully Observed Planning Problem}\label{apx:fo-comparison}
 
-\missingfigure{mlra vs mlmpc}
+The figures below illustrate the performance of \ac{mlra} and \ac{mlmpc} for
+the fully observed version of the \ac{pomdp} formalized in
+\cref{sec:lp-pomdp-formalization}. Notice that, \ac{mlmpc} is an optimal policy
+for the fully observable motion planning problem. Thus, it achieves a $100\%$
+success rate (\cf \cref{fig:lp_outcome_fo}) and the highest possible return
+(\cf \cref{fig:lp_eval_undiscounted_fo,fig:lp_eval_infdiscounted_fo}).
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1.0]{roomba_plots/fully_observed/lp_outcome_eval_plot.pdf}
+\caption{Histogram of outcome frequencies grouped by policy evaluated on the
+         fully observed problem. Outcome classes: \emph{success (+)}, the robot
+         reached the exit; \emph{failed to exit (0)}, the agent did not make it to the
+         exit within the simulation horizon; and \emph{failure (-)}, the robot fell
+         down the stairs.}
+	\label{fig:lp_outcome_fo}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{roomba_plots/fully_observed/lp_value_eval_plot-undiscounted_reward.pdf}
+  \caption{Statistics of the cumulative \emph{undiscounted} reward for each
+           policy evaluated on the fully observed problem. Top: Mean and \acf{sem}.
+           Bottom: Approximation of the \acf{pdf}.}
+  \label{fig:lp_eval_undiscounted_fo}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[scale=1]{roomba_plots/fully_observed/lp_value_eval_plot-inf_discounted_reward.pdf}
+  \caption{Statistics of the cumulative \emph{discounted} reward for each
+           policy evaluated on the fully observed problem. Top: Mean and \acf{sem}.
+           Bottom: Approximation of the \acf{pdf}.}
+  \label{fig:lp_eval_infdiscounted_fo}
+\end{figure}
 
 %###########################################################################
 \end{appendix}

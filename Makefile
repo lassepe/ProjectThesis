@@ -18,6 +18,7 @@ with_submodules: fetch_roomba_plots fetch_hri_plots
 # copy the plots from the roomba subomdule
 fetch_roomba_plots:
 	cp code/RoombaPOMDPs.jl/results/final_results/plots/*.pdf ./Figures/roomba_plots/
+	cp code/RoombaPOMDPs.jl/results/final_results/plots/fo/*.pdf ./Figures/roomba_plots/fully_observed/
 # compile the roomba plots from scratch
 compile_roomba_plots:
 	cd ./code/RoombaPOMDPs.jl;\
