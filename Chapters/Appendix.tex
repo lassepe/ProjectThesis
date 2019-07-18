@@ -8,12 +8,12 @@
 {\chapter*{Anhang}\label{sec:Anhang}
 	\setcounter{chapter}{1}
 	\addcontentsline{toc}{chapter}{Anhang}
-}{}	
+}{}
 \ifthenelse{\equal{\Sprache}{1}}
 {\chapter*{Appendix}\label{sec:appendix}
 	\setcounter{chapter}{1}
 	\addcontentsline{toc}{chapter}{Appendix}
-}{}		
+}{}
 
 
 %###########################################################################
@@ -25,14 +25,14 @@
 	%
 	%
 	Im Archiv ist ein Verzeichnis
-\RemoveSpaces{	
+\RemoveSpaces{
 	\ifthenelse{\equal{\MScBSc}{0}}
 	{\textbf{BSC$\_$\NummerDerArbeit$\_$\NachnameDesStudenten/}}{}
 	\ifthenelse{\equal{\MScBSc}{1}}
 	{\textbf{PRO$\_$\NummerDerArbeit$\_$\NachnameDesStudenten/}}{}
 	\ifthenelse{\equal{\MScBSc}{2}}
-	{\textbf{MSC$\_$\NummerDerArbeit$\_$\NachnameDesStudenten/}}{} 
-} abgelegt.	
+	{\textbf{MSC$\_$\NummerDerArbeit$\_$\NachnameDesStudenten/}}{}
+} abgelegt.
 Dieses enthält in der obersten Dateistruktur die Einträge
 	\begin{itemize}
 	\item \ifthenelse{\equal{\MScBSc}{0}}
@@ -42,7 +42,7 @@ Dieses enthält in der obersten Dateistruktur die Einträge
 		\ifthenelse{\equal{\MScBSc}{2}}
 		{\textbf{MSC$\_$\NummerDerArbeit$\_$\NachnameDesStudenten.pdf}:}{}
 		das pdf-File zur Arbeit
-\RemoveSpaces{			
+\RemoveSpaces{
 		\ifthenelse{\equal{\MScBSc}{0}}
 		{BSC-\NummerDerArbeit.}{}
 		\ifthenelse{\equal{\MScBSc}{1}}
@@ -54,28 +54,28 @@ Dieses enthält in der obersten Dateistruktur die Einträge
 		\item \textbf{Daten/}: ein Verzeichnis mit den für diese Arbeit
 		relevanten Daten, Hilfsprogrammen, Skripts und Simulationsumgebungen.
 		\item \textbf{Latex/}: ein Verzeichnis mit den *.tex-Dateien des in
-		Latex verfassten Berichts zur Arbeit 
-\RemoveSpaces{			
+		Latex verfassten Berichts zur Arbeit
+\RemoveSpaces{
 		\ifthenelse{\equal{\MScBSc}{0}}
 		{BSC-\NummerDerArbeit}{}
 		\ifthenelse{\equal{\MScBSc}{1}}
 		{PRO-\NummerDerArbeit}{}
 		\ifthenelse{\equal{\MScBSc}{2}}
-		{MSC-\NummerDerArbeit}{} 
-}		
+		{MSC-\NummerDerArbeit}{}
+}
 		sowie alle dazugehörigen Grafiken (falls vorhanden auch als *.svg Dateien).
-		% 
+		%
 		\item \textbf{Vortrag/}: ein Verzeichnis mit den für den Vortrag relevanten Daten wie die Präsentation, Bilder und Videos.
 		%
-	\end{itemize} 
+	\end{itemize}
 }{}
 \ifthenelse{\equal{\Sprache}{1}}
 {\section{Contents Archive}\label{sec:AppendixArchiv}
 	\markboth{Appendix}{Appendix}
 	%
 	%
-	There is a folder 
-\RemoveSpaces{	
+	There is a folder
+\RemoveSpaces{
 	\ifthenelse{\equal{\MScBSc}{0}}
 	{\textbf{BSC$\_$\NummerDerArbeit$\_$\NachnameDesStudenten/}}{}
 	\ifthenelse{\equal{\MScBSc}{1}}
@@ -90,7 +90,7 @@ Dieses enthält in der obersten Dateistruktur die Einträge
 		\ifthenelse{\equal{\MScBSc}{2}}
 		{\textbf{MSC$\_$\NummerDerArbeit$\_$\NachnameDesStudenten.pdf}:}{}
 		the pdf-file of the thesis
-\RemoveSpaces{		
+\RemoveSpaces{
 		\ifthenelse{\equal{\MScBSc}{0}}
 		{BSC-\NummerDerArbeit.}{}
 		\ifthenelse{\equal{\MScBSc}{1}}
@@ -99,7 +99,7 @@ Dieses enthält in der obersten Dateistruktur die Einträge
 		{MSC-\NummerDerArbeit.}{}}
 		%
 		\item \textbf{Data/}: a folder with all the relevant data, programs, scripts and simulation environments.
-		\item \textbf{Latex/}: a folder with the *.tex documents of the thesis 
+		\item \textbf{Latex/}: a folder with the *.tex documents of the thesis
 \RemoveSpaces{
 		\ifthenelse{\equal{\MScBSc}{0}}
 		{BSC-\NummerDerArbeit}{}
@@ -108,10 +108,10 @@ Dieses enthält in der obersten Dateistruktur die Einträge
 		\ifthenelse{\equal{\MScBSc}{2}}
 		{MSC-\NummerDerArbeit}{}}
 		written in Latex and all figures (also in *.svg data format if available).
-		% 
+		%
 		\item \textbf{Presentation/}: a folder with the relevant data for the presentation including the presentation itself, figures and videos.
 		%
-	\end{itemize} 
+	\end{itemize}
 }{}
 
 
