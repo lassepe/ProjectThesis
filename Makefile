@@ -7,11 +7,12 @@ $(MAIN).pdf: $(shell find . -name "*.tex") $(BIB)
 	# fetch plots:
 	latexmk -pdf Thesis.tex
 
+# install the submodules
 install_submodules:
 	git submodule init;\
 	git submodule update
 
-# if the submodules are installed, we can fetch fresh plots from there
+# fetch plots from submodules (need to be installed first) and compile the latex document
 with_submodules: fetch_roomba_plots fetch_hri_plots
 
 # copy the plots from the roomba subomdule
@@ -23,12 +24,16 @@ compile_roomba_plots:
 	julia --project -e 'using Pkg; Pkg.instantiate(); include("scripts/generate_plots.jl"); create_eval_plot();'\
 	cd -
 
-# fetch the human switching plots
+# copy the plots from the hri subomdule
 fetch_hri_plots:
 	cp code/HumanSwitching.jl/results/final_results/plots/*pdf ./Figures/hri_plots/
-# TODO: compile_humanswitching_plots
+compile_hri_plots:
+	cd ./code/HumanSwitching.jl;\
+	julia --project -e 'using Pkg; Pkg.instantiate(); using HumanSwitching; using Compose; HumanSwitching.generate_eval_plots();'\
+	cd -
 
-from_scratch: compile_roomba_plots fetch_roomba_plots all
+# compile all plots, copy them to the figure directory and compile the latex document
+from_scratch: compile_roomba_plots fetch_roomba_plots compile_hri_plots fetch_hri_plots all
 
 clean:
 	latexmk -CA
