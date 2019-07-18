@@ -59,5 +59,6 @@ clean:
 clean_all:
 	trash-put ./Figures/roomba_plots/*.pdf || true
 	trash-put ./code/RoombaPOMDPs.jl/results/final_results/plots/*.pdf || true
+	trash-put ./AppendixArchive || true
 
 .PHONY: all install_submodules with_submodules fetch_roomba_plots compile_roomba_plots fetch_hri_plots from_scratch
