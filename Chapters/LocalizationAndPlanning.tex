@@ -119,7 +119,10 @@ Summarizing, the problem is a \ac{pomdp} with continuous state space and
 discrete action and observation space. The reward model chosen for this problem
 is sparse. By this means it only encodes high level preferences but avoids biasing
 the solution through additional transition dependent rewards (\eg rewards for
-reducing the distance to the goal).
+reducing the distance to the goal). The software implementation of this \ac{pomdp}
+is provided in \cref{sec:AppendixArchiv}. Specifically, the code for the high
+level specification of this problem is provided in
+\texttt{\appdata/LocalizationAndPlanning/src/roomba\_env.jl}.
 
 \section{Solution Strategies}\label{sec:lp-solutions}
 
@@ -130,7 +133,6 @@ Additionally, we present two baseline policies that use a heuristic policy to
 control the agent. In order to consider efficiency of each algorithm we limit
 the computation time per planning step to $T_\text{max} = \SI{1}{s}$. Each
 policy uses the same particle filter to estimate the root belief.
-\todo[inline]{Maybe point to code attached or to repo.}
 
 \subsection{Baseline Policies}\label{sec:lp-baseline}
 
@@ -161,13 +163,18 @@ Unlike \ac{mlra}, \ac{mlmpc} is an optimal policy for the fully observed
 problem. However, it should be noted that this result does not necessarily
 translate to the partially observed domain. Appendix TODO\todo{cref to
 appendix} compares the performance of both baseline policies for the fully
-observable case.
+observable case. A software implementation of each policy is provided in
+\texttt{\appdata/LocalizationAndPlanning/\\scripts/ml\_heuristic\_policies.jl}
+of \cref{sec:AppendixArchiv}.
 
 \subsection{POMDP Solvers}\label{sec:lp-planners}
 
 We use \ac{despot} and \ac{pomcpow} to solve the \ac{pomdp}. For each solver we
 propose two strategies in which domain knowledge can be utilized to guide the
-policy search for the localization and planning problem.
+policy search for the localization and planning problem. A software
+implementation of each strategy is provided in
+\texttt{\appdata/LocalizationAndPlanning/scripts/domain\_knowledge.jl}
+of \cref{sec:AppendixArchiv}.
 
 \subsubsection{DESPOT}\label{sec:lp-planners-despot}
 
