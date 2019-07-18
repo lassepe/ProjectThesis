@@ -164,7 +164,7 @@ characterized by the following properties introduced in \cref{sec:pomdp}:
   \emph{exclusively} to the robot action. At every time step the robot can select
   one of the following six actions:
   \emph{"north", "east", "south", "west", "to goal", and "stay put"}. The
-  latter keeps the robot at its current position. All other actions will move
+  latter keeps the robot at its current position. All other actions move
   the agent with constant velocity in the corresponding direction. Here,
   \emph{to goal} is a state dependent action, that is directed straight at the
   robot's goal location. The set of these six actions constitutes the action
@@ -249,7 +249,7 @@ decoupled} from the robot dynamics to allow for predictions independent of the
 agent's decisions. Both requirements are satisfied for the problem studied in
 this chapter: Immediate safety depends only on the position of the human and
 the robot, both contained in the \emph{external} (fully observed) part of the
-state; Predictions of the human state can be made independently of the robots
+state; Predictions of the human state can be made independently of the robot's
 trajectory as she ignores the robot position in her decision making process.
 
 The methods exploits these properties to significantly reduce the complexity of
@@ -382,13 +382,13 @@ uniform prior and reject all samples for which the simulated naive policy
 allows the robot to reach its goal.
 
 In contrast to the experiments presented in
-\cref{chap:localization-and-planning}, we don't explicitly set an upper bound
+\cref{chap:localization-and-planning}, we do not explicitly set an upper bound
 on the decision time per step for \ac{pomcpow} but fix the number of
 \ac{mcts} iterations instead. We choose the number of iterations by evaluating the
 performance of \ac{pomcpow} over a sequence of parameters and select the number
 of iterations beyond which saturation is observed. Furthermore, for the
 experiments discussed we are able to simulate all policies until a terminal
-state is reached. Hence, we don't need to adjust the returns to account for
+state is reached. Hence, we do not need to adjust the returns to account for
 rewards beyond the simulated horizon. Additionally, we limit the planning horizon
 for both solvers to ten steps to avoid any bias due to unbalanced prescience.
 
