@@ -15,8 +15,8 @@ trajectories \cite{kretzschmar2014learning,alahi2016social,gupta2018social}.
 % \todo[inline]{Explain the notion of latent, internal state}
 
 Incorporating stochasticity in the prediction pipeline allows the planner to
-model uncertainty over both, high-level intentions (e.g. \emph{where} does the
-human want to go), and low-level motion behavior (e.g. \emph{how} does the
+model uncertainty over both, high-level intentions (\eg \emph{where} does the
+human want to go), and low-level motion behavior (\eg \emph{how} does the
 human want to go there). Planning strategies that take this uncertainty into
 account promise to provide robustified and potentially more efficient policies
 for navigation around humans. While the properties gained from this kind of
@@ -107,7 +107,7 @@ humans forward reachable set is too conservative.
 
 In this problem setting, the robot is assumed to have access to suitable human
 reward function. In practice such reward model can be learned offline from
-prior human demonstrations, e.g. using inverse reinforcement
+prior human demonstrations, \eg using inverse reinforcement
 learning. By means of a noisy-rationality model used in cognitive
 science \cite{baker2007goal}, the planner can make probabilistic predictions
 of human actions given the state,
@@ -119,7 +119,7 @@ of human actions given the state,
 Here, $a^t_\text{H}$ is the human action taken at time $t$; $s^t_\text{H}$ is
 the state of the human at this time; $Q_\text{H}(s_\text{H}, a_\text{H}; \theta)$ is the
 state-action value function of the human, with $\theta$ being the parameters of the
-$Q$-value encoding latent human intentions (e.g. the goal location); $\beta$ is
+$Q$-value encoding latent human intentions (\eg the goal location); $\beta$ is
 the so called \emph{rationality coefficient}.\\
 This model encodes the assumption that humans are more likely to select actions that
 provide a higher $Q$-value. The rationality constant, $\beta$, determines the
@@ -130,7 +130,7 @@ perfectly rational with respect to the utility model,
 $Q_\text{H}$.
 
 Here, we treat both $\theta$ and $\beta$ as latent parameters. That is, the
-agent needs to reason over the parameters of the human reward model (e.g. its
+agent needs to reason over the parameters of the human reward model (\eg its
 current goal) as well as the accuracy of this model.
 
 \section{POMDP Formalization}\label{sec:hri-pomdp-formalization}

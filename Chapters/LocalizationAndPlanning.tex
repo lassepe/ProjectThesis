@@ -4,16 +4,16 @@ Typically, robot localization and motion planning are treated as mostly
 independent tasks. Often, the problem provides the agent with a focused initial
 belief or allows the agent to quickly reduce uncertainty by first collecting
 a series of measurements that do not require elaborate motion planning. This is
-particularly the case if the state space is well observed, i.e. there exists
-a sensor that provides the robot with a (noisy) position reading (e.g. GPS).
+particularly the case if the state space is well observed, \ie there exists
+a sensor that provides the robot with a (noisy) position reading (\eg GPS).
 For these well behaved problems, a simple yet effective approach is to first
-collect sensor data while executing a default motion, i.e. rotating about the
+collect sensor data while executing a default motion, \ie rotating about the
 yaw axis to collect measurements in all directions. Once state uncertainty is
 reduced to a focused, unimodal belief, the problem is treated as fully observed
 problem and motion planning is performed on expectation. That is, trajectories
 are planned based on the assumption that the expectation of the belief, $E[b]$,
 is a sufficient approximation for the true position of the robot. Furthermore,
-characteristic properties of the belief (e.g. the entropy) may be evaluated
+characteristic properties of the belief (\eg the entropy) may be evaluated
 to trigger additional information gathering. In even simpler problems, plan
 execution may implicitly yield sufficient information gathering, rendering
 explicit consideration of this aspect obsolete.
@@ -118,7 +118,7 @@ The problem is formalized as a \ac{pomdp} with the following properties introduc
 Summarizing, the problem is a \ac{pomdp} with continuous state space and
 discrete action and observation space. The reward model chosen for this problem
 is sparse. By this means it only encodes high level preferences but avoids biasing
-the solution through additional transition dependent rewards (e.g. rewards for
+the solution through additional transition dependent rewards (\eg rewards for
 reducing the distance to the goal).
 
 \section{Solution Strategies}\label{sec:lp-solutions}
@@ -260,7 +260,7 @@ We evaluate the performance of each strategy by running $N_\text{sim} = 1000$
 simulations for every setup. In an effort to reduce sampling variance, we
 initially fix $N_\text{sim}$ random seeds. These seeds are shared across the
 different setups for a fixed run. By this means, the $i$th run of each setup
-will see the same random outcome (i.e. same initial conditions and noise
+will see the same random outcome (\ie same initial conditions and noise
 trajectories, etc.). In order to handle cases in which the agents fails to
 reach a terminal state in a reasonable amount of time, each simulation is run
 for a maximum of number of time steps, $T_\text{max,sim} = 300$. The choice of
@@ -338,7 +338,7 @@ passively reduce uncertainty by colliding with wall if the mode of the belief
 is located in cluster far away from the true position of the robot. For many
 cases this kind of passive information gathering is strong enough to help the
 robot eventually reach its goal. However, we notice that for certain
-typologies of the belief the baseline policies fail to reduce uncertainty, e.g.
+typologies of the belief the baseline policies fail to reduce uncertainty, \eg
 if the belief is highly symmetric. In these cases, often slight modifications
 of the trajectory would have been sufficient to break symmetry and completely
 eliminate a cluster. While \ac{despot} and \ac{pomcpow} are able to actively
@@ -347,7 +347,7 @@ policies often oscillate until repeated re-sampling in the particle filter
 breaks the symmetry to an extent that allows to stabilize decisions.
 
 Furthermore, one can observe that all \ac{pomdp} planners are significantly
-better at avoiding failures (falling down the stairs). If the planner is
+better at avoiding failures (\ie falling down the stairs). If the planner is
 presented with a belief that features a cluster near the stairs, the agent
 typically chooses a sequence of actions that is safe for this hypothesis and
 reduces uncertainty in this regime to avoid entering the failing terminal
