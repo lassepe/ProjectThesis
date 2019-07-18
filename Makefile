@@ -47,7 +47,8 @@ appendix_archive:
 	cp -r ./*.tex ./*.bst ./.latexmkrc ./Chapters/ ./Figures/ ./lit/ ./Styles/ ./AppendixArchive/Latex/
 	# copy data
 	mkdir ./AppendixArchive/Data
-	cp -r ./code/* ./AppendixArchive/Data/
+	cp -r ./code/RoombaPOMDPs.jl ./AppendixArchive/Data/LocalizationAndPlanning
+	cp -r ./code/HumanSwitching.jl ./AppendixArchive/Data/MotionPlanningHRI
 	# copy presentation
 	mkdir ./AppendixArchive/Presentation
 	# TODO
