@@ -57,7 +57,13 @@
 \newcommand{\cf}{c.f.\ }
 \newcommand{\appdata}{PRO$\_$\NummerDerArbeit$\_$\NachnameDesStudenten}
 
-% TODO: example of a rotate figure, maybe helpful for the appendix
+% command for arrays of images (sub-figures with captions)
+\newcommand{\subf}[2]{%
+  {\small\begin{tabular}[t]{@{}c@{}}
+  #1\\#2
+  \end{tabular}}%
+}
+% example of a rotate figure, maybe helpful for the appendix
 %  \begin{figure}[ht]
 %    \begin{adjustbox}{addcode={\begin{minipage}{\width}}{\caption{%
 %    \todo[inline]{Describe and fix scaling and font}

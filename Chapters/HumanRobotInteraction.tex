@@ -347,10 +347,32 @@ package\footnote{\url{https://github.com/lassepe/GraphSearchZero.jl}} to allow
 for usage in other projects. Our implementation of \ac{psrp} is provided in
 \texttt{\appdata/MotionPlanningHRI/src/prob\_obstacle\_solver/} of \cref{apx:archive}.
 
+% \begin{figure}[h]
+%   \begin{center}$
+%     \begin{array}{cc}
+%       \includegraphics[width=2.5in]{image1.jpg} &
+%       \includegraphics[width=2.5in]{image2.jpg}
+%     \end{array}$
+%   \end{center}
+%   \caption{my caption}
+% \end{figure}
+
 \begin{figure}[htpb]
-  \centering
-  \missingfigure{Example of probabilistic predictions}.
-  \caption{Example predictions of the human future location in \acf{psrp}.\todo[inline]{Refine caption once figure is finished.}}
+    \centering
+    \begin{tabular}{ccc}
+      \subf{\includegraphics[width=4.5cm]{hri_example/psrp/open_loop/psrp_high_beta_frames/out00000.jpg}}{$t = t_\text{sim} + 1$} &
+      \subf{\includegraphics[width=4.5cm]{hri_example/psrp/open_loop/psrp_high_beta_frames/out00004.jpg}}{$t = t_\text{sim} + 5$} &
+      \subf{\includegraphics[width=4.5cm]{hri_example/psrp/open_loop/psrp_high_beta_frames/out00009.jpg}}{$t = t_\text{sim} + 10$}
+    \end{tabular}
+  \caption{A time lapse of prediction of the human future position in
+          \ac{psrp} for three different time steps, $t$, into the future form the
+          current simulation time, $t_\text{sim}$. The position of the robot
+          and the human at $t_\text{sim}$ is marked by a green and red marker,
+          respectively. The robot goal location is marked with a green circle.
+          The probabilistic prediction of the human position at each point in
+          time is visualized by a blue particle belief, with the blue circles
+          highlighting the inferred goal location. The planned position for the
+          robot at that time step is denoted with a smaller green marker.}
   \label{fig:psrp-prediction-example}
 \end{figure}
 
@@ -419,9 +441,8 @@ the vast majority of all scenarios. However, \ac{pomcpow} still performs
 significantly better with respect to safety. In fact, the collision rate in the
 sampled scenarios for \ac{pomcpow} ($3.40\%$) is only half has high as for
 \ac{psrp} ($7.08\%$).
-% \todo[inline]{Should I note the adversarial character of these examples: many scenarios are rejected}
 
-\begin{figure}[H]
+\begin{figure}[htpb]
   \centering
   \includegraphics[scale=1]{hri_plots/hri_outcome_histogram_plot.pdf}
   \caption{Histogram of outcome frequencies grouped by policy. Outcome classes:
