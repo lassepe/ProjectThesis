@@ -228,10 +228,12 @@ always traverses the same state-action-observation sequence ($s_0, a_1, o_1,
 a_2, o_2,\dots$). In \ac{despot}, scenarios are used to obtain a sparse
 presentation of the future. \Cref{fig:despot-tree} depicts a partially
 constructed \ac{despot} $\mathcal{D}$ rooted at the current belief, $b_0$,
-obtained under two scenarios (marked in blue and orange). Each node implicitly
-represents a particle belief, $\Phib$, constructed from the distribution of
-outcomes encountered under all scenarios, $\phib \in \Phib$, passing through
-that node.
+obtained under two scenarios (marked in blue and orange). Note that here we use
+\emph{superscripts} to enumerate elements of the action and observation space,
+particularly in contrast to \emph{subscripts} used to index over time. Each
+node implicitly represents a particle belief, $\Phib$, constructed from the
+distribution of outcomes encountered under all scenarios, $\phib \in \Phib$,
+passing through that node.
 
 The tree is constructed by sampling an initial state under each scenario.
 Starting from this initial state, for each scenario \emph{all actions} $a \in
