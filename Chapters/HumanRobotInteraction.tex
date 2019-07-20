@@ -42,7 +42,7 @@ all traffic participants. They demonstrate that inference of the latent
 behavior parameters in combination with \ac{pomdp} planning allows to greatly
 reduce the gap to the omniscient upper bound.
 
-While a lot of work in motion planning under uncertainty has focus on either
+While a lot of work in motion planning under uncertainty has focused on either
 \emph{problem specific simplifications} on the one hand or \emph{full
 \ac{pomdp} solutions} on the other, few results exist on the direct comparison
 of the two. In this chapter we consider a case of motion planning in the
@@ -103,12 +103,12 @@ to make safe fall-back predictions when the human behaves unexpectedly. At the
 same time, planning with the worst case assumption by trying to avoid the
 humans forward reachable set is too conservative.
 
-In this problem setting, the robot is assumed to have access to suitable human
-reward function. In practice such reward model can be learned offline from
-prior human demonstrations, \eg using inverse reinforcement
-learning. By means of a noisy-rationality model used in cognitive
-science \cite{baker2007goal}, the planner can make probabilistic predictions
-of human actions given the state,
+In this problem setting, the robot is assumed to have access to a suitable human
+reward function. In practice, such reward models can be learned offline from
+prior human demonstrations, \eg using inverse reinforcement learning. By means
+of a noisy-rationality model used in cognitive science \cite{baker2007goal},
+the planner can make probabilistic predictions of human actions given the
+state,
 
 \begin{equation}\label{eq:boltzmann}
   P\left(a^t_\text{H} | s^t_\text{H}; \beta, \theta \right) \propto e^{\beta Q_\text{H}\left(s^t_\text{H}, a^t_\text{H}; \theta\right)}.
@@ -145,7 +145,7 @@ characterized by the following properties introduced in \cref{sec:pomdp}:
   the human or the robot, respectively. Furthermore, we differentiate between
   \emph{external states} (i.e. state variables that encode physical properties of the
   environment) and \emph{internal states} (i.e. state variables that determine the
-  behavior dynamics of an agent), denoted with subscript $E$ and $I$,
+  behavior dynamics of an agent), denoted with subscripts $E$ and $I$,
   respectively. Using this notation, a state $s$ is composed as:
   \begin{equation}
     s = [s_\text{E,R}, s_\text{E,H}, s_\text{I,H}]^T
@@ -210,7 +210,7 @@ know about all human goals. That is, the robot does not have access to the true
 behavior model of the human.
 
 By inspection of the problem formalized above it becomes apparent that the
-assumptions made in \cite{fisac2018probabilistically} poses a \ac{momdp} --
+assumptions made in \cite{fisac2018probabilistically} pose a \ac{momdp} --
 a special case of the more general \ac{pomdp}. That is, we can factor the state
 into a fully observed part ($s_\text{E}$, the external state) and a partially
 observed part ($s_\text{I}$).
@@ -242,7 +242,7 @@ over the one step ahead prediction of the human is visualized by blue
 particles. In this example we use the goal conditioned Boltzmann model for
 prediction of the human trajectory. The inferred goal of each particle is
 highlighted in blue and connected with a line. The open-loop plan of the robot
-for the 10-step receding horizon is visualized as a by gray dotted path. The
+for the 10-step receding horizon is visualized as a gray dotted path. The
 right half of the figure shows additional meta data. Here, the top half
 displays a histogram over the current belief of the model confidence, $\beta$.
 The lower half shows the evolution of the cumulative reward up to the current
@@ -391,7 +391,7 @@ of random seeds to reduce sampling variance. Additionally, in an effort to
 obtain a comparison that focuses on safety critical situations, we only
 consider scenarios in which a naive \emph{straight-to-goal} policy is not
 successful. We create these scenarios by sampling initial conditions from
-uniform prior and reject all samples for which the simulated naive policy
+a uniform prior and reject all samples for which the simulated naive policy
 allows the robot to reach its goal.
 
 In contrast to the experiments presented in
@@ -441,7 +441,7 @@ sampled scenarios for \ac{pomcpow} ($3.40\%$) is only half has high as for
   \label{fig:hri_outcome_histogram}
 \end{figure}
 
-While \ac{pomcpow} provides quantifiable better behaviors, this advantage comes
+While \ac{pomcpow} provides quantifiably better behaviors, this advantage comes
 at the cost of higher computational effort. On average, decision making in
 \ac{pomcpow} takes $\SI{0.279}{s}$ while for \ac{psrp} a decision is computed
 within $\SI{0.042}{s}$.
