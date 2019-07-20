@@ -223,10 +223,10 @@ states from the root belief and considering only a limited number of random
 
 A \emph{scenario} is an abstract concept which may be envisioned as an object
 that determinizes the outcome of a random process. Under a fixed scenario
-$\phib$ an action sequence $(a_1, a_2, ...)$ applied starting from belief $b$
+$\phib$, an action sequence $(a_1, a_2, ...)$ applied starting from belief $b$
 always traverses the same state-action-observation sequence ($s_0, a_1, o_1,
 a_2, o_2,\dots$). In \ac{despot}, scenarios are used to obtain a sparse
-presentation of the future. \Cref{fig:despot-tree} depicts a partially
+representation of the future. \Cref{fig:despot-tree} depicts a partially
 constructed \ac{despot} $\mathcal{D}$ rooted at the current belief, $b_0$,
 obtained under two scenarios (marked in blue and orange). Note that here we use
 \emph{superscripts} to enumerate elements of the action and observation space,
@@ -269,7 +269,7 @@ the dense formulation. In practice, however, a limited number of scenarios may
 sufficiently approximate the true belief tree such that the optimal decision
 computed on $\mathcal{D}$ is near-optimal for the full problem. In fact, it has
 been shown that for a policy optimized on $\mathcal{D}$ the error of its value
-when transfered to the dense problem stays bounded.
+when transfered to the dense problem remains bounded.
 
 Therefore, in theory a near-optimal policy $\hat{\pi}$ could be computed by
 constructing the entire \ac{despot} in advance and performing dynamic
@@ -295,7 +295,7 @@ set of all policies on \ac{despot} $\mathcal{D}$; $\hat{V}_\pi$ is the
 empirical value of that policy when evaluated on $\mathcal{D}$; and $\lambda
 \in \reals_{> 0}$ is a constant to regularize the empirical value based on the
 size of the policy, $|\pi|$. Intuitively, the regularization alleviates
-overfitting by making sure that complex policies with a lot of flexibility to
+overfitting by ensuring that complex policies with a lot of flexibility to
 adapt to different scenarios need to perform significantly better than policies
 with a smaller representation size.
 
@@ -315,7 +315,7 @@ bounds for a specific application domain is provided in
 value gap $\epsilon(b_0)$ at the root $b_0$ satisfies the target gap $\varepsilon_0$
 or the maximum planning time $T_\text{max}$ is exceeded. Once either of these
 terminal conditions is met, we extract the optimized action at the root that
-maximizes the lower bound estimate on regularized empirical value.
+maximizes the lower bound estimate on the regularized empirical value.
 
 While on an abstract level this algorithm is very simple, a key element of this
 search strategy is the incremental construction of the \ac{despot}. We therefore proceed
@@ -460,9 +460,9 @@ a well structured and generic implementation of \ac{pomcpow}.
 A theoretically valid solution method for sequential decision making problems
 is the construction of the entire policy tree. This tree consists of alternating
 layers of states and actions, enumerating all possible future trajectories.
-Given this object, extracting the optimal strategy from is trivial. However,
-for problems relevant in practice the curse of dimensionality makes simulating
-all possible futures intractable.
+Given this object, extracting the optimal strategy is trivial. However, for
+problems relevant in practice the curse of dimensionality makes simulating all
+possible futures intractable.
 
 \acf{mcts} is a method that breaks the curse of dimensionality by utilizing
 Monte-Carlo simulations to incrementally construct only important parts of the
