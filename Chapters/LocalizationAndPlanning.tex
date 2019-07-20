@@ -92,7 +92,7 @@ The problem is formalized as a \ac{pomdp} with the following properties introduc
     \begin{equation}
       \reward(s, a, s') = r_\text{time} + \chrond_\text{collision}(s') r_\text{collision} + \chrond_\text{goal}(s') r_\text{goal} + \chrond_\text{stairs}(s') r_\text{stairs}.
     \end{equation}
-    Here, $\chrond_\text{c}(s)$ denotes the \vname{Kronecke delta} function under the condition, \vname{c}, such that
+    Here, $\chrond_\text{c}(s)$ denotes the \vname{Kronecker delta} function under the condition, \vname{c}, such that
     \begin{equation}
       \chrond_\text{c}(s) = \begin{cases}
         1, & \text{if condition $c$ holds for $s$}\\
@@ -222,7 +222,7 @@ the problem studied here.
       case, we use $\hat{\Sigma}$ to map the step estimate to a corresponding
       return. Using these approximations, $U_0$ is a true upper bound on the
       optimal value. While for $L_0$ there is no strict guarantee to be a true
-      lower bound, we found that most cases it is well behaved.
+      lower bound, we found that for most cases it is well behaved.
   \item[Rollout Lower Bound] This strategy uses the same upper bound as the
     first approach. However, for $L_0$ we use a default policy rollout to
     obtain a true lower bound. In order to generate a structured motion, we use
@@ -274,10 +274,10 @@ for a maximum number of time steps, $T_\text{max,sim} = 300$. The choice of
 this upper bound on simulation time is justified by evaluation of the optimal
 policy for the fully observable problem. In the corresponding \ac{mdp} with the
 same set of initial conditions, \ac{mlmpc} reached the goal within a maximum
-number of $56$ over all scenarios. Therefore, it is reasonable to assume that
-a well behaved policy for this \ac{pomdp} should be able to reach a succeeding
-terminal state within a time horizon more than five times longer than the worst
-case fully observable run.
+number of $56$ steps over all scenarios. Therefore, it is reasonable to assume
+that a well behaved policy for this \ac{pomdp} should be able to reach
+a succeeding terminal state within a time horizon more than five times longer
+than the worst case fully observable run.
 
 We begin by comparing the performance of each strategy by examining the
 cumulative discounted reward. Since maximizing the sum of discounted rewards is
@@ -290,7 +290,7 @@ closed form solution,
 \begin{equation}
   r_{T_\text{sim,max}} = \sum_{t=1}^\infty r_\text{time} \gamma^{t-1} =  r_\text{time} \frac{\gamma}{1-\gamma}.
 \end{equation}
-Since this reward is collected at the end of the simulation horizon it must
+Since this reward is collected at the end of the simulation horizon it must be
 discounted accordingly, entering the objective function as
 \begin{equation}
   \Delta V_{T_\text{max,sim}} = r_{T_\text{sim,max}} \gamma^{(T_\text{max,sim} - 1)}
