@@ -60,7 +60,7 @@ problem\footnote{\url{https://github.com/sisl/AA228FinalProject}}.
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics[width=0.7\textwidth]{roomba_demo/roomba-initial.png}
+  \includegraphics[width=0.7\textwidth]{roomba-initial.jpg}
   \caption{A screen shot of the simulation environment for the \emph{"Escape
   Roomba"} problem provided by the \emph{Stanford Intelligent Systems
   Laboratory} as part of the class \emph{Decision Making under Uncertainty}.}
@@ -351,7 +351,9 @@ of the trajectory would have been sufficient to break symmetry and completely
 eliminate a cluster. While \ac{despot} and \ac{pomcpow} are able to actively
 identify information gathering strategies for these cases, the baseline
 policies often oscillate until repeated re-sampling in the particle filter
-breaks the symmetry to an extent that allows to stabilize decisions.
+breaks the symmetry to an extent that allows to stabilize decisions. An
+instance of this qualitative difference between passive and active information
+gathering is visualized in \cref{apx:lp-example-trajectories}.
 
 Furthermore, one can observe that all \ac{pomdp} planners are significantly
 better at avoiding failures (\ie falling down the stairs). If the planner is
@@ -438,10 +440,3 @@ approaches.
   policy. Top: Mean and \acf{sem}. Bottom: Approximation of the \acf{pdf}.}
   \label{fig:lp_eval_undiscounted}
 \end{figure}
-
-%  \begin{figure}[H]
-%    \centering
-%    \includegraphics[scale=1]{roomba_plots/lp_value_eval_plot-undiscounted_reward.pdf}
-%    \caption{Name}
-%    \label{fig:name}
-%  \end{figure}
