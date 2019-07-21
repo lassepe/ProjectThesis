@@ -1,9 +1,8 @@
-MAIN=Thesis
 BIB=lit/thesis.bib
 
-all: $(MAIN).pdf
+all: Thesis.pdf
 
-$(MAIN).pdf: $(shell find . -name "*.tex") $(BIB)
+Thesis.pdf: $(shell find . -name "*.tex") $(BIB)
 	# fetch plots:
 	latexmk -pdf Thesis.tex
 
@@ -52,7 +51,7 @@ appendix_archive:
 	cp -r ./code/HumanSwitching.jl ./AppendixArchive/Data/MotionPlanningHRI
 	# copy presentation
 	mkdir ./AppendixArchive/Presentation
-	# TODO
+	cp -r ./Presentation/* ./AppendixArchive/Presentation/
 
 clean:
 	latexmk -CA
