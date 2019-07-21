@@ -1,7 +1,6 @@
 from: markdown
 to: beamer
-output: output.pdf
+output: out/Slides.pdf
 template: templateBlue/tuhhDarkBlue.tex
 files:
 - '*.md'
-

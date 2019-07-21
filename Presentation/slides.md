@@ -1,13 +1,26 @@
 ---
-title: Human Switching
-subtitle: POMDP Formulation
+title: |
+    | Partially Observable Markov Decision Processes
+    | for Planning in Uncertain Environments
+shorttitle: POMDP Planning
+author: |
+    | Project Thesis
+    | Lasse Peters
+    |
+    | Institute of Mechanics and Ocean Engineering
+    | TUHH -- Hamburg University of Technology
+    |
+    | Hybrid Systems Laboratory
+    | University of California at Berkeley
+date: 25.07.2019
+section-titles: false
 link-citations: true
 numbersections: true
 mainfont: Latin Modern Roman
 beamercovered: transparent
 innertheme: rectangles
-titlegraphic: 'media/julia-pomdp.png'
 header-includes:
+    - \usepackage{animate}
     - \usepackage[export]{adjustbox}
     - \usepackage{chngpage}
     - \usepackage{todonotes}
@@ -19,60 +32,94 @@ header-includes:
              \let\Begin\begin
              \let\End\end
          }
+    - \setbeameroption{show notes}
+    # - \usepackage{pgfpages}
+    # - \setbeameroption{show notes on second screen=right}
 ---
 
-# State Space
+# Introduction
 
-**External State (fully observed)**
+## Introduction
 
-- human pose $x_H$
-- robot pose $x_R$
+\begin{minipage}[t]{0.32\textwidth}
+    \begin{figure}[htpb]
+        \centering
+        \missingfigure{}
+        \caption{Autonomous Navigation in the Presence of Pedestrians}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{0.32\textwidth}
+    \begin{figure}[htpb]
+        \centering
+        \missingfigure{}
+        \caption{Aircraft Collision Avoidance, maybe omit.}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{0.32\textwidth}
+    \begin{figure}[htpb]
+        \centering
+        \missingfigure{}
+        \caption{Robot Localization and Planning}
+    \end{figure}
+\end{minipage}
 
-\pause
-\vspace{20pt}
+\note[item]{Manny planning problems are subject to inherent uncertainty (describe examples)}
+\note[item]{\textbf{Humans have developed good intuition} for daily problems featuring
+            uncertainty. Same problems often \textbf{challenging for robots}.}
+\note[item]{Considering uncertainty often crucial for performance and robustness or may even prevent solving the
+problem in a principled manner in the first place}
+\note[item]{traditional \textit{robust control} approach: worst case disturbance sequences (adversarial game type approaches)}
+\note[item]{Too conservative, better: probabilistic consideration of uncertainty}
+\note[item]{Suitable framework: POMDPs}
+\note[item]{However, computationally complex -- thus avoided. Rather: problem specific solvers (solver approximate version of the POMDP)}
+\note[item]{This work... (maybe concisely stated on an extra slide)}
 
-**Internal States (latent)**
+# Outline
 
-- human behavior model with some latent $\theta$
-    - $\theta$: *human* reward model, target etc.
+## Outline
 
-# Transition Model and Action Space
+\itodo{Write outline or print `TOC`}
 
-**Human Transition**
+1. The Partially Observable Markov Decision Process
 
-- $u_H$ sampled from human behavior model
-    - **currently:** linear human with hidden target
-    - **next:** Boltzmann human
+2. Approximate Online POMDP Solvers: DESPOT and POMCPOW (one page for both solver)
 
-$$
-P\left(u^t_H | x^T_H; \beta, \theta \right) \propto e^{\beta Q_H\left(x^t_H, u^t_H; \theta\right)}
-$$
-$$
-x^{t+1}_H = f\left(x^t_H, u_H\right)
-$$
+3. Simultaneous Localization and Planning
 
-\pause
+    - Problem Statement
+    - Solver Adaption and Baselines
+    - Evaluation
 
-**Robot Transition**
+4. Motion Planning with Latent Human Intentions
 
-- $u_R$ from discrete action space
-    - **currently:** up, down, left, right, stop
-    - **maybe later:** other "macro" actions
+    - Problem Statement
+    - POMCPOW Adaption and Baseline
+    - Evaluation
 
-$$
-x^{t+1}_R = f\left(x^t_R, u_R\right)
-$$
+# Theory
 
-# POMDP Framework / Setup
+## Partially Observable Markov Decision Process
 
-1. Belief Updater |  Particle Filter
-    - used to estimate latent human behavior model
-        - **for now:** infers target of linear human
-        - **next:** $\beta, \theta$ of Boltzmann
+\begin{figure}[htpb]
+    \centering
+    \missingfigure{POMDP DNN}
+    \caption{Name}
+    \label{fig:name}
+\end{figure}
 
-\pause
-\vspace{20pt}
+\note{\itodo{test}}
+\note[item]{Partially observed MDP: MDP at its core and state inferred through observations}
+\note[item]{explain all parts: state, action, observation, reward ...}
+\note[item]{MDP: state obeys the \emph{Markov Property}}
+\note[item]{Allows to model two types of uncertainty: \textbf{state
+            uncertainty} (state is not known exactly but indirectly observed) and
+            \textbf{outcome uncertainty} (e.g. dynamics not exactly known)}
 
-2. POMDP Solver
-    - computes conditional plan based on estimated belief
-    - using some `MCTS` variant (currently POMCPOW)
+## Approximate Online POMDP Solvers
+
+\note{\textbf{DESPOT}}
+\note[item]{Sequentially constructs a DESPOT by simulating a fixed set of scenarios.}
+\note[item]{Uses upper bounds to guide the search (heuristic) and lower bounds for regularization and pruning}
+
+\note{\textbf{POMCPOW}}
+\note[item]{MCTS with value estimate and double progressive widening (there won't be time to explain double progressive widening)}
