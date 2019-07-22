@@ -8,11 +8,14 @@ author: |
     | Lasse Peters
     |
     | Institute of Mechanics and Ocean Engineering
-    | TUHH -- Hamburg University of Technology
+    | \scriptsize Prof. Dr.\-Ing.\ Robert Seifried
+    | \scriptsize Hamburg University of Technology
     |
-    | Hybrid Systems Laboratory
-    | University of California at Berkeley
-date: 25.07.2019
+    | \normalsize Hybrid Systems Laboratory
+    | \scriptsize Prof. Claire J. Tomlin
+    | \scriptsize University of California at Berkeley
+    |
+    | 25.07.2019
 section-titles: false
 link-citations: true
 numbersections: true

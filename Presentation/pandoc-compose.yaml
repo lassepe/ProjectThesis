@@ -1,6 +1,6 @@
 from: markdown
 to: beamer
 output: out/Slides.pdf
-template: templateBlue/tuhhDarkBlue.tex
+template: template/tuhh-ucb-mum-hsl.tex
 files:
 - '*.md'

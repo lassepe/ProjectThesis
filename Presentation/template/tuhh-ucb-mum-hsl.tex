@@ -326,12 +326,19 @@ $if(institute)$
 $endif$
 \date{$date$}
 $if(beamer)$
-$if(titlegraphic)$
+% UCB / TUHH logos
 \titlegraphic{
-   \includegraphics[width=3cm]{$titlegraphic$}
+    \vspace{-50pt}
+    \parbox[c][1.5cm][c]{\textwidth}{
+    \centering
+    \includegraphics[height=.85cm]{media/logos/tuhh-logo.png}
+    \hspace{3pt}
+    \includegraphics[height=.85cm]{media/logos/mum-logo.pdf}
+    \hfill
+    \includegraphics[height=.85cm]{media/logos/hsl-logo-3d.png}
+    \includegraphics[height=.85cm]{media/logos/ucb-logo.jpg}
+    }
 }
-$endif$
-
 \usepackage{textpos}
 \addtobeamertemplate{frametitle}{}{%
 \begin{textblock*}{2.5cm}(10.5cm,-0.83cm)
