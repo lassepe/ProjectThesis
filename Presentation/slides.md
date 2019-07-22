@@ -35,7 +35,7 @@ header-includes:
              \let\Begin\begin
              \let\End\end
          }
-    - \setbeameroption{show notes}
+    # - \setbeameroption{show notes}
     # - \usepackage{pgfpages}
     # - \setbeameroption{show notes on second screen=right}
 ---
@@ -81,8 +81,6 @@ problem in a principled manner in the first place}
 \note[item]{However, computationally complex -- thus avoided. Rather: problem specific solvers (solver approximate version of the POMDP)}
 \note[item]{We study the use of POMDPs for planning under uncertainty in robotics at the example of two applications domains: `localization and planning` and `motion planning around humans`}
 
-# Outline
-
 ## Outline
 
 \itodo{Write outline or print `TOC`}
@@ -105,15 +103,47 @@ problem in a principled manner in the first place}
 
 # Theory
 
-## Partially Observable Markov Decision Process
+## The Partially Observable Markov Decision Process
 
-\begin{figure}[htpb]
-    \centering
-    \missingfigure{POMDP DNN}
-    \caption{Name}
-    \label{fig:name}
-\end{figure}
 
+\begin{minipage}[t]{0.59\textwidth}
+    \textbf{Dynamic Decision Network}
+
+    \hspace{-20pt}
+    \begin{figure}[htpb]
+        \begin{overprint}
+            \onslide<1>\centering\includegraphics[height=0.5\textheight]{media/pomdp/pomdp-mdp-gray-ddn.pdf}
+            \onslide<2->\centering\includegraphics[height=0.5\textheight]{media/pomdp/pomdp_ddn.pdf}
+        \end{overprint}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{0.39\textwidth}
+    \textbf{\onslide<2->{PO}\onslide<1->{MDP}}
+
+    \vspace{10pt}
+    Variables:
+    \begin{itemize}[<1->]
+            \item state $s$
+            \item action $a$
+            \item reward $r$
+    \end{itemize}
+    \begin{itemize}[<2->]
+            \item observation $o$
+            \item initial belief $b_0$
+    \end{itemize}
+    \vspace{5pt}
+    Types of Uncertainty:
+    \begin{itemize}[<1->]
+            \item outcome uncertainty
+    \end{itemize}
+    \begin{itemize}[<2->]
+            \item state uncertainty
+    \end{itemize}
+\end{minipage}
+\textbf{Objective}: Finding a policy $\pi^*$ that maximizes
+\begin{equation} \label{eq:objective}
+    J(\pi) = E\left[\sum_{t=0}^\infty \gamma^t r_t)\right] \text{.}
+\end{equation}
 \note{\itodo{test}}
 \note[item]{Partially observed MDP: MDP at its core and state inferred through observations}
 \note[item]{explain all parts: state, action, observation, reward ...}
