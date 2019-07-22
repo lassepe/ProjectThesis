@@ -150,3 +150,96 @@ problem in a principled manner in the first place}
 
 \note{\textbf{POMCPOW}}
 \note[item]{MCTS with value estimate and double progressive widening (there won't be time to explain double progressive widening)}
+
+# Localization and Planning
+
+## Problem Statement
+
+\begin{minipage}[c]{0.59\textwidth}
+    \begin{figure}[htpb]
+        \centering
+        \missingfigure{}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[c]{0.39\textwidth}
+    \begin{itemize}
+        \item t
+    \end{itemize}
+\end{minipage}
+
+\itodo{Show some trajectory so that people understand what happens here.}
+
+## Baselines
+
+**Most Likely Model Predictive Controller (MLMPC)**
+
+**Most Likely Reflex Agent (MLRA)**
+
+## Adaption of POMCPOW and DESPOT
+
+## Evaluation
+
+![](media/localization-and-planning/plots/lp_value_sem_eval_plot-inf_discounted_reward.pdf)
+
+## Evaluation
+
+![](media/localization-and-planning/plots/lp_value_violin_eval_plot-inf_discounted_reward.pdf)
+
+## Evaluation
+
+![](media/localization-and-planning/plots/lp_value_sem_eval_plot-undiscounted_reward.pdf)
+
+## Evaluation
+
+![](media/localization-and-planning/plots/lp_value_violin_eval_plot-undiscounted_reward.pdf)
+
+
+# Motion Planning with Latent Human Intentions
+
+## Baseline
+
+**Probabilistically Safe Robot Planning**
+
+## POMCPOW
+
+## Evaluation
+
+\itodo{Re-Render for these dimensions}
+\begin{minipage}[c]{0.49\textwidth}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{media/motion-planning-hri/plots/hri_value_sem_plot.pdf}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[c]{0.49\textwidth}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{media/motion-planning-hri/plots/hri_outcome_histogram_plot.pdf}
+    \end{figure}
+\end{minipage}
+
+# End
+
+## End
+
+\centering
+
+\Large
+
+Thank you for your attention!
+
+--
+
+Questions?
+
+\backupbegin
+
+# TODO
+
+## TODO
+
+- enable section titles?
+- disable notes
+- maybe don't number title page and section title pages
+
+\backupend
