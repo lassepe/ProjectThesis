@@ -132,10 +132,10 @@ imposed by the \ac{pomdp} \cite{kaelbling1998planning,
 kochenderfer2015decision}. Loosely speaking, $b_t$ preserves all relevant
 information contained in the action-observation-history $h_t$ necessary to
 compute the optimal action. The belief is maintained by recursively performing
-a Bayesian update,
+a Bayesian update
 \begin{equation} \label{eqn:update}
     b'(s') = \frac{\int_{s\in\sspace} \odist(o \mid s, a, s') \tdist(s' \mid s, a) b(s) \, ds}
-    {\int_{s'\in\sspace} \int_{s\in\sspace} \odist(o \mid s, a, s') \tdist(s' \mid s, a) b(s) \, ds \, ds'} \text{.}
+    {\int_{s'\in\sspace} \int_{s\in\sspace} \odist(o \mid s, a, s') \tdist(s' \mid s, a) b(s) \, ds \, ds'},
 \end{equation}
 with incoming observations, $o$. In the case of a discrete state space,
 $\sspace$ integrals a to be replaced with sums. In cases where this update rule
