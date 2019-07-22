@@ -19,7 +19,7 @@ author: |
 section-titles: false
 link-citations: true
 numbersections: true
-mainfont: Latin Modern Roman
+#mainfont: Latin Modern Roman
 beamercovered: transparent
 innertheme: rectangles
 header-includes:
