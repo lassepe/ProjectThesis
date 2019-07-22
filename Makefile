@@ -51,7 +51,7 @@ appendix_archive:
 	cp -r ./code/HumanSwitching.jl ./AppendixArchive/Data/MotionPlanningHRI
 	# copy presentation
 	mkdir ./AppendixArchive/Presentation
-	cp -r ./Presentation/* ./AppendixArchive/Presentation/
+	cp -Lr ./Presentation/* ./AppendixArchive/Presentation/
 
 clean:
 	latexmk -CA
