@@ -85,23 +85,13 @@ problem in a principled manner in the first place}
 
 ## Outline
 
-\itodo{Write outline or print `TOC`}
+1. Theory
 
-1. The Partially Observable Markov Decision Process
+2. Simultaneous Localization and Planning
 
-2. Approximate Online POMDP Solvers: DESPOT and POMCPOW (one page for both solver)
+3. Motion Planning with Latent Human Intentions
 
-3. Simultaneous Localization and Planning
-
-    - Problem Statement
-    - Solver Adaption and Baselines
-    - Evaluation
-
-4. Motion Planning with Latent Human Intentions
-
-    - Problem Statement
-    - POMCPOW Adaption and Baseline
-    - Evaluation
+4. Conclusion
 
 # Theory
 
