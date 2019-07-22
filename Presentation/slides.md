@@ -112,16 +112,14 @@ problem in a principled manner in the first place}
     \hspace{-20pt}
     \begin{figure}[htpb]
         \begin{overprint}
-            \onslide<1>\centering\includegraphics[height=0.5\textheight]{media/pomdp/pomdp-mdp-gray-ddn.pdf}
-            \onslide<2->\centering\includegraphics[height=0.5\textheight]{media/pomdp/pomdp_ddn.pdf}
+            \onslide<1>\centering\includegraphics[width=0.8\textwidth]{media/pomdp/pomdp-mdp-gray-ddn.pdf}
+            \onslide<2->\centering\includegraphics[width=0.8\textwidth]{media/pomdp/pomdp_ddn.pdf}
         \end{overprint}
     \end{figure}
 \end{minipage}
 \begin{minipage}[t]{0.39\textwidth}
     \textbf{\onslide<2->{PO}\onslide<1->{MDP}}
-
     \vspace{10pt}
-    Variables:
     \begin{itemize}[<1->]
             \item state $s$
             \item action $a$
@@ -131,14 +129,14 @@ problem in a principled manner in the first place}
             \item observation $o$
             \item initial belief $b_0$
     \end{itemize}
-    \vspace{5pt}
-    Types of Uncertainty:
-    \begin{itemize}[<1->]
-            \item outcome uncertainty
-    \end{itemize}
-    \begin{itemize}[<2->]
-            \item state uncertainty
-    \end{itemize}
+%    \vspace{5pt}
+%    Types of Uncertainty:
+%    \begin{itemize}[<1->]
+%            \item outcome uncertainty
+%    \end{itemize}
+%    \begin{itemize}[<2->]
+%            \item state uncertainty
+%    \end{itemize}
 \end{minipage}
 \textbf{Objective}: Finding a policy $\pi^*$ that maximizes
 \begin{equation} \label{eq:objective}
