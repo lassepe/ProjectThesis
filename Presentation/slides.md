@@ -241,5 +241,25 @@ Questions?
 - enable section titles?
 - disable notes
 - maybe don't number title page and section title pages
+- fix author in footer
+
+## Minipage Example
+
+
+:::::::: columns
+
+::: {.column width="33%"}
+Column 1
+:::
+
+::: {.column width="33%"}
+Column 2
+:::
+
+::: {.column width="30%"}
+Column 2
+:::
+
+::::::::
 
 \backupend
