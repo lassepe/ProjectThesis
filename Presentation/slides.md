@@ -38,6 +38,8 @@ header-includes:
     # - \setbeameroption{show notes}
     # - \usepackage{pgfpages}
     # - \setbeameroption{show notes on second screen=right}
+    - \newcommand{\backupbegin}{\newcounter{finalframe} \setcounter{finalframe}{\value{framenumber}}}
+    - \newcommand{\backupend}{\setcounter{framenumber}{\value{finalframe}}}
 ---
 
 # Introduction
