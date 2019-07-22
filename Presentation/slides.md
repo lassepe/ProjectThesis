@@ -23,6 +23,7 @@ numbersections: true
 beamercovered: transparent
 innertheme: rectangles
 header-includes:
+    - \usepackage{ragged2e}
     - \usepackage{animate}
     - \usepackage[export]{adjustbox}
     - \usepackage{chngpage}
@@ -131,9 +132,10 @@ problem in a principled manner in the first place}
 %    \end{itemize}
 \end{minipage}
 \textbf{Objective}: Finding a policy $\pi^*$ that maximizes
-\begin{equation} \label{eq:objective}
-    J(\pi) = E\left[\sum_{t=0}^\infty \gamma^t r_t)\right] \text{.}
-\end{equation}
+$$
+J(\pi) = E\left[\sum_{t=0}^\infty \gamma^t r_t)\right] \text{.}
+$$
+
 \note{\itodo{test}}
 \note[item]{Partially observed MDP: MDP at its core and state inferred through observations}
 \note[item]{explain all parts: state, action, observation, reward ...}
@@ -142,7 +144,39 @@ problem in a principled manner in the first place}
             uncertainty} (state is not known exactly but indirectly observed) and
             \textbf{outcome uncertainty} (e.g. dynamics not exactly known)}
 
-## Approximate Online POMDP Solvers
+## Determinized Sparse Partially Observable Tree
+
+[columns]
+
+[column=0.5]
+
+![](./media/pomdp-solvers/despot-tree-cropped.pdf){width="100%"}
+
+[column=0.5]
+
+\pause
+**Key Features**
+
+- determinized scenarios
+- upper bounds to guide the search
+- lower bound for regularization
+
+\pause
+\vspace{10pt}
+**Algorithm:**
+
+1. Explore
+2. Backup
+
+[/columns]
+
+\note{Exploration}
+\note[item]{actions: highest upper bound on value}
+\note[item]{observation: highest excess uncertainty}
+
+## Partially Observable Monte-Carlo Planning with Observation Widening
+
+![](./media/pomdp-solvers/mcts-general.pdf)
 
 \note{\textbf{DESPOT}}
 \note[item]{Sequentially constructs a DESPOT by simulating a fixed set of scenarios.}
@@ -234,6 +268,10 @@ Questions?
 
 \backupbegin
 
+## Monte-Carlo Tree Search
+
+![](./media/pomdp-solvers/mcts-general.pdf)
+
 # TODO
 
 ## TODO
@@ -242,24 +280,5 @@ Questions?
 - disable notes
 - maybe don't number title page and section title pages
 - fix author in footer
-
-## Minipage Example
-
-
-:::::::: columns
-
-::: {.column width="33%"}
-Column 1
-:::
-
-::: {.column width="33%"}
-Column 2
-:::
-
-::: {.column width="30%"}
-Column 2
-:::
-
-::::::::
 
 \backupend

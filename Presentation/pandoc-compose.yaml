@@ -2,5 +2,7 @@ from: markdown
 to: beamer
 output: out/Slides.pdf
 template: template/tuhh-ucb-mum-hsl.tex
+filter:
+  - filter/column-filter.py
 files:
 - '*.md'
