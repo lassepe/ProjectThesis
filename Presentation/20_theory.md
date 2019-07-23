@@ -34,13 +34,13 @@ $$
 
 \note{\itodo{test}}
 \note[item]{Partially observed MDP: MDP at its core and state inferred through observations}
-\note[item]{explain all parts: state, action, observation, reward ...}
+\note[item]{explain all parts: state, action, reward ...}
 \note[item]{MDP: state obeys the \emph{Markov Property}}
 \note[item]{Allows to model two types of uncertainty: \textbf{state
             uncertainty} (state is not known exactly but indirectly observed) and
             \textbf{outcome uncertainty} (e.g. dynamics not exactly known)}
 
-## Determinized Sparse Partially Observable Tree
+## Determinized Sparse Partially Observable Tree (DESPOT)
 
 [columns]
 
@@ -60,7 +60,7 @@ $$
 
 \pause
 \vspace{10pt}
-**Algorithm:**
+**Algorithm**
 
 :::: {.columns}
 
@@ -90,7 +90,7 @@ $$
 \vline
 ::: {.column width="33%"}
 
-2. Backup
+3. Backup
 
 \small
 - update bounds on path to the root
@@ -104,9 +104,58 @@ $$
 \note[item]{actions: highest upper bound on value}
 \note[item]{observation: highest excess uncertainty}
 
-## Partially Observable Monte-Carlo Planning with Observation Widening
+## Partially Observable Monte-Carlo Planning with Observation Widening (POMCPOW)
 
-![](./media/pomdp-solvers/mcts-general.pdf)
+[columns]
+
+[column=0.5]
+
+![](media/pomdp-solvers/pomcpow-tree.png)
+
+[column=0.5]
+
+**Key Features**
+
+- weighted particle beliefs
+- progressive widening
+- value estimate at the leaf
+
+[/columns]
+
+\vspace{10pt}
+**Algorithm**
+
+:::: {.columns}
+
+::: {.column width="25%"}
+
+1. Search
+
+
+:::
+
+::: {.column width="25%"}
+
+2. Expansion
+
+
+:::
+
+::: {.column width="25%"}
+
+3. Rollout
+
+
+:::
+
+::: {.column width="25%"}
+
+4. Backup
+
+
+:::
+
+::::
 
 \note{\textbf{DESPOT}}
 \note[item]{Sequentially constructs a DESPOT by simulating a fixed set of scenarios.}
