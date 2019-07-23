@@ -16,11 +16,11 @@ author: |
     | \scriptsize University of California at Berkeley
     |
     | 25.07.2019
-section-titles: false
+section-titles: true
 link-citations: true
 numbersections: true
 #mainfont: Latin Modern Roman
-beamercovered: transparent
+beamercovered: invisible
 innertheme: rectangles
 header-includes:
     - \usepackage{ragged2e}
@@ -43,5 +43,4 @@ header-includes:
     - \newcommand{\backupend}{\setcounter{framenumber}{\value{finalframe}}}
     - \newcommand{\columnsbegin}{\begin{columns}}
     - \newcommand{\columnsend}{\end{columns}}
-
 ---
