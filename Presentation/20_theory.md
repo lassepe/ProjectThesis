@@ -50,21 +50,55 @@ $$
 
 [column=0.5]
 
-\pause
 **Key Features**
 
 - determinized scenarios
-- upper bounds to guide the search
-- lower bound for regularization
+- regularization
+- upper and lower bounds on the value at every node
+
+[/columns]
 
 \pause
 \vspace{10pt}
 **Algorithm:**
 
-1. Explore
+:::: {.columns}
+
+::: {.column width="33%"}
+
+1. Exploration
+
+\small
+- Traverse tree to a promising leaf.
+
+
+:::
+
+\pause
+\vline
+::: {.column width="33%"}
+
+2. Expansion
+
+\small
+- Initialize new nodes with *user defined heuristic bounds*.
+
+
+:::
+
+\pause
+\vline
+::: {.column width="33%"}
+
 2. Backup
 
-[/columns]
+\small
+- update bounds on path to the root
+
+
+:::
+
+::::
 
 \note{Exploration}
 \note[item]{actions: highest upper bound on value}
