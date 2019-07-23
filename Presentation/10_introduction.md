@@ -2,31 +2,25 @@
 
 ## Introduction
 
-\begin{minipage}[c]{0.45\textwidth}
+\begin{minipage}[c]{0.44\textwidth}
     \begin{figure}[htpb]
         \centering
         \hspace{-10pt}\includegraphics[height=0.7\textheight]{media/introduction/kiwi-berkeley-croped.png}
     \end{figure}
 \end{minipage}
 \begin{minipage}[c]{0.54\textwidth}
+    \textbf{Types of Uncertainty}
+    \begin{itemize}
+        \item state uncertainty
+        \item outcome uncertainty
+        \item model uncertainty
+    \end{itemize}
     \pause
+    \vspace{10pt}
     \textbf{Dealing with Uncertainty}
     \begin{itemize}
         \item worst case disturbance sequence
         \item probabilistic reasoning
-    \end{itemize}
-    \vspace{20pt}
-    \pause
-    \textbf{This Work: POMDPs}
-    \pause
-    \begin{itemize}\itemsep0.5em
-        \item problem specific approximations\\\pause vs. full POMDP approaches
-        \pause
-        \item application examples:
-            \begin{enumerate}
-                \item localization and planning
-                \item motion planning around humans
-            \end{enumerate}
     \end{itemize}
 \end{minipage}
 
@@ -39,12 +33,45 @@ problem in a principled manner in the first place}
 \note[item]{However, computationally complex -- thus avoided. Rather: problem specific solvers (solver approximate version of the POMDP)}
 \note[item]{We study the use of POMDPs for planning under uncertainty in robotics at the example of two applications domains: `localization and planning` and `motion planning around humans`}
 
+## Introduction
+
+\begin{minipage}[c]{0.44\textwidth}
+    \begin{figure}[htpb]
+        \centering
+        \hspace{-10pt}\includegraphics[height=0.7\textheight]{media/introduction/kiwi-berkeley-croped.png}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[c]{0.54\textwidth}
+    \textbf{{This Work}: POMDPs}
+    \begin{itemize}\itemsep0.5em
+        \item problem specific approximations\\\pause vs. full POMDP approaches
+        \pause
+        \begin{overprint}
+        \onslide<-3>\item application domains:
+            \begin{enumerate}
+                \item localization and planning
+                \item motion planning with latent human intentions
+            \end{enumerate}
+        \onslide<4->\item application examples:
+            \begin{enumerate}
+                \item localization and planning
+                \item \textcolor{lightgray}{motion planning with latent human intentions}
+            \end{enumerate}
+        \end{overprint}
+    \end{itemize}
+\end{minipage}
+
 ## Outline
 
-1. Theory
+1. The Partially Observable Markov Decision Process
 
-2. Simultaneous Localization and Planning
+2. Approximate Online POMDP Solvers
+    - DESPOT
+    - POMCPOW
 
-3. Motion Planning with Latent Human Intentions
+3. Application Domain: Localization and Planning
+    - Problem Statement
+    - Baselines and Solver Adaption
+    - Evaluation of Performance
 
 4. Conclusion

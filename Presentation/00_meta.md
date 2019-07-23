@@ -16,13 +16,14 @@ author: |
     | \scriptsize University of California at Berkeley
     |
     | 25.07.2019
-section-titles: true
+section-titles: false
 link-citations: true
 numbersections: true
 #mainfont: Latin Modern Roman
 beamercovered: invisible
 innertheme: rectangles
 header-includes:
+    - \usepackage{xcolor}
     - \usepackage{ragged2e}
     - \usepackage{animate}
     - \usepackage[export]{adjustbox}

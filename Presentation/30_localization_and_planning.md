@@ -1,4 +1,4 @@
-# Localization and Planning
+# Application Domain: Localization and Planning
 
 ## Localization and Planning
 
@@ -17,17 +17,16 @@
 **Problem Details**
 
 - \emph{known room} but \emph{unknown location}
+\vspace{5pt}
+- objective:
+    - success: leave room at exit (green)
+    - failure: falling down stairs (red)
+    - penalties: time and collisions
+\vspace{5pt}
+- observations: collision sensor
+\vspace{5pt}
 - dynamics: noisy differential drive
     - actions: left, right, straight
-- observations: collision sensor
-
-\vspace{5pt}
-\pause
-**Objective**
-
-- success: leave room at exit (green)
-- failure: falling down stairs (red)
-- penalties: time and collisions
 
 \vspace{5pt}
 \pause
@@ -41,7 +40,9 @@
 
 ## Baselines
 
+\large
 **Mode Control**
+\normalsize
 
 - use mode of belief to approximate $s$
 - treat POMDP as fully observable problem
@@ -72,7 +73,7 @@
 **Most Likely Model Predictive Control (MLMPC)**
 
 \vspace{5pt}
-- Model Predictive Control (MPC)
+- use MPC to plan a path
 - cost function: negative reward
 
 :::
@@ -80,23 +81,103 @@
 
 \centering
 \vspace{20pt}
-$\Rightarrow$ MLMPC is an optimal policy for the fully observed version (MDP)
-
+$\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 
 ## Adaption of POMCPOW and DESPOT
 
+\large
+**Integrating Domain Knowledge**
+\normalsize
+
+**Value Estimates**
+
+1. Analytic Value Estimate
+    - estimate remaining steps from distance to goal
+    - approximate value by cumulative living penalty
+
+2. Rollout Value Estimate
+    - simulate default policy: "always straight"
+
+\vspace{5pt}
+\pause
+
+\vspace{5pt}
+**POMDP Solver Setups**
+
+
+1. DESPOT-analytic
+2. DESPOT-rollout
+3. POMCPOW-rollout
+4. POMCPOW-analytic
+
 ## Evaluation
 
-![](media/localization-and-planning/plots/lp_value_sem_eval_plot-inf_discounted_reward.pdf)
+**Experiments**
 
-## Evaluation
+- simulate 1000 runs for every policy
+- limited simulation horizon: 300 time-steps
 
-![](media/localization-and-planning/plots/lp_value_violin_eval_plot-inf_discounted_reward.pdf)
+**Example Trajectories**
 
-## Evaluation
+:::: {.columns}
+::: {.column width="50%"}
+:::
+::: {.column width="50%"}
+:::
+::::
 
-![](media/localization-and-planning/plots/lp_value_sem_eval_plot-undiscounted_reward.pdf)
+## Evaluation -- Undiscounted Return
 
-## Evaluation
+\centering
+\textbf{Mean and SEM of the undiscounted return\\for 1000 simulations per policy.}
+\vspace{-15pt}
 
-![](media/localization-and-planning/plots/lp_value_violin_eval_plot-undiscounted_reward.pdf)
+![](media/localization-and-planning/plots/lp_value_sem_eval_plot-undiscounted_reward.pdf){height="82%"}
+
+## Evaluation -- Undiscounted Return
+
+\centering
+\textbf{Distribution of the undiscounted return\\for 1000 simulations per policy.}
+\vspace{-15pt}
+
+![](media/localization-and-planning/plots/lp_value_violin_eval_plot-undiscounted_reward.pdf){height="82%"}
+
+
+## Evaluation -- Outcome Distribution
+
+\centering
+**Histogram of outcome frequencies grouped by policy.**
+![](media/localization-and-planning/plots/lp_outcome_eval_plot.pdf){height="90%"}
+
+
+## Evaluation -- Objective Value
+
+\centering
+\textbf{Mean and SEM of the discounted return\\for 1000 simulations per policy.}
+\vspace{-15pt}
+
+![](media/localization-and-planning/plots/lp_value_sem_eval_plot-inf_discounted_reward.pdf){height="82%"}
+
+
+## Evaluation -- Qualitative Analysis
+
+:::: {.columns}
+::: {.column width="50%"}
+\centering
+**POMCPOW with Analytic Value Estimate**
+
+- reliably reduces uncertainty
+- safe and efficient behaviors
+
+:::
+::: {.column width="50%"}
+\centering
+**Most Likely Model Predictive Control**
+
+- passively reduces uncertainty through accidental collisions
+- passive information gathering fails for highly symmetric beliefs
+- neglecting tails of belief compromises safety
+
+
+:::
+::::
