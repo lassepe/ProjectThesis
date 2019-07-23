@@ -117,13 +117,38 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 - simulate 1000 runs for every policy
 - limited simulation horizon: 300 time-steps
 
+\vspace{20pt}
+
 **Example Trajectories**
 
 :::: {.columns}
+
 ::: {.column width="50%"}
+1. good example
+\onslide<2->{
+\begin{itemize}
+    \item active information gathering
+    \item efficiently reduce uncertainty
+    \item reached the goal
+\end{itemize}
+}
+
+
 :::
+
 ::: {.column width="50%"}
+2. bad example
+\onslide<3->{
+\begin{itemize}
+    \item passive information gathering
+    \item oscillating behavior
+    \item failed to exit
+\end{itemize}
+}
+
+
 :::
+
 ::::
 
 ## Evaluation -- Undiscounted Return
