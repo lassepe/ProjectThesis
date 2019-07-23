@@ -175,34 +175,3 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 ![](media/localization-and-planning/plots/lp_outcome_eval_plot.pdf){height="90%"}
 
 
-## Evaluation -- Objective Value
-
-\centering
-\textbf{Mean and SEM of the discounted return\\for 1000 simulations per policy.}
-\vspace{-15pt}
-
-![](media/localization-and-planning/plots/lp_value_sem_eval_plot-inf_discounted_reward.pdf){height="82%"}
-
-
-## Evaluation -- Qualitative Analysis
-
-:::: {.columns}
-::: {.column width="50%"}
-\centering
-**POMCPOW with Analytic Value Estimate**
-
-- reliably reduces uncertainty
-- safe and efficient behaviors
-
-:::
-::: {.column width="50%"}
-\centering
-**Most Likely Model Predictive Control**
-
-- passively reduces uncertainty through accidental collisions
-- passive information gathering fails for highly symmetric beliefs
-- neglecting tails of belief compromises safety
-
-
-:::
-::::
