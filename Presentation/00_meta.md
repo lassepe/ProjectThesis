@@ -19,7 +19,7 @@ author: |
 section-titles: false
 link-citations: true
 numbersections: true
-mainfont: Latin Modern Roman
+#mainfont: Latin Modern Roman
 beamercovered: transparent
 innertheme: rectangles
 header-includes:
@@ -41,4 +41,7 @@ header-includes:
     # - \setbeameroption{show notes on second screen=right}
     - \newcommand{\backupbegin}{\newcounter{finalframe} \setcounter{finalframe}{\value{framenumber}}}
     - \newcommand{\backupend}{\setcounter{framenumber}{\value{finalframe}}}
+    - \newcommand{\columnsbegin}{\begin{columns}}
+    - \newcommand{\columnsend}{\end{columns}}
+
 ---

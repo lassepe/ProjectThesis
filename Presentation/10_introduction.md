@@ -17,7 +17,7 @@
     \end{itemize}
     \vspace{20pt}
     \pause
-    \textbf{This Work: POMDP}
+    \textbf{This Work: POMDPs}
     \pause
     \begin{itemize}\itemsep0.5em
         \item problem specific approximations\\\pause vs. full POMDP approaches

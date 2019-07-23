@@ -26,16 +26,8 @@
             \item observation $o$
             \item initial belief $b_0$
     \end{itemize}
-%    \vspace{5pt}
-%    Types of Uncertainty:
-%    \begin{itemize}[<1->]
-%            \item outcome uncertainty
-%    \end{itemize}
-%    \begin{itemize}[<2->]
-%            \item state uncertainty
-%    \end{itemize}
 \end{minipage}
-\textbf{Objective}: Finding a policy $\pi^*$ that maximizes
+**Objective**: Finding a policy $\pi^*$ that maximizes
 $$
 J(\pi) = E\left[\sum_{t=0}^\infty \gamma^t r_t)\right] \text{.}
 $$
