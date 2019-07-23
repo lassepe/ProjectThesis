@@ -29,7 +29,7 @@
 \end{minipage}
 **Objective**: Finding a policy $\pi^*$ that maximizes
 $$
-J(\pi) = E\left[\sum_{t=0}^\infty \gamma^t r_t)\right] \text{.}
+J(\pi) = E\left[\sum_{t=0}^\infty \gamma^t r_t\right] \text{.}
 $$
 
 \note{\itodo{test}}
@@ -56,55 +56,21 @@ $$
 - regularization
 - maintain bounds on the \emph{value}, $V^\ast$
 
+\pause
 \vspace{10pt}
 **High Level Idea**
 
-- tighten bounds at the root
+- incrementally construct tree to
+  tighten bounds at the root
 - choose action with best lower bound
 
+\pause
+\vspace{10pt}
+**Domain Knowledge**
+
+- user-defined initial bound estimates
+
 [/columns]
-
-\pause
-\vspace{5pt}
-**Algorithm**
-
-:::: {.columns}
-
-::: {.column width="33%"}
-
-1. Search
-
-\small
-- traverse tree to a promising leaf
-
-
-:::
-
-\pause
-\vline
-::: {.column width="33%"}
-
-2. Expansion
-
-\small
-- initialize new nodes with **user defined heuristic bounds**
-
-
-:::
-
-\pause
-\vline
-::: {.column width="33%"}
-
-3. Backup
-
-\small
-- update bounds on path to the root
-
-
-:::
-
-::::
 
 \note{Exploration}
 \note[item]{actions: highest upper bound on value}
@@ -124,7 +90,6 @@ $$
 
 - weighted particle beliefs
 - progressive widening
-- value estimate at the leaf
 
 \vspace{10pt}
 **High Level Idea**
@@ -132,47 +97,13 @@ $$
 - locally approximate the \emph{value function} through Monte-Carlo simulations
 - choose action with highest value
 
+\pause
+\vspace{10pt}
+**Domain Knowledge**
+
+- user-defined value estimate
+
 [/columns]
-
-**Algorithm**
-
-:::: {.columns}
-
-::: {.column width="33%"}
-
-1. Search
-
-\small
-- traverse tree to a promising leaf
-
-
-:::
-
-\pause
-\vline
-::: {.column width="33%"}
-
-2. Expansion
-
-\small
-- initialize value with **user defined value estimate**
-
-
-:::
-
-\pause
-\vline
-::: {.column width="33%"}
-
-4. Backup
-
-\small
-- update value-estimate on the path to root
-
-
-:::
-
-::::
 
 \note{\textbf{DESPOT}}
 \note[item]{Sequentially constructs a DESPOT by simulating a fixed set of scenarios.}
