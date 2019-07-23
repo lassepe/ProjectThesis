@@ -44,32 +44,38 @@ $$
 
 [columns]
 
-[column=0.5]
+[column=0.4]
 
 ![](./media/pomdp-solvers/despot-tree-cropped.pdf){width="100%"}
 
-[column=0.5]
+[column=0.6]
 
-**Key Features**
+**Characteristics**
 
 - determinized scenarios
 - regularization
-- upper and lower bounds on the value at every node
+- maintain bounds on the \emph{value}, $V^\ast$
+
+\vspace{10pt}
+**High Level Idea**
+
+- tighten bounds at the root
+- choose action with best lower bound
 
 [/columns]
 
 \pause
-\vspace{10pt}
+\vspace{5pt}
 **Algorithm**
 
 :::: {.columns}
 
 ::: {.column width="33%"}
 
-1. Exploration
+1. Search
 
 \small
-- Traverse tree to a promising leaf.
+- traverse tree to a promising leaf
 
 
 :::
@@ -81,7 +87,7 @@ $$
 2. Expansion
 
 \small
-- Initialize new nodes with *user defined heuristic bounds*.
+- initialize new nodes with **user defined heuristic bounds**
 
 
 :::
@@ -108,49 +114,60 @@ $$
 
 [columns]
 
-[column=0.5]
+[column=0.4]
 
 ![](media/pomdp-solvers/pomcpow-tree.png)
 
-[column=0.5]
+[column=0.6]
 
-**Key Features**
+**Characteristics**
 
 - weighted particle beliefs
 - progressive widening
 - value estimate at the leaf
 
+\vspace{10pt}
+**High Level Idea**
+
+- locally approximate the \emph{value function} through Monte-Carlo simulations
+- choose action with highest value
+
 [/columns]
 
-\vspace{10pt}
 **Algorithm**
 
 :::: {.columns}
 
-::: {.column width="25%"}
+::: {.column width="33%"}
 
 1. Search
 
+\small
+- traverse tree to a promising leaf
+
 
 :::
 
-::: {.column width="25%"}
+\pause
+\vline
+::: {.column width="33%"}
 
 2. Expansion
 
-
-:::
-
-::: {.column width="25%"}
-
-3. Rollout
+\small
+- initialize value with **user defined value estimate**
 
 
 :::
 
-::: {.column width="25%"}
+\pause
+\vline
+::: {.column width="33%"}
 
 4. Backup
+
+\small
+- update value-estimate on the path to root
 
 
 :::
