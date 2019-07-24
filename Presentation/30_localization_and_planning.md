@@ -84,7 +84,7 @@
 \vspace{20pt}
 $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 
-## Integrating Domain Knowledge for POMCPOW and DESPOT
+## Integrating Domain Knowledge for POMDP Solvers
 
 **Value Estimates**
 
@@ -114,12 +114,27 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 - simulate 1000 runs for every policy
 - limited simulation horizon: 300 time-steps
 
+\pause
 \vspace{20pt}
 
-**Example Trajectories**
+**Example Trajectory**
 
-1. good example
-2. bad example
+[columns]
+
+[column=0.33]
+
+![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00000.jpg)
+
+[column=0.33]
+
+![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00020.jpg)
+
+[column=0.33]
+
+![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00040.jpg)
+
+[/columns]
+
 
 ## Evaluation -- Undiscounted Return
 
@@ -135,6 +150,26 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 **Histogram of outcome frequencies grouped by policy.**
 ![](media/localization-and-planning/plots/lp_outcome_eval_plot.pdf){height="90%"}
 
+## Evalution -- Outcome Distribution
+
+[columns]
+
+[column=0.5]
+
+**Initial Conditions**
+![](./media/localization-and-planning/examples/mlmpc/mlmpc_stuck_frames/out00000.jpg)
+
+
+[column=0.5]
+
+**Histogram of outcome frequencies grouped by policy.**
+![](media/localization-and-planning/plots/lp_outcome_eval_plot.pdf){width="100%"}
+
+[/columns]
+
+\pause
+\centering
+$\Rightarrow$ POMCPOW-analytic near optimal with respect to safety
 
 ## Evaluation -- Qualitative Analysis
 
