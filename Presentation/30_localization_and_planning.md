@@ -121,7 +121,7 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 **Histogram of outcome frequencies grouped by policy.**
 ![](media/localization-and-planning/plots/lp_outcome_eval_plot.pdf){height="90%"}
 
-## Evalution -- Outcome Distribution
+## Evaluation -- Outcome Distribution
 
 [columns]
 
@@ -151,46 +151,29 @@ $\Rightarrow$ POMCPOW-analytic near optimal with respect to safety
 **MLMPC**
 
 \vspace{10pt}
-- passive information gathering
-\vspace{3pt}
-- fails for highly symmetric beliefs
-\vspace{3pt}
-- neglecting tails of belief compromises safety
-
+\begin{itemize}
+    \item<2-> mode approximation compromises safety
+    \vspace{3pt}
+    \item<2-> passive information gathering
+    \vspace{3pt}
+    \item<2-> fails for highly symmetric beliefs
+\end{itemize}
 
 :::
+\vline
 ::: {.column width="50%"}
 \centering
 **POMCPOW-Analytic**
 
 \vspace{10pt}
-- active information gathering
-\vspace{3pt}
-- reliably reduces uncertainty
-\vspace{3pt}
-- safe and efficient behaviors
+\begin{itemize}
+    \item<3-> active information gathering
+    \vspace{3pt}
+    \item<3-> reliably reduces uncertainty
+    \vspace{3pt}
+    \item<3-> safe and efficient behaviors
+\end{itemize}
+
 
 :::
 ::::
-
-## Evaluation
-
-**Example Trajectory**
-
-[columns]
-
-[column=0.33]
-
-![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00000.jpg)
-
-[column=0.33]
-
-![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00020.jpg)
-
-[column=0.33]
-
-![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00040.jpg)
-
-[/columns]
-
-

@@ -5,10 +5,8 @@
 
 **POMDP Planning**
 
-- principled access to solving problems with uncertainty
+- principled access to solving planning problems with uncertainty
 
 - robust and efficient behaviors
 
-- reasoning over entire belief increases safety
-
-- performance still depends on heuristic guidance
+- performance depends on design of heuristic guidance
