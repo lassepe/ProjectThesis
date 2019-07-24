@@ -121,35 +121,8 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 
 **Example Trajectories**
 
-:::: {.columns}
-
-::: {.column width="50%"}
 1. good example
-\onslide<2->{
-\begin{itemize}
-    \item active information gathering
-    \item efficiently reduce uncertainty
-    \item reached the goal
-\end{itemize}
-}
-
-
-:::
-
-::: {.column width="50%"}
 2. bad example
-\onslide<3->{
-\begin{itemize}
-    \item passive information gathering
-    \item oscillating behavior
-    \item failed to exit
-\end{itemize}
-}
-
-
-:::
-
-::::
 
 ## Evaluation -- Undiscounted Return
 
@@ -158,15 +131,6 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 \vspace{-15pt}
 
 ![](media/localization-and-planning/plots/lp_value_sem_eval_plot-undiscounted_reward.pdf){height="82%"}
-
-## Evaluation -- Undiscounted Return
-
-\centering
-\textbf{Distribution of the undiscounted return\\for 1000 simulations per policy.}
-\vspace{-15pt}
-
-![](media/localization-and-planning/plots/lp_value_violin_eval_plot-undiscounted_reward.pdf){height="82%"}
-
 
 ## Evaluation -- Outcome Distribution
 

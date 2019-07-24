@@ -5,9 +5,8 @@
 
 \begin{minipage}[t]{0.59\textwidth}
     \textbf{Dynamic Decision Network}
-
-    \hspace{-20pt}
     \begin{figure}[htpb]
+        \hspace{-40pt}
         \begin{overprint}
             \onslide<1>\centering\includegraphics[width=0.8\textwidth]{media/pomdp/pomdp-mdp-gray-ddn.pdf}
             \onslide<2->\centering\includegraphics[width=0.8\textwidth]{media/pomdp/pomdp_ddn.pdf}
@@ -41,6 +40,9 @@ $$
             \textbf{outcome uncertainty} (e.g. dynamics not exactly known)}
 
 ## Determinized Sparse Partially Observable Tree (DESPOT)
+
+<!-- TODO: Poentially merge with next slide because there is no time to discuss
+           the graph anyway -->
 
 [columns]
 
@@ -88,9 +90,11 @@ $$
 
 **Characteristics**
 
+- Monte-Carlo tree search
 - weighted particle beliefs
 - progressive widening
 
+\pause
 \vspace{10pt}
 **High Level Idea**
 

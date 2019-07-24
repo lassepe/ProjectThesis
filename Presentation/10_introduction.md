@@ -13,14 +13,22 @@
     \begin{itemize}
         \item state uncertainty
         \item outcome uncertainty
-        \item model uncertainty
     \end{itemize}
     \pause
     \vspace{10pt}
     \textbf{Dealing with Uncertainty}
     \begin{itemize}
-        \item worst case disturbance sequence
+        \item worst case disturbance sequences
         \item probabilistic reasoning
+    \end{itemize}
+    \pause
+    \vspace{10pt}
+    \textbf{POMDPs}
+    \begin{itemize}
+        \item general framework
+        \item computationally demanding
+        \pause
+        \item recent research: faster solvers
     \end{itemize}
 \end{minipage}
 
@@ -42,7 +50,7 @@ problem in a principled manner in the first place}
     \end{figure}
 \end{minipage}
 \begin{minipage}[c]{0.54\textwidth}
-    \textbf{{This Work}: POMDPs}
+    \textbf{This Work}
     \begin{itemize}\itemsep0.5em
         \item problem specific approximations\\\pause vs. full POMDP approaches
         \pause
@@ -52,7 +60,7 @@ problem in a principled manner in the first place}
                 \item localization and planning
                 \item motion planning with latent human intentions
             \end{enumerate}
-        \onslide<4->\item application examples:
+        \onslide<4->\item application domains:
             \begin{enumerate}
                 \item localization and planning
                 \item \textcolor{lightgray}{motion planning with latent human intentions}
@@ -70,8 +78,7 @@ problem in a principled manner in the first place}
     - POMCPOW
 
 3. Application Domain: Localization and Planning
-    - Problem Statement
-    - Baselines and Solver Adaption
-    - Evaluation of Performance
+    - Baselines
+    - POMDP Solvers
 
 4. Conclusion
