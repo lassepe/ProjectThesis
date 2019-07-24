@@ -45,7 +45,7 @@
 **Mode Control**
 \normalsize
 
-- use mode of belief to approximate $s$
+- use mode of belief to approximate the state
 - treat POMDP as fully observable problem
 
 \vspace{10pt}

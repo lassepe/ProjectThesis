@@ -1,12 +1,23 @@
 # Conclusion
 
-## Conclusion
+## Conclusion and Future Work
 
 
-**POMDP Planning**
+**Conclusions**
 
-- principled access to solving planning problems with uncertainty
+\begin{enumerate}
+    \item safe and efficient behaviors\\
+    $\Rightarrow$ suitable approach for safety vs. efficiency tradoff
+    \item near real-time planning capabilities\\
+    $\Rightarrow$ already a useful high-level planner for moderately sized problems
+    \item designing suitable heuristic guidance hard but cruitial for performance
+\end{enumerate}
 
-- robust and efficient behaviors
+\pause
+**Future Work**
 
-- performance depends on design of heuristic guidance
+\begin{enumerate}
+    \item theory for a-priory safety assurances
+    \item improving scalability by using GPU
+    \item learning for designing of heuristic guidance
+\end{enumerate}
