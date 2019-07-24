@@ -12,5 +12,3 @@
 - reasoning over entire belief increases safety
 
 - performance still depends on heuristic guidance
-
-- advantage depends on problem

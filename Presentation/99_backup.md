@@ -10,68 +10,6 @@ End
 
 \backupbegin
 
-## Approximate Online POMDP Solvers
-
-:::: {.columns}
-::: {.column width="50%"}
-\centering
-**Determinized Sparse Partially Observable Tree (DESPOT)**
-\justify
-\vspace{20pt}
-
-
-**Characteristics**
-
-- determinized scenarios
-- regularization
-- maintain bounds on the \emph{value}
-
-\pause
-\vspace{10pt}
-**High Level Idea**
-
-- incrementally construct sparse tree to
-  tighten bounds at the root
-- choose action with best lower bound
-
-\pause
-\vspace{10pt}
-**Domain Knowledge**
-
-- user-defined initial bound estimates
-
-
-:::
-::: {.column width="50%"}
-\centering
-**Partially Observable Monte-Carlo Planning with Observation Widening (POMCPOW)**
-\justify
-\vspace{8pt}
-
-**Characteristics**
-
-- Monte-Carlo tree search
-- weighted particle beliefs
-- progressive widening
-
-\pause
-\vspace{24pt}
-**High Level Idea**
-
-- locally approximate the \emph{value function} through Monte-Carlo simulations
-- choose action with highest value
-
-\pause
-\vspace{10pt}
-**Domain Knowledge**
-
-- user-defined value estimate
-
-
-:::
-::::
-
-
 ## Monte-Carlo Tree Search
 
 ![](./media/pomdp-solvers/mcts-general.pdf)

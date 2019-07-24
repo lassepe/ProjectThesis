@@ -107,35 +107,6 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 3. POMCPOW-rollout
 4. POMCPOW-analytic
 
-## Evaluation
-
-**Experiments**
-
-- simulate 1000 runs for every policy
-- limited simulation horizon: 300 time-steps
-
-\pause
-\vspace{20pt}
-
-**Example Trajectory**
-
-[columns]
-
-[column=0.33]
-
-![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00000.jpg)
-
-[column=0.33]
-
-![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00020.jpg)
-
-[column=0.33]
-
-![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00040.jpg)
-
-[/columns]
-
-
 ## Evaluation -- Undiscounted Return
 
 \centering
@@ -177,6 +148,19 @@ $\Rightarrow$ POMCPOW-analytic near optimal with respect to safety
 :::: {.columns}
 ::: {.column width="50%"}
 \centering
+**MLMPC**
+
+\vspace{10pt}
+- passive information gathering
+\vspace{3pt}
+- fails for highly symmetric beliefs
+\vspace{3pt}
+- neglecting tails of belief compromises safety
+
+
+:::
+::: {.column width="50%"}
+\centering
 **POMCPOW-Analytic**
 
 \vspace{10pt}
@@ -187,17 +171,26 @@ $\Rightarrow$ POMCPOW-analytic near optimal with respect to safety
 - safe and efficient behaviors
 
 :::
-::: {.column width="50%"}
-\centering
-**MLMPC**
-
-\vspace{10pt}
-- passively reduces uncertainty through accidental collisions
-\vspace{3pt}
-- passive information gathering fails for highly symmetric beliefs
-\vspace{3pt}
-- neglecting tails of belief compromises safety
-
-
-:::
 ::::
+
+## Evaluation
+
+**Example Trajectory**
+
+[columns]
+
+[column=0.33]
+
+![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00000.jpg)
+
+[column=0.33]
+
+![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00020.jpg)
+
+[column=0.33]
+
+![](./media/localization-and-planning/examples/pomcpow_analytic_bounds/pomcpow_info_gather_frames/out00040.jpg)
+
+[/columns]
+
+
