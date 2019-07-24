@@ -62,10 +62,11 @@ $$
 \pause
 \vspace{10pt}
 -->
+\pause
 **High Level Idea**
 
-- incrementally construct sparse tree to
-  tighten bounds at the root
+- incrementally construct sparse tree
+- maintain bounds on \emph{value} at nodes
 - choose action with best lower bound
 
 \pause
@@ -102,6 +103,7 @@ $$
 -->
 **High Level Idea**
 
+- Monte-Carlo tree search
 - locally approximate the \emph{value function} through Monte-Carlo simulations
 - choose action with highest value
 

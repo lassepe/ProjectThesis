@@ -17,6 +17,7 @@
 **Problem Details**
 
 - \emph{known room} but \emph{unknown location}
+\pause
 \vspace{5pt}
 - objective:
     - success: leave room at exit (green)
@@ -83,20 +84,17 @@
 \vspace{20pt}
 $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 
-## Adaption of POMCPOW and DESPOT
-
-\large
-**Integrating Domain Knowledge**
-\normalsize
+## Integrating Domain Knowledge for POMCPOW and DESPOT
 
 **Value Estimates**
 
-1. Analytic Value Estimate
+1. Rollout Value Estimate
+    - simulate default policy: "always straight"
+
+2. Analytic Value Estimate
     - estimate remaining steps from distance to goal
     - approximate value by cumulative living penalty
 
-2. Rollout Value Estimate
-    - simulate default policy: "always straight"
 
 \vspace{5pt}
 \pause
@@ -104,8 +102,8 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 \vspace{5pt} **POMDP Solver Setups**
 
 
-1. DESPOT-analytic
-2. DESPOT-rollout
+1. DESPOT-rollout
+2. DESPOT-analytic
 3. POMCPOW-rollout
 4. POMCPOW-analytic
 
@@ -138,7 +136,7 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 ![](media/localization-and-planning/plots/lp_outcome_eval_plot.pdf){height="90%"}
 
 
-## Evaluation -- Qulaitative Anaysis
+## Evaluation -- Qualitative Analysis
 
 
 :::: {.columns}
@@ -147,7 +145,10 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 **POMCPOW-Analytic**
 
 \vspace{10pt}
+- active information gathering
+\vspace{3pt}
 - reliably reduces uncertainty
+\vspace{3pt}
 - safe and efficient behaviors
 
 :::
@@ -157,7 +158,9 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 
 \vspace{10pt}
 - passively reduces uncertainty through accidental collisions
+\vspace{3pt}
 - passive information gathering fails for highly symmetric beliefs
+\vspace{3pt}
 - neglecting tails of belief compromises safety
 
 
