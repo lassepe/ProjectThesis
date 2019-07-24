@@ -52,6 +52,7 @@ $$
 
 [column=0.6]
 
+<!--
 **Characteristics**
 
 - determinized scenarios
@@ -60,9 +61,10 @@ $$
 
 \pause
 \vspace{10pt}
+-->
 **High Level Idea**
 
-- incrementally construct tree to
+- incrementally construct sparse tree to
   tighten bounds at the root
 - choose action with best lower bound
 
@@ -88,6 +90,7 @@ $$
 
 [column=0.6]
 
+<!--
 **Characteristics**
 
 - Monte-Carlo tree search
@@ -96,6 +99,7 @@ $$
 
 \pause
 \vspace{10pt}
+-->
 **High Level Idea**
 
 - locally approximate the \emph{value function} through Monte-Carlo simulations

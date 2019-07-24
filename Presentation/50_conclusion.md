@@ -2,27 +2,15 @@
 
 ## Conclusion
 
-\itodo{polish}
 
-:::: {.columns}
-::: {.column width="50%"}
-\centering
-**Full POMDP Solutions**
+**POMDP Planning**
 
-\vspace{10pt}
-- reliably reduces uncertainty
-- safe and efficient behaviors
-- depends on efficient heuristic guidance
+- principled access to solving problems with uncertainty
 
-:::
-::: {.column width="50%"}
-\centering
-**Most Likely Model Predictive Control**
+- robust and efficient behaviors
 
-- passively reduces uncertainty through accidental collisions
-- passive information gathering fails for highly symmetric beliefs
-- neglecting tails of belief compromises safety
+- reasoning over entire belief increases safety
 
+- performance still depends on careful heuristic guidance
 
-:::
-::::
+- advantage depends on problem

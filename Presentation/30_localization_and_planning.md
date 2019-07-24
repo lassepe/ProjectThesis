@@ -101,8 +101,7 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 \vspace{5pt}
 \pause
 
-\vspace{5pt}
-**POMDP Solver Setups**
+\vspace{5pt} **POMDP Solver Setups**
 
 
 1. DESPOT-analytic
@@ -139,3 +138,28 @@ $\Rightarrow$ MLMPC is an optimal policy for the fully observed problem (MDP)
 ![](media/localization-and-planning/plots/lp_outcome_eval_plot.pdf){height="90%"}
 
 
+## Evaluation -- Qulaitative Anaysis
+
+
+:::: {.columns}
+::: {.column width="50%"}
+\centering
+**POMCPOW-Analytic**
+
+\vspace{10pt}
+- reliably reduces uncertainty
+- safe and efficient behaviors
+
+:::
+::: {.column width="50%"}
+\centering
+**MLMPC**
+
+\vspace{10pt}
+- passively reduces uncertainty through accidental collisions
+- passive information gathering fails for highly symmetric beliefs
+- neglecting tails of belief compromises safety
+
+
+:::
+::::

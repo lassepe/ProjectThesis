@@ -6,11 +6,7 @@
 
 \Large
 
-Thank you for your attention!
-
---
-
-Questions?
+End
 
 \backupbegin
 
