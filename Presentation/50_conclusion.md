@@ -10,7 +10,7 @@
     $\Rightarrow$ suitable approach for safety vs. efficiency tradoff
     \item near real-time planning capabilities\\
     $\Rightarrow$ already a useful high-level planner for moderately sized problems
-    \item designing suitable heuristic guidance hard but cruitial for performance
+    \item designing suitable heuristic guidance hard but crucial for performance
 \end{enumerate}
 
 \pause
