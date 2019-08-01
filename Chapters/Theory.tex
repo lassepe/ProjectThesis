@@ -138,9 +138,10 @@ a Bayesian update
     {\int_{s'\in\sspace} \int_{s\in\sspace} \odist(o \mid s, a, s') \tdist(s' \mid s, a) b(s) \, ds \, ds'},
 \end{equation}
 with incoming observations, $o$. In the case of a discrete state space,
-$\sspace$ integrals a to be replaced with sums. In cases where this update rule
-is too complex to be evaluated analytically, a particle filter may be used for
-approximate inference \cite{kochenderfer2015decision, thrun2005probabilistic}.
+$\sspace$, integrals are to be replaced by sums. In cases where this update
+rule is too complex to be evaluated analytically, a particle filter may be used
+for approximate inference \cite{kochenderfer2015decision,
+thrun2005probabilistic}.
 
 Solutions to a \ac{pomdp} are Markov policies on belief states. That is, the
 optimal policy $\pi^*(b(s)): \bspace \to \aspace$ selects action ${a =
